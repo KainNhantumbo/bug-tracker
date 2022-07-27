@@ -31,9 +31,9 @@ export const BaseButton = css`
 export const BaseButton_Danger = css`
 	border: none;
 	background: rgb(${({ theme }) => theme.alternative_a});
-	border-radius: 3px;
+	border-radius: 5px;
 	position: relative;
-	padding: 7px 10px;
+	padding: 10px;
 	color: rgb(${({ theme }) => theme.neutral});
 	width: fit-content;
 	cursor: pointer;
@@ -42,10 +42,10 @@ export const BaseButton_Danger = css`
 		background: rgb(${({ theme }) => theme.secondary});
 	}
 	svg {
-		width: 18px;
-		height: 18px;
+		width: 20px;
+		height: 20px;
 		position: absolute;
-		top: 7px;
+		top: calc(50% - 10px);
 		right: 7px;
 		pointer-events: none;
 	}

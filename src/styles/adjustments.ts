@@ -1,17 +1,18 @@
 import styled from 'styled-components';
-import { BaseButton } from './generics/buttons';
+import { BaseButton, BaseButton_Danger } from './generics/buttons';
 
 export const AdjustmentsContainer = styled.main`
 	position: relative;
 	width: 100vw;
 	margin-top: 100px;
-
+	margin-bottom: 20px;
 	display: grid;
 	justify-content: center;
 	align-items: center;
-
+  
 	article {
-		width: 100%;
+    width: 100%;
+    max-width: 1100px;
 		background: rgb(${({ theme }) => theme.foreground});
 		border-radius: 0 0 10px 10px;
 
@@ -81,53 +82,20 @@ export const AdjustmentsContainer = styled.main`
 					overflow: hidden;
 					text-overflow: ellipsis;
 				}
-			}
-		}
 
-		.account-container {
-			border-top: 1px solid rgba(${({ theme }) => theme.font}, 0.2);
-			padding: 20px;
-			display: flex;
-			flex-direction: column;
-			gap: 20px;
-			justify-content: flex-start;
+				.profile-actions {
+					display: flex;
+					flex-flow: row wrap;
+					gap: 10px;
+					justify-content: flex-start;
+					margin-top: 20px;
 
-			.title > span {
-				color: red;
-			}
-
-			.user-actions,
-			.info {
-				display: flex;
-				flex-direction: column;
-				justify-content: flex-start;
-				gap: 10px;
-
-				button {
-					${BaseButton}
-				}
-
-				h3 {
-					background: rgba(${({ theme }) => theme.primary}, 0.3);
-					padding: 2px 5px;
-					border-radius: 3px;
-					border-left: 2px solid red;
-					border-right: 2px solid red;
-					svg {
-						left: 8px;
-						top: 5px;
-						color: rgb(${({ theme }) => theme.primary});
+					.edit-btn {
+						${BaseButton}
 					}
-				}
-				.info {
-					p {
-						line-height: 1.6rem;
+					.erase-btn {
+						${BaseButton_Danger}
 					}
-				}
-
-				i {
-					color: rgb(${({ theme }) => theme.primary});
-					font-weight: 500;
 				}
 			}
 		}

@@ -46,7 +46,7 @@ export const NavigationBarContainer = styled.section`
 			height: 22px;
 			top: -3px;
 			left: 0px;
-			color: rgb(${({ theme }) => theme.primary});
+			color: rgb(${({ theme }) => theme.alternative_a});
 		}
 	}
 `;

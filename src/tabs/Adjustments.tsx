@@ -1,22 +1,16 @@
 import {
-	BiErrorCircle,
 	BiTrash,
-	BiUserCircle,
 	BsFlagFill,
 	FaBug,
 	FaCopyright,
 	FaEnvelope,
 	FaGithub,
-	FaRegUserCircle,
-	FaTimes,
-	FaTrashAlt,
 	FaUser,
 	FaUserCircle,
+	FaUserEdit,
 	GiMite,
 	HiAdjustments,
 	HiCode,
-	HiOutlineUserCircle,
-	HiTrash,
 	SiAboutdotme,
 } from 'react-icons/all';
 import Header from '../components/Header';
@@ -40,7 +34,7 @@ export default function Adjustments(): JSX.Element {
 					<section className='user-container'>
 						<h2 className='title'>
 							<FaUserCircle />
-							<span>User profile</span>
+							<span>User account</span>
 						</h2>
 						<section className='section-container'>
 							<div title='User avatar' className='user-avatar'>
@@ -68,32 +62,20 @@ export default function Adjustments(): JSX.Element {
 									</h3>
 									<span title='User country'>Austrália</span>
 								</div>
+								<section className='profile-actions'>
+									<button className='edit-btn'>
+										<FaUserEdit />
+										<span>Edit profile</span>
+									</button>
+									<button className='erase-btn'>
+										<BiTrash />
+										<span>Delete Account</span>
+									</button>
+								</section>
 							</div>
 						</section>
 					</section>
 
-					<section className='account-container'>
-						<h2 className='title'>
-							<BiErrorCircle />
-							<span>Danger Zone</span>
-						</h2>
-						<div className='user-actions'>
-							<h3>
-								<FaTimes />
-								<span>Delete Account</span>
-							</h3>
-							<div className='info'>
-								<p>
-									<i>Warning: </i> You will not be able to access your account
-									data after you confirm this action.
-								</p>
-								<button onClick={(e) => {}}>
-									<BiTrash/>
-									<span>Delete account</span>
-								</button>
-							</div>
-						</div>
-					</section>
 					<section className='about-container'>
 						<h2 className='title'>
 							<SiAboutdotme />
