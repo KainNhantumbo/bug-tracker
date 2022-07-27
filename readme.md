@@ -1,19 +1,20 @@
 # Bug Tracker App
 
+This is a **bug tracker application** built with React.JS and Typescript. To be short, the main goal here is to help developers to keep track of the software development issues.
+
+## Project status
+
+This projects is in initial stage of its development. Further details of it's bulding, software architecture and features will be given in more advanced stages of development.
+
 ## Features
+
+Has the developmet goes further I will be listing the introduced and new application features. For now, they are:
 
 - This application will be able to perform all CRUD operations to manipulate data.
 
-- Edit created notes. Preserves the note formating structure after saving or updating a note.
+- Has more than just default dark and light themes.
 
-- Uses the browser localStorage to save all application data.
-
-- Restore function: you can restore a deleted note, since they are stored in trash after delete.
-
-- Delete permanentilly all trash notes by one click.
-
-- Shows a non intrusive confirmation notification after doing some actions like deleting a note, restoring a note and wipping the trash.
-
+- Uses the browser localStorage to save user theme preferences.
 
 ## Scripts for testing
 
