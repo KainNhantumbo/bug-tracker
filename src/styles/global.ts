@@ -24,7 +24,7 @@ const GlobalStylesheet = createGlobalStyle`
   }
 
   input, textarea, select {
-    background: rgb(${({ theme }) => theme.accent});
+    background: rgba(${({ theme }) => theme.primary}, .2);
     color: rgb(${({ theme }) => theme.font});
   }
 
