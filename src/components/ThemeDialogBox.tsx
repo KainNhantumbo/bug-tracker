@@ -3,15 +3,25 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
 	FiX,
 	FaSort,
-	BiSortDown,
-	BiSortUp,
-	BiSortZA,
 	FaCookie,
+	HiColorSwatch,
+	HiCubeTransparent,
 } from 'react-icons/all';
 import { useThemeContext } from '../context/ThemeContext';
 
+interface ThemeData {
+	name: string;
+	code: string;
+}
+
 export default function ThemeDialogBox(): JSX.Element {
-	const { controlModal, isModalActive } = useThemeContext();
+	const { controlModal, isModalActive, themeSwitcher } = useThemeContext();
+
+	const ThemeOptions: ThemeData[] = [
+		{ code: 'light-default', name: 'Light (Default)' },
+		{ code: 'dark-default', name: 'Dark (Default)' },
+	];
+
 	return (
 		<AnimatePresence>
 			{isModalActive && (
@@ -39,74 +49,28 @@ export default function ThemeDialogBox(): JSX.Element {
 						<section className='dialog-prompt'>
 							<div className='top'>
 								<h2>
-									<FaSort />
-									<span>Choose App Theme</span>
+									<HiColorSwatch/>
+									<span>Choose Theme</span>
 								</h2>
 								<button className='quit' title='Close' onClick={controlModal}>
 									<FiX />
 								</button>
 							</div>
 							<section className='prompt-info'>
-								<motion.div
-									whileHover={{ scale: 1.04 }}
-									whileTap={{ scale: 0.8 }}
-									onClick={() => {
-										controlModal();
-									}}
-								>
-									<FaCookie />
-									<span>Name</span>
-								</motion.div>
-								<motion.div
-									whileHover={{ scale: 1.04 }}
-									whileTap={{ scale: 0.8 }}
-									onClick={() => {
-										controlModal();
-									}}
-								>
-									<BiSortZA />
-									<span>Name (ascending)</span>
-								</motion.div>
-								<motion.div
-									whileHover={{ scale: 1.04 }}
-									whileTap={{ scale: 0.8 }}
-									onClick={() => {
-										controlModal();
-									}}
-								>
-									<BiSortDown />
-									<span>Created At</span>
-								</motion.div>
-								<motion.div
-									whileHover={{ scale: 1.04 }}
-									whileTap={{ scale: 0.8 }}
-									onClick={() => {
-										controlModal();
-									}}
-								>
-									<BiSortUp />
-									<span>Created At (ascending)</span>
-								</motion.div>
-								<motion.div
-									whileHover={{ scale: 1.04 }}
-									whileTap={{ scale: 0.8 }}
-									onClick={() => {
-										controlModal();
-									}}
-								>
-									<BiSortDown />
-									<span>Updated At</span>
-								</motion.div>
-								<motion.div
-									whileHover={{ scale: 1.04 }}
-									whileTap={{ scale: 0.8 }}
-									onClick={() => {
-										controlModal();
-									}}
-								>
-									<BiSortUp />
-									<span>Updated At (ascending)</span>
-								</motion.div>
+								{ThemeOptions.map((option) => (
+									<motion.div
+										whileHover={{ scale: 1.04 }}
+										whileTap={{ scale: 0.8 }}
+										key={option.name}
+										onClick={() => {
+											controlModal();
+											themeSwitcher(option.code)
+										}}
+									>
+										<HiCubeTransparent/>
+										<span>{option.name}</span>
+									</motion.div>
+								))}
 							</section>
 						</section>
 					</motion.section>
