@@ -10,6 +10,7 @@ import {
 } from 'react-icons/all';
 import type { SubmitEvent } from '../types/form';
 import { useThemeContext } from '../context/ThemeContext';
+import { motion } from 'framer-motion';
 
 export default function Header() {
 	const [searchTerm, setSearchTerm] = useState('');
@@ -30,23 +31,36 @@ export default function Header() {
 			</section>
 			<section className='side-back'>
 				<div className='actions'>
-					<button className='user' title='Account'>
+					<motion.button
+						whileTap={{ scale: 0.9 }}
+						className='user'
+						title='Account'
+					>
 						<FaUserCircle />
-					</button>
-					<button className='user' title='Settings'>
+					</motion.button>
+					<motion.button
+						whileTap={{ scale: 0.9 }}
+						className='user'
+						title='Settings'
+					>
 						<HiAdjustments />
-					</button>
-					<button className='help' title='Help'>
+					</motion.button>
+					<motion.button
+						whileTap={{ scale: 0.9 }}
+						className='help'
+						title='Help'
+					>
 						<FaQuestionCircle />
 						<span>Help</span>
-					</button>
-					<button
+					</motion.button>
+					<motion.button
 						className='themes'
 						title='Choose theme'
+						whileTap={{ scale: 0.9 }}
 						onClick={controlModal}
 					>
 						<HiColorSwatch /> <span>Theme</span>
-					</button>
+					</motion.button>
 				</div>
 				<div className='search'>
 					<form onSubmit={handleSubmit}>
