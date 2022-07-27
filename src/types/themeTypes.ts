@@ -2,7 +2,6 @@ export type ThemeType = {
 	primary: string;
 	secondary: string;
 	accent: string;
-	inner: string;
 	font: string;
 	neutral: string;
 	background: string;
