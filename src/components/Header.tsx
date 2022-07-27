@@ -1,20 +1,13 @@
 import { useState } from 'react';
 import { HeaderContainer as Container } from '../styles/components/header';
-import {
-	BiSearch,
-	FaBug,
-	FaQuestionCircle,
-	FaUserCircle,
-	HiAdjustments,
-	HiColorSwatch,
-} from 'react-icons/all';
+import { BiSearch, FaBug, HiAdjustments, HiColorSwatch } from 'react-icons/all';
 import type { SubmitEvent } from '../types/form';
 import { useThemeContext } from '../context/ThemeContext';
 import { motion } from 'framer-motion';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 export default function Header() {
-	const navigate: NavigateFunction = useNavigate()
+	const navigate: NavigateFunction = useNavigate();
 	const [searchTerm, setSearchTerm] = useState('');
 	const { controlModal } = useThemeContext();
 
@@ -37,17 +30,9 @@ export default function Header() {
 						whileTap={{ scale: 0.9 }}
 						className='user'
 						title='Settings and adjustments.'
-						onClick={()=> navigate('/tab/adjustments') }
+						onClick={() => navigate('/tab/adjustments')}
 					>
 						<HiAdjustments />
-					</motion.button>
-					<motion.button
-						whileTap={{ scale: 0.9 }}
-						className='help'
-						title='Help'
-					>
-						<FaQuestionCircle />
-						<span>Help</span>
 					</motion.button>
 					<motion.button
 						className='themes'

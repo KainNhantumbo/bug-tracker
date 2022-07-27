@@ -1,7 +1,7 @@
 import { HiChevronLeft } from 'react-icons/hi';
 import { NavigationBarContainer as Container } from '../styles/components/navigation-bar';
 import { motion } from 'framer-motion';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, NavigateFunction } from 'react-router-dom';
 
 interface Props {
 	icon: JSX.Element;
@@ -10,13 +10,14 @@ interface Props {
 }
 
 export default function NavigationBar(props: Props): JSX.Element {
-	const navigate = useNavigate();
+	const navigate: NavigateFunction = useNavigate();
 
 	return (
 		<Container>
 			<motion.button
-				whileHover={{ scale: 1.1 }}
+				whileHover={{ scale: 1.2 }}
 				whileTap={{ scale: 0.95 }}
+				title='Go to previous page'
 				onClick={() => {
 					navigate(props.previousLocation);
 				}}

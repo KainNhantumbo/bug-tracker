@@ -5,7 +5,7 @@ export const NavigationBarContainer = styled.section`
 	position: fixed;
 	left: 0;
 	top: 60px;
-	padding: 10px 0 10px 200px;
+	padding: 5px 30px;
 	width: 100%;
 	height: fit-content;
 	background: rgb(${({ theme }) => theme.foreground});
@@ -14,13 +14,14 @@ export const NavigationBarContainer = styled.section`
 	z-index: 10000;
 	display: flex;
 	justify-content: flex-start;
+	flex-direction: row;
 	align-items: center;
 	gap: 30px;
 
 	button {
-    ${Button_Mono_B}
-    padding: 0;
-    border: none;
+		${Button_Mono_B}
+		padding: 0;
+		border: none;
 		svg {
 			width: 28px;
 			height: 28px;
@@ -29,9 +30,9 @@ export const NavigationBarContainer = styled.section`
 
 	h3 {
 		line-height: 1rem;
-		font-size: 1.4rem;
+		font-size: 1rem;
 		font-weight: 500;
-		color: rgb(${({ theme }) => theme.primary});
+		color: rgb(${({ theme }) => theme.font});
 		user-select: none;
 		position: relative;
 
@@ -45,6 +46,7 @@ export const NavigationBarContainer = styled.section`
 			height: 22px;
 			top: -3px;
 			left: 0px;
+			color: rgb(${({ theme }) => theme.primary});
 		}
 	}
 `;
