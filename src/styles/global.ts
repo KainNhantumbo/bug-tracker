@@ -5,17 +5,17 @@ const GlobalStylesheet = createGlobalStyle`
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-    font-family: Inter, 'Open Sans', Montserrat, Poppins, 'PT Sans', sans-serif;
     max-width: 100%;
     scroll-padding-top: 70px;
     scroll-behavior: smooth;
   }
-
+  
   span, label {
     user-select: none;
   }
-
+  
   body {
+    font-family: 'inter', 'Open Sans', Montserrat, Poppins, 'PT Sans', sans-serif;
     color: rgb(${({ theme }) => theme.font});
     width: 100%;
     background: rgb(${({ theme }) => theme.background});

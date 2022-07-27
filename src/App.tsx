@@ -1,10 +1,10 @@
-import GlobalStylesheet from './styles/global';
 import ThemeContext from './context/ThemeContext';
+import AppRoutes from './routes/AppRoutes';
 
 function App() {
 	return (
 		<ThemeContext>
-			<GlobalStylesheet />
+			<AppRoutes />
 		</ThemeContext>
 	);
 }
