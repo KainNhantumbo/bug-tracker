@@ -28,7 +28,7 @@ export const ThemeDialog = styled.section`
 		min-width: 300px;
 		min-height: 200px;
 		max-width: 600px;
-		margin: 0 10px;
+
 
 		.top {
       display: flex;
@@ -41,7 +41,7 @@ export const ThemeDialog = styled.section`
 
 			h2 {
 				font-weight: 500;
-				font-size: 1.1rem;
+				font-size: 1rem;
 				display: flex;
 				align-items: center;
 				gap: 5px;

@@ -11,8 +11,10 @@ import {
 import type { SubmitEvent } from '../types/form';
 import { useThemeContext } from '../context/ThemeContext';
 import { motion } from 'framer-motion';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 export default function Header() {
+	const navigate: NavigateFunction = useNavigate()
 	const [searchTerm, setSearchTerm] = useState('');
 	const { controlModal } = useThemeContext();
 
@@ -34,14 +36,8 @@ export default function Header() {
 					<motion.button
 						whileTap={{ scale: 0.9 }}
 						className='user'
-						title='Account'
-					>
-						<FaUserCircle />
-					</motion.button>
-					<motion.button
-						whileTap={{ scale: 0.9 }}
-						className='user'
-						title='Settings'
+						title='Settings and adjustments.'
+						onClick={()=> navigate('/tab/adjustments') }
 					>
 						<HiAdjustments />
 					</motion.button>
