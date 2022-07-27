@@ -9,6 +9,12 @@ export const HeaderContainer = styled.header`
 	justify-content: space-between;
 	padding: 10px;
 	background: rgb(${({ theme }) => theme.foreground});
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100vw;
+	height: 60px;
+	z-index: 10000;
 
 	.mark {
 		position: relative;
@@ -24,7 +30,7 @@ export const HeaderContainer = styled.header`
 			font-size: 1.2rem;
 			font-weight: 600;
 			line-height: 0;
-			color: rgba(${({ theme }) => theme.alternative_a}, .9);
+			color: rgba(${({ theme }) => theme.alternative_a}, 0.9);
 			span {
 				padding-left: 42px;
 			}
@@ -36,19 +42,20 @@ export const HeaderContainer = styled.header`
 		flex-direction: row;
 		gap: 10px;
 
-    .actions {
-      display: flex;
-      flex-direction: row;
-      gap: 5px;
-      
-      .user {
-        ${Button_Mono_B}
-      }
+		.actions {
+			display: flex;
+			flex-direction: row;
+			gap: 5px;
 
-      .help, .themes {
-        ${BaseButton}
-      }
-    }
+			.user {
+				${Button_Mono_B}
+			}
+
+			.help,
+			.themes {
+				${BaseButton}
+			}
+		}
 
 		.search {
 			form {

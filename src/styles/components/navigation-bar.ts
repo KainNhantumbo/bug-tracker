@@ -1,0 +1,50 @@
+import styled from 'styled-components';
+import { Button_Mono_B } from '../generics/buttons';
+
+export const NavigationBarContainer = styled.section`
+	position: fixed;
+	left: 0;
+	top: 60px;
+	padding: 10px 0 10px 200px;
+	width: 100%;
+	height: fit-content;
+	background: rgb(${({ theme }) => theme.foreground});
+	border-bottom: 1px solid rgba(${({ theme }) => theme.accent}, 0.2);
+	border-top: 1px solid rgba(${({ theme }) => theme.accent}, 0.2);
+	z-index: 10000;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 30px;
+
+	button {
+    ${Button_Mono_B}
+    padding: 0;
+    border: none;
+		svg {
+			width: 28px;
+			height: 28px;
+		}
+	}
+
+	h3 {
+		line-height: 1rem;
+		font-size: 1.4rem;
+		font-weight: 500;
+		color: rgb(${({ theme }) => theme.primary});
+		user-select: none;
+		position: relative;
+
+		span {
+			padding-left: 28px;
+		}
+
+		svg {
+			position: absolute;
+			width: 22px;
+			height: 22px;
+			top: -3px;
+			left: 0px;
+		}
+	}
+`;
