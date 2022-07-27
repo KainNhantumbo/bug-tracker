@@ -9,9 +9,9 @@ export const NavigationBarContainer = styled.section`
 	width: 100%;
 	height: fit-content;
 	background: rgb(${({ theme }) => theme.foreground});
-	border-bottom: 1px solid rgba(${({ theme }) => theme.accent}, 0.2);
-	border-top: 1px solid rgba(${({ theme }) => theme.accent}, 0.2);
-	z-index: 10000;
+	border-bottom: 1px solid rgba(${({ theme }) => theme.font}, 0.2);
+	border-top: 1px solid rgba(${({ theme }) => theme.font}, 0.2);
+	z-index: 5000;
 	display: flex;
 	justify-content: flex-start;
 	flex-direction: row;

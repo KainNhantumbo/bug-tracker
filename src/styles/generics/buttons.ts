@@ -5,7 +5,7 @@ export const BaseButton = css`
 	background: none;
 	border-radius: 5px;
 	position: relative;
-	padding: 0px 10px;
+	padding: 10px;
 	color: rgb(${({ theme }) => theme.font});
 	border: 1px solid rgba(${({ theme }) => theme.font}, 0.5);
 	width: fit-content;
@@ -14,8 +14,8 @@ export const BaseButton = css`
 		color: rgb(${({ theme }) => theme.alternative_a});
 	}
 	svg {
-		width: 18px;
-		height: 18px;
+		width: 20px;
+		height: 20px;
 		position: absolute;
 		top: calc(50% - 10px);
 		right: 7px;

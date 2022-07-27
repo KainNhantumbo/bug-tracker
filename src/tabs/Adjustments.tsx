@@ -1,5 +1,7 @@
 import {
 	BiErrorCircle,
+	BiTrash,
+	BiUserCircle,
 	BsFlagFill,
 	FaBug,
 	FaCopyright,
@@ -13,6 +15,8 @@ import {
 	GiMite,
 	HiAdjustments,
 	HiCode,
+	HiOutlineUserCircle,
+	HiTrash,
 	SiAboutdotme,
 } from 'react-icons/all';
 import Header from '../components/Header';
@@ -32,7 +36,7 @@ export default function Adjustments(): JSX.Element {
 			/>
 
 			<Container>
-				<article className='content'>
+				<article>
 					<section className='user-container'>
 						<h2 className='title'>
 							<FaUserCircle />
@@ -40,7 +44,7 @@ export default function Adjustments(): JSX.Element {
 						</h2>
 						<section className='section-container'>
 							<div title='User avatar' className='user-avatar'>
-								<FaRegUserCircle />
+								<FaUser />
 							</div>
 							<div className='user-details'>
 								<div className='user-info'>
@@ -84,7 +88,7 @@ export default function Adjustments(): JSX.Element {
 									data after you confirm this action.
 								</p>
 								<button onClick={(e) => {}}>
-									<FaTrashAlt />
+									<BiTrash/>
 									<span>Delete account</span>
 								</button>
 							</div>
@@ -104,7 +108,7 @@ export default function Adjustments(): JSX.Element {
 								<div className='user-info'>
 									<h3>
 										<FaBug />
-										<span>Nava Cloud Drive V0.0.1 (beta)</span>
+										<span>Bug Tracker V0.0.1 (beta)</span>
 									</h3>
 								</div>
 								<div className='user-info'>

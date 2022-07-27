@@ -22,8 +22,9 @@ export const ThemeDialog = styled.section`
 		gap: 20px;
 		padding: 20px;
 		border-radius: 8px;
-    box-shadow: 0 0 25px  rgba(${({ theme }) => theme.accent}, 0.1);
+    box-shadow: 0 0 25px  rgba(${({ theme }) => theme.accent}, 0.2);
 		background: rgb(${({ theme }) => theme.foreground});
+		border: 1px solid rgba(${({ theme }) => theme.primary}, .6);
 		width: 95%;
 		min-width: 300px;
 		min-height: 200px;

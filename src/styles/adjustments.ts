@@ -2,24 +2,18 @@ import styled from 'styled-components';
 import { BaseButton } from './generics/buttons';
 
 export const AdjustmentsContainer = styled.main`
-	width: 100%;
-	min-height: 100%;
-	padding-left: 180px;
 	position: relative;
-  margin-top: 90px;
+	width: 100vw;
+	margin-top: 100px;
 
-	button {
-		${BaseButton}
-	}
+	display: grid;
+	justify-content: center;
+	align-items: center;
 
-	.content {
-		min-height: 100vh;
+	article {
 		width: 100%;
-		max-width: 100%;
-		padding: 90px 20px 0 20px;
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-start;
+		background: rgb(${({ theme }) => theme.foreground});
+		border-radius: 0 0 10px 10px;
 
 		.title {
 			position: relative;
@@ -33,10 +27,11 @@ export const AdjustmentsContainer = styled.main`
 			}
 			span {
 				padding-left: 25px;
-				text-transform: uppercase;
+				text-transform: capitalize;
 				font-weight: 500;
 			}
 		}
+
 		h3 {
 			display: inline;
 			position: relative;
@@ -57,7 +52,6 @@ export const AdjustmentsContainer = styled.main`
 		}
 
 		.user-container {
-			border-top: 1px solid rgb(${({ theme }) => theme.accent});
 			padding: 20px;
 			display: flex;
 			flex-direction: column;
@@ -91,7 +85,7 @@ export const AdjustmentsContainer = styled.main`
 		}
 
 		.account-container {
-			border-top: 1px solid rgb(${({ theme }) => theme.accent});
+			border-top: 1px solid rgba(${({ theme }) => theme.font}, 0.2);
 			padding: 20px;
 			display: flex;
 			flex-direction: column;
@@ -109,8 +103,12 @@ export const AdjustmentsContainer = styled.main`
 				justify-content: flex-start;
 				gap: 10px;
 
+				button {
+					${BaseButton}
+				}
+
 				h3 {
-					background: rgb(${({ theme }) => theme.accent});
+					background: rgba(${({ theme }) => theme.primary}, 0.3);
 					padding: 2px 5px;
 					border-radius: 3px;
 					border-left: 2px solid red;
@@ -129,12 +127,13 @@ export const AdjustmentsContainer = styled.main`
 
 				i {
 					color: rgb(${({ theme }) => theme.primary});
+					font-weight: 500;
 				}
 			}
 		}
 
 		.about-container {
-			border-top: 1px solid rgb(${({ theme }) => theme.accent});
+			border-top: 1px solid rgba(${({ theme }) => theme.font}, 0.2);
 			padding: 20px;
 			display: flex;
 			flex-direction: column;
@@ -173,32 +172,6 @@ export const AdjustmentsContainer = styled.main`
 					overflow: hidden;
 					text-overflow: ellipsis;
 				}
-			}
-		}
-
-		.storage-container {
-			border-top: 1px solid rgb(${({ theme }) => theme.accent});
-			padding: 20px;
-			display: flex;
-			flex-direction: column;
-			gap: 20px;
-			justify-content: flex-start;
-			max-width: 700px;
-			font-weight: 500;
-
-			.storage-section {
-				display: flex;
-				justify-content: flex-start;
-				flex-direction: column;
-				gap: 10px;
-			}
-
-			.storage-details {
-				display: flex;
-				justify-content: space-between;
-				flex-direction: row;
-				white-space: nowrap;
-				gap: 5px;
 			}
 		}
 	}
