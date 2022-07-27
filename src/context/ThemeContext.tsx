@@ -1,5 +1,11 @@
 import { ThemeProvider } from 'styled-components';
-import { useState, useEffect, createContext, ReactNode } from 'react';
+import {
+	useState,
+	useEffect,
+	createContext,
+	ReactNode,
+	useContext,
+} from 'react';
 import { light_default } from '../themes/light-themes';
 import { dark_default } from '../themes/dark-themes';
 import GlobalStylesheet from '../styles/global';
@@ -14,14 +20,22 @@ interface ThemeSettings {
 
 interface ContextProps {
 	themeSwitcher: (theme: string) => void;
+	controlModal: () => void;
+	isModalActive: boolean;
 }
 
-const context = createContext<ContextProps>({
+export const context = createContext<ContextProps>({
 	themeSwitcher: (theme: string) => {},
+	isModalActive: false,
+	controlModal: () => {},
 });
 
 function ThemeContext(props: Props) {
 	const [currentTheme, setCurrentTheme] = useState(light_default);
+	const [isModalActive, setIsModalActive] = useState(false);
+
+	// quit the them options modal
+	const controlModal = (): void => setIsModalActive((prevstate) => !prevstate);
 
 	const loadTheme = (): void => {
 		const KEY = 'ThemeSettings';
@@ -55,6 +69,8 @@ function ThemeContext(props: Props) {
 			<context.Provider
 				value={{
 					themeSwitcher,
+					isModalActive,
+					controlModal,
 				}}
 			>
 				{props.children}
@@ -64,3 +80,8 @@ function ThemeContext(props: Props) {
 }
 
 export default ThemeContext;
+
+export function useThemeContext(): ContextProps {
+	const data = useContext(context);
+	return data;
+}
