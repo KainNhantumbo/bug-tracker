@@ -21,6 +21,7 @@ export default function ThemeDialogBox(): JSX.Element {
 		{ code: 'light-default', name: 'Light (Default)' },
 		{ code: 'dark-default', name: 'Dark (Default)' },
 		{ code: 'dark-rumble', name: 'Dark Rumble' },
+		{ code: 'dark-drackula', name: 'Dark Drackula' },
 	];
 
 	return (
