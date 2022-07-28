@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { BaseButton, Button_Mono_A } from '../generics/buttons';
+import { BaseButton, BaseButton_Danger, Button_Mono_A } from '../generics/buttons';
 
 export const PromptContainer = styled.section`
 	position: fixed;
@@ -21,11 +21,11 @@ export const PromptContainer = styled.section`
 		flex-direction: column;
 		gap: 20px;
 		padding: 20px;
-		border-radius: 3px;
-		border: 1px solid rgba(${({ theme }) => theme.accent}, 0.2);
+		border-radius: 10px;
 		background: rgb(${({ theme }) => theme.foreground});
-		max-width: 600px;
+		max-width: 500px;
 		margin: 0 10px;
+    box-shadow: 0 0 25px  rgba(${({ theme }) => theme.accent}, 0.2);
 
 		.prompt-info {
 			display: flex;
@@ -51,7 +51,7 @@ export const PromptContainer = styled.section`
 				${BaseButton}
 			}
 			.prompt-accept {
-				${Button_Mono_A}
+				${BaseButton_Danger}
 			}
 		}
 	}

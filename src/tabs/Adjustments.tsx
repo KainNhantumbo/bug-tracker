@@ -1,5 +1,6 @@
 import {
 	BiTrash,
+	BiTrashAlt,
 	FaBug,
 	FaCopyright,
 	FaEnvelope,
@@ -55,8 +56,8 @@ export default function Adjustments(): JSX.Element {
 				active={isModalActive}
 				action={deleteUser}
 				quit={modalController}
-				icon={<FaUserTimes />}
-				button_text={'Delete account'}
+				icon={<BiTrashAlt />}
+				button_text={'Confirm'}
 				prompt_message={
 					'This action will permanently delete your account and erase all data associated with it. Are you sure?'
 				}
