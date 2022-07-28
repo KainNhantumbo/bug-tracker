@@ -29,14 +29,14 @@ export default function Header() {
 					<motion.button
 						whileTap={{ scale: 0.9 }}
 						className='user'
-						title='Settings and adjustments.'
+						title='Settings and adjustments'
 						onClick={() => navigate('/tab/adjustments')}
 					>
 						<HiAdjustments />
 					</motion.button>
 					<motion.button
 						className='themes'
-						title='Choose theme'
+						title='Choose application theme'
 						whileTap={{ scale: 0.9 }}
 						onClick={controlModal}
 					>
