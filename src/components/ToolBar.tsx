@@ -6,6 +6,7 @@ import {
 	HiViewGrid,
 	BiFilter,
 	FaBars,
+	HiPlus,
 } from 'react-icons/all';
 
 export default function ToolBar(): JSX.Element {
@@ -13,29 +14,29 @@ export default function ToolBar(): JSX.Element {
 		<Container>
 			{false && (
 				<motion.button
-					whileHover={{ scale: 1.2 }}
+					whileHover={{ scale: 1.05 }}
 					whileTap={{ scale: 0.95 }}
 					title='Add new bug issue'
 					onClick={() => {}}
-					className='descripted'
+					className='mono'
 				>
 					<FaBars />
 				</motion.button>
 			)}
 
 			<motion.button
-				whileHover={{ scale: 1.2 }}
+				whileHover={{ scale: 1.05 }}
 				whileTap={{ scale: 0.95 }}
 				title='Submit bug'
 				className='descripted'
 				onClick={() => {}}
 			>
-				<HiPlusSm />
+				<HiPlus />
 				<span>Create Bug</span>
 			</motion.button>
 
 			<motion.button
-				whileHover={{ scale: 1.2 }}
+				whileHover={{ scale: 1.05 }}
 				whileTap={{ scale: 0.95 }}
 				title='Sort'
 				className='descripted'
@@ -46,7 +47,7 @@ export default function ToolBar(): JSX.Element {
 			</motion.button>
 
 			<motion.button
-				whileHover={{ scale: 1.2 }}
+				whileHover={{ scale: 1.05 }}
 				whileTap={{ scale: 0.95 }}
 				title='Filter'
 				className='descripted'
@@ -56,7 +57,7 @@ export default function ToolBar(): JSX.Element {
 				<span>Filter</span>
 			</motion.button>
 			<motion.button
-				whileHover={{ scale: 1.2 }}
+				whileHover={{ scale: 1.05 }}
 				whileTap={{ scale: 0.95 }}
 				title='Change view'
 				className='descripted'

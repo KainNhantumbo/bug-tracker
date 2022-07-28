@@ -36,7 +36,7 @@ export const StyledInputs = css`
 		border: 1px solid transparent;
 
 		:focus {
-			border: 1px solid rgba(${({ theme }) => theme.font}, 0.2);
+			border: 1px solid rgba(${({ theme }) => theme.accent}, 0.3);
 		}
 		::placeholder {
 			color: rgb(${({ theme }) => theme.font});

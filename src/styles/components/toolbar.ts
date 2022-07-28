@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { Button_Mono_B } from "../generics/buttons";
+import styled from 'styled-components';
+import { BaseButton, Button_Mono_B } from '../generics/buttons';
 
 export const ToolbarContainer = styled.section`
 	position: fixed;
@@ -18,37 +18,38 @@ export const ToolbarContainer = styled.section`
 	align-items: center;
 	gap: 30px;
 
-	button {
+	.mono {
 		${Button_Mono_B}
 		padding: 0;
 		border: none;
-    
+
 		svg {
 			width: 28px;
 			height: 28px;
 		}
 	}
 
-	h3 {
-		line-height: 1rem;
-		font-size: 1rem;
-		font-weight: 500;
-		color: rgb(${({ theme }) => theme.font});
-		user-select: none;
-		position: relative;
+	.descripted {
+		${BaseButton}
+		padding: 3px;
+		border: none;
+		border-bottom: 1px solid transparent;
+		border-radius: 0px;
+
+		:hover {
+			border-bottom: 1px solid rgba(${({ theme }) => theme.accent}, 0.3);
+		}
 
 		span {
-			padding-left: 28px;
+			padding: 0;
+			padding-left: 20px;
 		}
 
 		svg {
-			position: absolute;
-			width: 22px;
-			height: 22px;
-			top: -3px;
-			left: 0px;
-			color: rgb(${({ theme }) => theme.alternative_a});
+			width: 18px;
+			height: 18px;
+			left: 0;
+			top: calc(50% - 9px);
 		}
 	}
-
-`
+`;

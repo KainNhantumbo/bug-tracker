@@ -6,7 +6,7 @@ export const PromptContainer = styled.section`
 	width: 100vw;
 	height: 100vh;
 	background: rgba(${({ theme }) => theme.background}, 0.2);
-	backdrop-filter: blur(5px);
+	backdrop-filter: blur(2px);
 	z-index: 10000;
 	top: 0;
 	left: 0;
@@ -25,7 +25,7 @@ export const PromptContainer = styled.section`
 		background: rgb(${({ theme }) => theme.foreground});
 		max-width: 500px;
 		margin: 0 10px;
-		box-shadow: 0 0 25px rgba(${({ theme }) => theme.accent}, 0.2);
+		box-shadow: 0 0 25px rgba(${({ theme }) => theme.accent}, 0.1);
 
 		.prompt-info {
 			display: flex;
