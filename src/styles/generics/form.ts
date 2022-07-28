@@ -32,7 +32,12 @@ export const StyledInputs = css`
 		font-weight: 400;
 		outline: none;
 		border-radius: 5px;
-		background: rgba(${({ theme }) => theme.primary}, .2);
+		background: rgba(${({ theme }) => theme.primary}, 0.2);
+		border: 1px solid transparent;
+
+		:focus {
+			border: 1px solid rgba(${({ theme }) => theme.font}, 0.2);
+		}
 		::placeholder {
 			color: rgb(${({ theme }) => theme.font});
 			font-size: 0.9rem;

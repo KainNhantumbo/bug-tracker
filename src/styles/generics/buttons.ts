@@ -7,7 +7,7 @@ export const BaseButton = css`
 	position: relative;
 	padding: 10px;
 	color: rgb(${({ theme }) => theme.font});
-	border: 1px solid rgba(${({ theme }) => theme.font}, 0.5);
+	border: 1px solid rgba(${({ theme }) => theme.font}, 0.2);
 	width: fit-content;
 	cursor: pointer;
 	:hover {
@@ -83,7 +83,7 @@ export const Button_Mono_B = css`
   border-radius: 5px;
   background: none;
 	color: rgb(${({ theme }) => theme.font});
-  border: 1px solid rgba(${({ theme }) => theme.font}, 0.5);
+  border: 1px solid rgba(${({ theme }) => theme.font}, 0.2);
 	position: relative;
 	padding: 7px 10px;
 	width: fit-content;
@@ -138,6 +138,7 @@ export const StyledCornerButton = css`
 
 	:hover {
 		background: rgb(${({ theme }) => theme.secondary});
+		transition: all 200ms ease;
 		svg {
 			color: rgb(${({ theme }) => theme.neutral});
 		}

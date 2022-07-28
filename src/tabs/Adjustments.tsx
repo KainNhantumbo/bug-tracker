@@ -17,8 +17,21 @@ import Header from '../components/Header';
 import NavigationBar from '../components/NavigationBar';
 import ThemeDialogBox from '../components/ThemeDialogBox';
 import { AdjustmentsContainer as Container } from '../styles/adjustments';
+import { useState, useEffect } from 'react';
+
+interface UserData {
+	name: string;
+	surname: string;
+	email: string;
+}
 
 export default function Adjustments(): JSX.Element {
+	const [userData, setUserData] = useState<UserData>({
+		name: 'John',
+		surname: 'Doe',
+		email: 'basberry@mail.co.nz',
+	});
+
 	return (
 		<>
 			<Header />
@@ -46,22 +59,18 @@ export default function Adjustments(): JSX.Element {
 										<FaUser />
 										<span>Name: </span>
 									</h3>
-									<span title='User name'>Mayara Dorreto</span>
+									<span title='User name'>
+										{userData.name + ' ' + userData.surname}
+									</span>
 								</div>
 								<div className='user-info'>
 									<h3>
 										<FaEnvelope />
 										<span>E-mail: </span>
 									</h3>
-									<span title='User e-mail'>mayaradorreto@mailer.com</span>
+									<span title='User e-mail'>{userData.email}</span>
 								</div>
-								<div className='user-info'>
-									<h3>
-										<BsFlagFill />
-										<span>Country: </span>
-									</h3>
-									<span title='User country'>Austrália</span>
-								</div>
+
 								<section className='profile-actions'>
 									<button className='edit-btn'>
 										<FaUserEdit />
