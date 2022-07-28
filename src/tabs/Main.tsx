@@ -48,7 +48,7 @@ export default function Main(): JSX.Element {
 		<>
 			<Header />
 			<ThemeDialogBox />
-			<ToolBar />
+			<ToolBar openSearchBoxFn={searchBoxController} />
 			<SearchBox
 				active={isSearchActive}
 				stateFn={setSearchValue}

@@ -10,7 +10,11 @@ import {
 } from 'react-icons/all';
 import { useNavigate, NavigateFunction } from 'react-router-dom';
 
-export default function ToolBar(): JSX.Element {
+interface Props {
+	openSearchBoxFn: ()=> void
+}
+
+export default function ToolBar(props: Props): JSX.Element {
 	const navigate: NavigateFunction = useNavigate();
 
 	return (
@@ -65,7 +69,7 @@ export default function ToolBar(): JSX.Element {
 				whileTap={{ scale: 0.95 }}
 				title='Search for anything'
 				className='descripted'
-				onClick={() => {}}
+				onClick={props.openSearchBoxFn}
 			>
 				<BiSearch/>
 				<span>Search</span>

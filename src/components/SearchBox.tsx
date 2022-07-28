@@ -14,7 +14,7 @@ interface Props {
 export default function SearchBox(props: Props): JSX.Element {
 	return (
 		<AnimatePresence>
-			{!props.active && (
+			{props.active && (
 				<Container
 					className='main'
 					onClick={(e) => {
@@ -26,15 +26,17 @@ export default function SearchBox(props: Props): JSX.Element {
 				>
 					<motion.section
 						className='dialog-modal'
-						initial={{ opacity: 0, scale: 0 }}
+						initial={{ y: -290 }}
 						animate={{
 							opacity: 1,
-							scale: 1,
+							y: 0,
 							transition: {
 								duration: 0.3,
 							},
 						}}
-						exit={{ opacity: 0, scale: 0 }}
+						exit={{ y: -290,transition: {
+              duration: 0.3,
+            }, }}
 					>
 						<div className='dialog-prompt'>
 							<div className='top'>
@@ -47,7 +49,6 @@ export default function SearchBox(props: Props): JSX.Element {
 								</button>
 							</div>
 							<div className='prompt-info'>
-								<span className='prompt-title'>Search</span>
 								<form onSubmit={props.actionFn}>
 									<input
 										type='search'
