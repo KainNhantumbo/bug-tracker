@@ -20,6 +20,7 @@ export default function ThemeDialogBox(): JSX.Element {
 	const ThemeOptions: ThemeData[] = [
 		{ code: 'light-default', name: 'Light (Default)' },
 		{ code: 'dark-default', name: 'Dark (Default)' },
+		{ code: 'dark-rumble', name: 'Dark Rumble' },
 	];
 
 	return (
@@ -49,7 +50,7 @@ export default function ThemeDialogBox(): JSX.Element {
 						<section className='dialog-prompt'>
 							<div className='top'>
 								<h2>
-									<HiColorSwatch/>
+									<HiColorSwatch />
 									<span>Choose Theme</span>
 								</h2>
 								<button className='quit' title='Close' onClick={controlModal}>
@@ -64,10 +65,10 @@ export default function ThemeDialogBox(): JSX.Element {
 										key={option.name}
 										onClick={() => {
 											controlModal();
-											themeSwitcher(option.code)
+											themeSwitcher(option.code);
 										}}
 									>
-										<HiCubeTransparent/>
+										<HiCubeTransparent />
 										<span>{option.name}</span>
 									</motion.div>
 								))}

@@ -1,7 +1,7 @@
 import { ThemeType } from '../types/themeTypes';
 
 export const light_default: ThemeType = {
-	primary: '59, 23, 63',
+	primary: '134, 72, 121',
 	secondary: '188, 37, 81',
 	font: '95, 99, 104',
 	accent: '12, 3, 13',

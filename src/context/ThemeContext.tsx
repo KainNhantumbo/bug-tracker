@@ -7,7 +7,7 @@ import {
 	useContext,
 } from 'react';
 import { light_default } from '../themes/light-themes';
-import { dark_default } from '../themes/dark-themes';
+import { dark_default, dark_rumble } from '../themes/dark-themes';
 import GlobalStylesheet from '../styles/global';
 
 interface Props {
@@ -56,6 +56,13 @@ function ThemeContext(props: Props) {
 				localStorage.setItem(
 					THEME_STORAGE_KEY,
 					JSON.stringify({ theme: 'dark-default' })
+				);
+				break;
+			case 'dark-rumble':
+				setCurrentTheme(dark_rumble);
+				localStorage.setItem(
+					THEME_STORAGE_KEY,
+					JSON.stringify({ theme: 'dark-rumble' })
 				);
 				break;
 			default:

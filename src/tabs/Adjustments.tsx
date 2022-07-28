@@ -8,7 +8,6 @@ import {
 	FaUser,
 	FaUserCircle,
 	FaUserEdit,
-	FaUserTimes,
 	GiMite,
 	HiAdjustments,
 	HiCode,
@@ -121,7 +120,7 @@ export default function Adjustments(): JSX.Element {
 								<div className='user-info'>
 									<h3>
 										<FaBug />
-										<span>Bug Tracker V0.0.1 (beta)</span>
+										<span>Bug Tracker V0.0.2 (beta)</span>
 									</h3>
 								</div>
 								<div className='user-info'>

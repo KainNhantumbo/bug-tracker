@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { StyledCornerButton } from "../generics/buttons";
+import styled from 'styled-components';
+import { StyledCornerButton } from '../generics/buttons';
 
 export const ThemeDialog = styled.section`
 	position: fixed;
@@ -22,7 +22,7 @@ export const ThemeDialog = styled.section`
 		gap: 20px;
 		padding: 20px;
 		border-radius: 8px;
-    box-shadow: 0 0 25px  rgba(${({ theme }) => theme.accent}, 0.2);
+		box-shadow: 0 0 25px rgba(${({ theme }) => theme.accent}, 0.2);
 		background: rgb(${({ theme }) => theme.foreground});
 		width: 95%;
 		min-width: 300px;
@@ -30,10 +30,10 @@ export const ThemeDialog = styled.section`
 		max-width: 600px;
 
 		.top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      place-items: center;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			place-items: center;
 			.quit {
 				${StyledCornerButton}
 			}
@@ -44,7 +44,7 @@ export const ThemeDialog = styled.section`
 				display: flex;
 				align-items: center;
 				gap: 5px;
-				color: rgb(${({ theme }) => theme.secondary});
+				color: rgb(${({ theme }) => theme.primary});
 			}
 		}
 
@@ -88,5 +88,4 @@ export const ThemeDialog = styled.section`
 			}
 		}
 	}
-
-`
+`;

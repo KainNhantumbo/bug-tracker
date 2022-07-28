@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { BaseButton, BaseButton_Danger, Button_Mono_A } from '../generics/buttons';
+import { BaseButton, BaseButton_Danger } from '../generics/buttons';
 
 export const PromptContainer = styled.section`
 	position: fixed;
@@ -25,7 +25,7 @@ export const PromptContainer = styled.section`
 		background: rgb(${({ theme }) => theme.foreground});
 		max-width: 500px;
 		margin: 0 10px;
-    box-shadow: 0 0 25px  rgba(${({ theme }) => theme.accent}, 0.2);
+		box-shadow: 0 0 25px rgba(${({ theme }) => theme.accent}, 0.2);
 
 		.prompt-info {
 			display: flex;
