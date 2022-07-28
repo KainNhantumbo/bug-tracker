@@ -1,7 +1,6 @@
 import { HiChevronLeft } from 'react-icons/hi';
 import { NavigationBarContainer as Container } from '../styles/components/navigation-bar';
 import { motion } from 'framer-motion';
-import { useNavigate, NavigateFunction } from 'react-router-dom';
 
 interface Props {
 	icon: JSX.Element;

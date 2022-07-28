@@ -6,6 +6,7 @@ import {
 	BiFilter,
 	FaBars,
 	HiPlus,
+	BiSearch,
 } from 'react-icons/all';
 import { useNavigate, NavigateFunction } from 'react-router-dom';
 
@@ -58,6 +59,18 @@ export default function ToolBar(): JSX.Element {
 				<BiFilter />
 				<span>Filter</span>
 			</motion.button>
+
+			<motion.button
+				whileHover={{ scale: 1.05 }}
+				whileTap={{ scale: 0.95 }}
+				title='Search for anything'
+				className='descripted'
+				onClick={() => {}}
+			>
+				<BiSearch/>
+				<span>Search</span>
+			</motion.button>
+
 			<motion.button
 				whileHover={{ scale: 1.05 }}
 				whileTap={{ scale: 0.95 }}

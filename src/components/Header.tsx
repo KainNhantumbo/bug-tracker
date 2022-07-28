@@ -1,20 +1,12 @@
-import { useState } from 'react';
 import { HeaderContainer as Container } from '../styles/components/header';
-import { BiSearch, FaBug, HiAdjustments, HiColorSwatch } from 'react-icons/all';
-import type { SubmitEvent } from '../types/form';
+import { FaBug, HiAdjustments, HiColorSwatch } from 'react-icons/all';
 import { useThemeContext } from '../context/ThemeContext';
 import { motion } from 'framer-motion';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 export default function Header() {
 	const navigate: NavigateFunction = useNavigate();
-	const [searchTerm, setSearchTerm] = useState('');
 	const { controlModal } = useThemeContext();
-
-	function handleSubmit(e: SubmitEvent) {
-		e.preventDefault();
-		console.log(searchTerm);
-	}
 
 	return (
 		<Container>
@@ -43,17 +35,7 @@ export default function Header() {
 						<HiColorSwatch /> <span>Theme</span>
 					</motion.button>
 				</div>
-				<div className='search'>
-					<form onSubmit={handleSubmit}>
-						<BiSearch />
-						<input
-							type='search'
-							name='name'
-							placeholder='Seach'
-							onChange={(e) => setSearchTerm(e.target.value)}
-						/>
-					</form>
-				</div>
+				
 			</section>
 		</Container>
 	);

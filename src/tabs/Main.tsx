@@ -3,6 +3,8 @@ import Header from '../components/Header';
 import ThemeDialogBox from '../components/ThemeDialogBox';
 import ToolBar from '../components/ToolBar';
 import { MainContainer as Container } from '../styles/main';
+import SearchBox from '../components/SearchBox';
+import { SubmitEvent } from '../types/form';
 
 interface Data {
 	name: string;
@@ -17,6 +19,9 @@ interface Data {
 }
 
 export default function Main(): JSX.Element {
+	const [isSearchActive, setisSearchActive] = useState(false);
+	const [searchValue, setSearchValue] = useState('');
+
 	const [bugsData, setBugsData] = useState<Data[]>([
 		{
 			name: '',
@@ -32,6 +37,11 @@ export default function Main(): JSX.Element {
 	const deleteBug = async (): Promise<void> => {};
 	const updateBug = async (): Promise<void> => {};
 
+	const searchBug = async (e: SubmitEvent): Promise<void> => {};
+
+	const searchBoxController = (): void =>
+		setisSearchActive((prevState) => !prevState);
+
 	useEffect(() => {}, []);
 
 	return (
@@ -39,6 +49,12 @@ export default function Main(): JSX.Element {
 			<Header />
 			<ThemeDialogBox />
 			<ToolBar />
+			<SearchBox
+				active={isSearchActive}
+				stateFn={setSearchValue}
+				quit={searchBoxController}
+				actionFn={searchBug}
+			/>
 			<Container></Container>
 		</>
 	);
