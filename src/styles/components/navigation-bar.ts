@@ -7,7 +7,7 @@ export const NavigationBarContainer = styled.section`
 	top: 60px;
 	padding: 5px 30px;
 	width: 100%;
-	height: fit-content;
+	height: 35px;
 	background: rgb(${({ theme }) => theme.foreground});
 	border-bottom: 1px solid rgba(${({ theme }) => theme.font}, 0.2);
 	border-top: 1px solid rgba(${({ theme }) => theme.font}, 0.2);

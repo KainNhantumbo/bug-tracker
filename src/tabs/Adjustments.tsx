@@ -46,11 +46,7 @@ export default function Adjustments(): JSX.Element {
 		<>
 			<Header />
 			<ThemeDialogBox />
-			<NavigationBar
-				previousLocation='/'
-				locationName='Adjustments'
-				icon={<HiAdjustments />}
-			/>
+			<NavigationBar locationName='Adjustments' icon={<HiAdjustments />} />
 			<PromptDialogBox
 				active={isModalActive}
 				action={deleteUser}

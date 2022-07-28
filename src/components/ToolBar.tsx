@@ -1,15 +1,17 @@
 import { ToolbarContainer as Container } from '../styles/components/toolbar';
 import { motion } from 'framer-motion';
 import {
-	HiPlusSm,
 	BiSortAlt2,
 	HiViewGrid,
 	BiFilter,
 	FaBars,
 	HiPlus,
 } from 'react-icons/all';
+import { useNavigate, NavigateFunction } from 'react-router-dom';
 
 export default function ToolBar(): JSX.Element {
+	const navigate: NavigateFunction = useNavigate();
+
 	return (
 		<Container>
 			{false && (
@@ -29,7 +31,7 @@ export default function ToolBar(): JSX.Element {
 				whileTap={{ scale: 0.95 }}
 				title='Submit bug'
 				className='descripted'
-				onClick={() => {}}
+				onClick={() => navigate('/tab/create-bug/:id')}
 			>
 				<HiPlus />
 				<span>Create Bug</span>

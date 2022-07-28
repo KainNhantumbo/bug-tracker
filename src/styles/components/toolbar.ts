@@ -7,7 +7,7 @@ export const ToolbarContainer = styled.section`
 	top: 60px;
 	padding: 5px 30px;
 	width: 100%;
-	height: fit-content;
+	height: 35px;
 	background: rgb(${({ theme }) => theme.foreground});
 	border-bottom: 1px solid rgba(${({ theme }) => theme.font}, 0.2);
 	border-top: 1px solid rgba(${({ theme }) => theme.font}, 0.2);
@@ -33,12 +33,7 @@ export const ToolbarContainer = styled.section`
 		${BaseButton}
 		padding: 3px;
 		border: none;
-		border-bottom: 1px solid transparent;
 		border-radius: 0px;
-
-		:hover {
-			border-bottom: 1px solid rgba(${({ theme }) => theme.accent}, 0.3);
-		}
 
 		span {
 			padding: 0;

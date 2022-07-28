@@ -6,12 +6,9 @@ import { useNavigate, NavigateFunction } from 'react-router-dom';
 interface Props {
 	icon: JSX.Element;
 	locationName: string;
-	previousLocation: string;
 }
 
 export default function NavigationBar(props: Props): JSX.Element {
-	const navigate: NavigateFunction = useNavigate();
-
 	return (
 		<Container>
 			<motion.button
@@ -19,7 +16,7 @@ export default function NavigationBar(props: Props): JSX.Element {
 				whileTap={{ scale: 0.95 }}
 				title='Go to previous page'
 				onClick={() => {
-					navigate(props.previousLocation);
+					history.back()
 				}}
 			>
 				<HiChevronLeft />
