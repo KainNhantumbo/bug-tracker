@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { BaseButton, BaseButton_Danger, Button_Mono_A } from './generics/buttons';
 import { StyledInputs, StyledLabels } from './generics/form';
+import { BaseButton, BaseButton_Danger } from './generics/buttons';
 
 export const LoginContainer = styled.div`
 	width: 100%;
@@ -18,22 +18,21 @@ export const LoginContainer = styled.div`
 		justify-content: start;
 		align-items: center;
 		gap: 10px;
-		font-weight: 600;
 		margin: 0;
 		h1 {
-			position: relative;
+      position: relative;
 			color: rgb(${({ theme }) => theme.primary});
 			line-height: 1rem;
 			text-transform: capitalize;
 			font-weight: 500;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 10px;
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			gap: 10px;
 		}
-    h5 {
+		h5 {
       text-align: center;
-    }
+		}
 	}
 
 	article {
@@ -50,6 +49,7 @@ export const LoginContainer = styled.div`
 			background: rgb(${({ theme }) => theme.foreground});
 			border-radius: 10px;
 			border: 1px solid rgba(${({ theme }) => theme.accent}, 0.2);
+      box-shadow: 0 0 20px rgba(${({ theme }) => theme.accent}, 0.2);
 			padding: 40px 20px;
 
 			@media screen and (min-width: 440px) {
