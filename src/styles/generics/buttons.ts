@@ -102,29 +102,6 @@ export const Button_Mono_B = css`
 	}
 `;
 
-export const ButtonD = css`
-	border-radius: 50%;
-	background: rgba(${({ theme }) => theme.primary}, .4);
-	color: rgb(${({ theme }) => theme.neutral});
-	border: none;
-	width: fit-content;
-	cursor: pointer;
-	display: grid;
-	place-content: center;  
-	padding: 5px;
-
-	:hover {
-		background: rgb(${({ theme }) => theme.secondary});
-		svg {
-			color: rgb(${({ theme }) => theme.neutral});
-		}
-	}
-	svg {
-		pointer-events: none;
-	}
-`;
-
-
 export const StyledCornerButton = css`
 	border-radius: 50%;
 	background: rgba(${({ theme }) => theme.primary}, 0.4);

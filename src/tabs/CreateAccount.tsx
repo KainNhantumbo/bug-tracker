@@ -5,10 +5,11 @@ import {
 	FaEnvelope,
 	FaLock,
 	FaUnlock,
-	FaUnlockAlt,
 	FaUser,
 	FaUserEdit,
-	BiLogInCircle,
+	FaBug,
+	BiLogIn,
+	BiLockOpen,
 } from 'react-icons/all';
 import type { SubmitEvent, InputEvents } from '../types/form';
 import feedback from '../utils/feedback';
@@ -59,16 +60,12 @@ export default function CreateAccount(): JSX.Element {
 			);
 
 		try {
-			const { data: user } = await api({
+			await api({
 				method: 'post',
 				url: '/auth/register',
 				data: formData,
 			});
-			localStorage.setItem(
-				'accessToken',
-				JSON.stringify({ token: user.token })
-			);
-			navigate('/company-setup');
+			navigate('/tab/login');
 		} catch (err: any) {
 			console.log(err.message);
 			feedback(setErrorMessage, err.response.data.message, 3000);
@@ -80,12 +77,13 @@ export default function CreateAccount(): JSX.Element {
 			<header className='upper-container'>
 				<section className='logo'>
 					<h1>
-						<span>Marketeer</span>
+						<FaBug />
+						<span>Bug Tracker</span>
 					</h1>
 				</section>
 				<section className='slogan'>
 					<h2>
-						<span>Market Management</span>
+						<span>Get things done in efficacious and optimized way.</span>
 					</h2>
 				</section>
 			</header>
@@ -97,7 +95,7 @@ export default function CreateAccount(): JSX.Element {
 								<span>Create account</span>
 							</h2>
 						</section>
-						<p>Register a new administrative account. </p>
+						<p>Register a new user account. </p>
 
 						<form onSubmit={handleSubmit}>
 							<section className='form-section'>
@@ -189,11 +187,14 @@ export default function CreateAccount(): JSX.Element {
 
 							<section className='actions'>
 								<button className='next' type='submit'>
-									<BiLogInCircle />
-									<span>Next</span>
+									<BiLogIn />
+									<span>Get started</span>
 								</button>
-								<button className='login' onClick={() => navigate('/login')}>
-									<FaUnlockAlt />
+								<button
+									className='login'
+									onClick={() => navigate('/tab/login')}
+								>
+									<BiLockOpen />
 									<span>Login</span>
 								</button>
 							</section>
@@ -203,7 +204,7 @@ export default function CreateAccount(): JSX.Element {
 			</main>
 			<footer>
 				<div>
-					Copyright &copy; 2022 <i>Marketeer Systems</i>
+					Copyright &copy; 2022 <i>Kain Nhantumbo</i>
 				</div>
 				<div>All Rights Reserved.</div>
 			</footer>

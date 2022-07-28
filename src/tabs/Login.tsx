@@ -1,8 +1,8 @@
-import { LoginContainer as Container } from '../styles/login';
 import { useState } from 'react';
-import { FaLock, FaUser, BiLogIn, FaBug } from 'react-icons/all';
-import { useNavigate } from 'react-router-dom';
+import { LoginContainer as Container } from '../styles/login';
 import type { SubmitEvent, InputEvents } from '../types/form';
+import { FaLock, FaUser, BiLogIn, FaBug, BiLockOpen } from 'react-icons/all';
+import { useNavigate } from 'react-router-dom';
 import api from '../api/axios';
 import feedBack from '../utils/feedback';
 
@@ -95,12 +95,12 @@ export default function Login(): JSX.Element {
 							<span className='errorMessage'>{errorMessage}</span>
 							<section className='actions'>
 								<button className='login' type='submit'>
-									<BiLogIn />
+									<BiLockOpen />
 									<span>Login</span>
 								</button>
 								<button
 									className='register'
-									onClick={() => navigate('/create-account')}
+									onClick={() => navigate('/tab/create-account')}
 								>
 									<BiLogIn />
 									<span>Create Account</span>
