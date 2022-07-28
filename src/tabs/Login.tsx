@@ -1,10 +1,9 @@
 import { LoginContainer as Container } from '../styles/login';
-import { FC, useState } from 'react';
-import { FaLock, FaUser, BiLogIn, FiArrowLeft } from 'react-icons/all';
+import { useState } from 'react';
+import { FaLock, FaUser, BiLogIn, FaBug } from 'react-icons/all';
 import { useNavigate } from 'react-router-dom';
-import type { SubmitEvent, InputEvents} from '../types/form';
+import type { SubmitEvent, InputEvents } from '../types/form';
 import api from '../api/axios';
-import { Link } from 'react-router-dom';
 import feedBack from '../utils/feedback';
 
 interface UserData {
@@ -12,7 +11,7 @@ interface UserData {
 	password: string;
 }
 
-export default function Login (): JSX.Element {
+export default function Login(): JSX.Element {
 	const [formData, setFormData] = useState<UserData>({
 		user_name: '',
 		password: '',
@@ -56,22 +55,11 @@ export default function Login (): JSX.Element {
 	return (
 		<Container>
 			<header className='upper-container'>
-				<section className='logo'>
-					<h1>
-						<span>Marketeer</span>
-					</h1>
-				</section>
-				<section className='slogan'>
-					<h2>
-						<span>Market Management</span>
-					</h2>
-				</section>
-				<Link className='auth' to={'/'}>
-					<button>
-						<FiArrowLeft />
-						<span>Go Home</span>
-					</button>
-				</Link>
+				<h1>
+					<FaBug />
+					<span>Bug Tracker</span>
+				</h1>
+				<h5>A better way to simplify your workflow!</h5>
 			</header>
 			<main>
 				<article>
@@ -124,10 +112,10 @@ export default function Login (): JSX.Element {
 			</main>
 			<footer>
 				<div>
-					Copyright &copy; 2022 <i>Marketeer Systems</i>
+					Copyright &copy; 2022 <i>Kain Nhantumbo</i>
 				</div>
 				<div>All Rights Reserved.</div>
 			</footer>
 		</Container>
 	);
-};
+}

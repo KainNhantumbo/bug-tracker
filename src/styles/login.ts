@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { BaseButton, Button_Mono_A } from './generics/buttons';
+import { BaseButton, BaseButton_Danger, Button_Mono_A } from './generics/buttons';
 import { StyledInputs, StyledLabels } from './generics/form';
 
 export const LoginContainer = styled.div`
@@ -18,36 +18,22 @@ export const LoginContainer = styled.div`
 		justify-content: start;
 		align-items: center;
 		gap: 10px;
-		background: rgb(${({ theme }) => theme.foreground});
 		font-weight: 600;
 		margin: 0;
 		h1 {
 			position: relative;
 			color: rgb(${({ theme }) => theme.primary});
-			line-height: 1.2rem;
-			text-transform: uppercase;
-			font-weight: 700;
+			line-height: 1rem;
+			text-transform: capitalize;
+			font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
 		}
-		h2 {
-			font-size: 1rem;
-			color: rgb(${({ theme }) => theme.font});
-			text-transform: uppercase;
-		}
-		.auth {
-			position: fixed;
-			left: 10px;
-			top: 10px;
-			button {
-				${Button_Mono_A}
-				svg {
-					left: 8px;
-				}
-				span {
-					padding: 0;
-					padding-left: 20px;
-				}
-			}
-		}
+    h5 {
+      text-align: center;
+    }
 	}
 
 	article {
@@ -62,7 +48,7 @@ export const LoginContainer = styled.div`
 			justify-content: flex-start;
 			flex-direction: column;
 			background: rgb(${({ theme }) => theme.foreground});
-			border-radius: 3px;
+			border-radius: 10px;
 			border: 1px solid rgba(${({ theme }) => theme.accent}, 0.2);
 			padding: 40px 20px;
 
@@ -109,7 +95,7 @@ export const LoginContainer = styled.div`
 						${BaseButton}
 					}
 					.register {
-						${Button_Mono_A}
+						${BaseButton_Danger}
 					}
 				}
 			}
