@@ -1,6 +1,5 @@
 import {
 	BiTrash,
-	BsFlagFill,
 	FaBug,
 	FaCopyright,
 	FaEnvelope,
@@ -8,6 +7,7 @@ import {
 	FaUser,
 	FaUserCircle,
 	FaUserEdit,
+	FaUserTimes,
 	GiMite,
 	HiAdjustments,
 	HiCode,
@@ -18,6 +18,7 @@ import NavigationBar from '../components/NavigationBar';
 import ThemeDialogBox from '../components/ThemeDialogBox';
 import { AdjustmentsContainer as Container } from '../styles/adjustments';
 import { useState, useEffect } from 'react';
+import PromptDialogBox from '../components/PromptDialogBox';
 
 interface UserData {
 	name: string;
@@ -26,11 +27,20 @@ interface UserData {
 }
 
 export default function Adjustments(): JSX.Element {
+	const [isModalActive, setisModalActive] = useState(false);
 	const [userData, setUserData] = useState<UserData>({
 		name: 'John',
 		surname: 'Doe',
 		email: 'basberry@mail.co.nz',
 	});
+
+	// controls the state of the prompt modal
+	const modalController = (): void =>
+		setisModalActive((prevState) => !prevState);
+
+	const deleteUser = async (): Promise<void> => {};
+
+	useEffect(() => {}, []);
 
 	return (
 		<>
@@ -40,6 +50,17 @@ export default function Adjustments(): JSX.Element {
 				previousLocation='/'
 				locationName='Adjustments'
 				icon={<HiAdjustments />}
+			/>
+			<PromptDialogBox
+				active={isModalActive}
+				action={deleteUser}
+				quit={modalController}
+				icon={<FaUserTimes />}
+				button_text={'Delete account'}
+				prompt_message={
+					'This action will permanently delete your account and erase all data associated with it. Are you sure?'
+				}
+				prompt_title={'Delete account'}
 			/>
 
 			<Container>
@@ -76,7 +97,7 @@ export default function Adjustments(): JSX.Element {
 										<FaUserEdit />
 										<span>Edit profile</span>
 									</button>
-									<button className='erase-btn'>
+									<button className='erase-btn' onClick={modalController}>
 										<BiTrash />
 										<span>Delete Account</span>
 									</button>
