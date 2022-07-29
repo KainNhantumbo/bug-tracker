@@ -54,7 +54,7 @@ export default function FilterBox(props: Props): JSX.Element {
 									<motion.div
 										whileHover={{ scale: 1.04 }}
 										whileTap={{ scale: 0.8 }}
-										key={option.code}
+										key={option.name}
 										onClick={() => {
 											props.quit();
 											props.fn(option.code);

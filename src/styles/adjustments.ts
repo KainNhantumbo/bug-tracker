@@ -4,7 +4,7 @@ import { BaseButton, BaseButton_Danger } from './generics/buttons';
 export const AdjustmentsContainer = styled.main`
 	position: relative;
 	width: 100vw;
-	margin-top: 95px;
+	top: 95px;
 	margin-bottom: 20px;
 	display: grid;
 	justify-content: center;
