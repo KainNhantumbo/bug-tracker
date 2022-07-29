@@ -5,39 +5,47 @@ import NavigationBar from '../components/NavigationBar';
 import {
 	BiBug,
 	FaPerbyte,
-	FaTypo3,
 	FaUser,
+	HiAnnotation,
+	HiChartBar,
 	HiCheck,
 	HiDocumentAdd,
+	HiDocumentDuplicate,
+	HiDotsHorizontal,
 	HiFlag,
+	HiHashtag,
 	HiLibrary,
-	HiOutlineFlag,
 	HiSave,
+	HiStatusOnline,
+	HiUser,
 	VscIssueDraft,
 } from 'react-icons/all';
 import ThemeDialogBox from '../components/ThemeDialogBox';
 import { useParams } from 'react-router-dom';
 import { InputEvents, SubmitEvent } from '../types/form';
+
 interface DataProps {
-	name: string;
+	title: string;
 	feature: string;
 	priority: string;
 	description: string;
 	author: string;
 	status: string;
 	associated: string;
+	comment: string;
 }
 
 export default function CreateBug(): JSX.Element {
 	const [errorMessage, setErrorMessage] = useState('');
 	const [issueData, setIssueData] = useState<DataProps>({
-		name: '',
+		title: '',
 		feature: '',
-		priority: '',
+		priority: 'high',
 		description: '',
 		author: '',
-		status: '',
+		status: 'in progress',
 		associated: '',
+		comment: '',
 	});
 
 	// picks data from inputs
@@ -64,59 +72,97 @@ export default function CreateBug(): JSX.Element {
 				icon={<VscIssueDraft />}
 			/>
 			<Container>
-				<div className='wrapper'>
-					<form onSubmit={handleSubmit}>
-						<section className='aside'>
+				<section className='form-section'></section>
+				<section className='form-section'></section>
+				<section className='form-section'></section>
+				<section className='form-section'></section>
+				<section className='wrapper'>
+					<div className='form-container'>
+						<form onSubmit={handleSubmit}>
 							<div className='form-element'>
 								<label>
-									<BiBug />
-									<span>Status</span>
-								</label>
-								<select
-									name='status'
-									defaultValue={issueData.status}
-									onChange={handleChange}
-								>
-									<option value='progress'>In progress</option>
-									<option value='unknown'>Unknown</option>
-									<option value='pending'>Pending</option>
-									<option value='completed'>Completed</option>
-									<option value='solved'>Solved</option>
-								</select>
-							</div>
-
-							<div className='form-element'>
-								<label>
-									<FaPerbyte />
-									<span>Priority</span>
-								</label>
-								<select
-									name='priority'
-									defaultValue={issueData.priority}
-									onChange={handleChange}
-								>
-									<option value='low'>Low</option>
-									<option value='medium'>Medium</option>
-									<option value='high'>High</option>
-									<option value='critical'>Critical</option>
-								</select>
-							</div>
-						</section>
-						<section className='main-body'>
-							<div className='form-element'>
-								<label>
-									<BiBug />
-									<span>Issue name</span>
+									<HiHashtag />
+									<span>Bug title</span>
 								</label>
 								<input
 									type='text'
-									placeholder='Type issue name here.'
+									placeholder='Type bug title here.'
 									name='name'
-									value={issueData.name}
+									value={issueData.title}
 									required
 									onChange={handleChange}
 								/>
 							</div>
+							<section className='form-section'>
+								<div className='form-element'>
+									<label>
+										<HiStatusOnline />
+										<span>Status</span>
+									</label>
+									<select
+										name='status'
+										defaultValue={issueData.status}
+										onChange={handleChange}
+										defaultChecked={true}
+									>
+										<option value='progress'>In progress</option>
+										<option value='unknown'>Unknown</option>
+										<option value='pending'>Pending</option>
+										<option value='review'>In review</option>
+										<option value='completed'>Completed</option>
+										<option value='solved'>Solved</option>
+									</select>
+								</div>
+
+								<div className='form-element'>
+									<label>
+										<HiChartBar />
+										<span>Priority</span>
+									</label>
+									<select
+										name='priority'
+										defaultValue={issueData.priority}
+										onChange={handleChange}
+									>
+										<option value='low'>Low</option>
+										<option value='medium'>Medium</option>
+										<option value='high'>High</option>
+										<option value='critical'>Critical</option>
+										<option value='severe'>Severe</option>
+									</select>
+								</div>
+							</section>
+							<section className='form-section'>
+								<div className='form-element'>
+									<label>
+										<HiUser />
+										<span>Reporter</span>
+									</label>
+									<input
+										type='text'
+										placeholder='Type bug reporter.'
+										name='feature'
+										value={issueData.author}
+										required
+										onChange={handleChange}
+									/>
+								</div>
+								<div className='form-element'>
+									<label>
+										<HiDocumentDuplicate />
+										<span>Associated to</span>
+									</label>
+									<input
+										type='text'
+										placeholder='Type issue bug that is associated to.'
+										name='feature'
+										value={issueData.associated}
+										required
+										onChange={handleChange}
+									/>
+								</div>
+							</section>
+
 							<div className='form-element'>
 								<label>
 									<HiFlag />
@@ -124,7 +170,7 @@ export default function CreateBug(): JSX.Element {
 								</label>
 								<input
 									type='text'
-									placeholder='Type issue feature that is associated to.'
+									placeholder='Notice the feature that is affected by bug.'
 									name='feature'
 									value={issueData.feature}
 									required
@@ -134,68 +180,52 @@ export default function CreateBug(): JSX.Element {
 
 							<div className='form-element'>
 								<label>
-									<HiDocumentAdd />
+									<HiAnnotation />
 									<span>Description</span>
 								</label>
 								<textarea
 									name='description'
-									placeholder='Type issue description here.'
-									value={issueData.name}
+									placeholder='Type issue description and details here.'
+									value={issueData.description}
 									required
 									onChange={handleChange}
-									rows={12}
+									rows={10}
 								/>
 							</div>
 
 							<div className='form-element'>
 								<label>
-									<FaUser />
-									<span>Reporter</span>
+									<HiDotsHorizontal />
+									<span>Comment</span>
 								</label>
-								<input
-									type='text'
-									placeholder='Type bug reporter.'
-									name='feature'
-									value={issueData.author}
+								<textarea
+									name='description'
+									placeholder='Type some comments here.'
+									value={issueData.comment}
 									required
 									onChange={handleChange}
-								/>
-							</div>
-							<div className='form-element'>
-								<label>
-									<HiLibrary />
-									<span>Associated to</span>
-								</label>
-								<input
-									type='text'
-									placeholder='Type issue bug that is associated to.'
-									name='feature'
-									value={issueData.associated}
-									required
-									onChange={handleChange}
+									rows={5}
 								/>
 							</div>
 
 							<span className='errorMessage'>{errorMessage}</span>
 
-							<section className='actions'>
-								<button className='submit' type='submit'>
-									{isUpdate ? (
-										<>
-											<HiCheck />
-											<span>Update</span>
-										</>
-									) : (
-										<>
-											<HiSave />
-											<span>Save</span>
-										</>
-									)}
-								</button>
-							</section>
-						</section>
-					</form>
-				</div>
+							<button className='submit' type='submit'>
+								{isUpdate ? (
+									<>
+										<HiCheck />
+										<span>Update</span>
+									</>
+								) : (
+									<>
+										<HiSave />
+										<span>Save</span>
+									</>
+								)}
+							</button>
+						</form>
+					</div>
+				</section>
 			</Container>
 		</>
 	);

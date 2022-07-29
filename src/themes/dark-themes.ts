@@ -29,7 +29,7 @@ export const dark_drackula: ThemeType = {
 	secondary: '189, 147, 249',
 	alternative_a: '255, 108, 157',
 	alternative_b: '189, 147, 249',
-	font: '241, 250, 140',
+	font: '178, 177, 185',
 	accent: '80, 250, 123',
 	neutral: '240, 240,240',
 	background: '33, 34, 44',
