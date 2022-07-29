@@ -3,8 +3,7 @@ import { BaseButton, BaseButton_Danger } from '../generics/buttons';
 import { StyledInputs, StyledLabels } from '../generics/form';
 
 export const EditAccountContainer = styled.section`
-	
-  position: fixed;
+	position: fixed;
 	width: 100vw;
 	height: 100vh;
 	background: rgba(${({ theme }) => theme.background}, 0.2);
@@ -29,6 +28,10 @@ export const EditAccountContainer = styled.section`
 		margin: 0 10px;
 		box-shadow: 0 0 25px rgba(${({ theme }) => theme.accent}, 0.1);
 
+		@media screen and (max-width: 430px) {
+			gap: 5px;
+		}
+
 		.prompt-info {
 			display: flex;
 			flex-direction: column;
@@ -42,58 +45,52 @@ export const EditAccountContainer = styled.section`
 				line-height: 1.6rem;
 				font-size: 0.9rem;
 			}
-      
-      .content-container {
-        width: 100%;
-        max-width: 900px;
-        display: flex;
-        gap: 20px;
-        flex-direction: column;
-        background: rgb(${({ theme }) => theme.foreground});
-        border-radius: 3px;
-        border: 1px solid rgba(${({ theme }) => theme.accent}, 0.2);
-        padding: 20px;
-        margin-right: 10px;
-    
-        @media screen and (max-width: 340px) {
-          padding: 40px 15px;
-        }
-    
-        form {
-          display: flex;
-          flex-direction: column;
-          gap: 15px;
-    
-          .form-section {
-            display: flex;
-            flex-direction: row;
-            width: 100%;
-            gap: 10px;
-    
-            @media screen and (max-width: 655px) {
-              flex-direction: column;
-            }
-            .form-element {
-              display: flex;
-              flex-direction: column;
-              width: 100%;
-              gap: 5px;
-            }
-          }
-    
-          label {
-            ${StyledLabels}
-          }
-    
-          ${StyledInputs}
-          .errorMessage {
-            color: rgb(${({ theme }) => theme.alternative_a});
-            font-weight: 500;
-            font-size: 0.9rem;
-          }
-        }
-      }
 
+			.content-container {
+				display: flex;
+				gap: 10px;
+				flex-direction: column;
+
+				form {
+					display: flex;
+					flex-direction: column;
+					gap: 15px;
+
+					.form-section {
+						display: flex;
+						flex-direction: row;
+						width: 100%;
+						gap: 10px;
+
+						@media screen and (max-width: 430px) {
+							flex-direction: column;
+							gap: 5px;
+						}
+						.form-element {
+							display: flex;
+							flex-direction: column;
+							width: 100%;
+							gap: 5px;
+						}
+					}
+
+					label {
+						${StyledLabels}
+					}
+
+					.alert {
+						font-size: 0.9rem;
+						padding: 0;
+					}
+
+					${StyledInputs}
+					.errorMessage {
+						color: rgb(${({ theme }) => theme.alternative_a});
+						font-weight: 500;
+						font-size: 0.9rem;
+					}
+				}
+			}
 		}
 
 		.prompt-actions {
@@ -109,6 +106,4 @@ export const EditAccountContainer = styled.section`
 			}
 		}
 	}
-  
-  
 `;

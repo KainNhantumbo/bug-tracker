@@ -75,7 +75,7 @@ function EditAccountBox(props: Props): JSX.Element {
 							<div className='prompt-info'>
 								<span className='prompt-title'>Edit Account </span>
 								<p className='prompt-message'>
-									Here you can see and modify your account details.
+									Here you can modify your account.
 								</p>
 
 								<section className='content-container'>
@@ -141,11 +141,11 @@ function EditAccountBox(props: Props): JSX.Element {
 											</div>
 										</section>
 
-										<label>
+										<label className='alert'>
 											<FiAlertTriangle />
 											<span>
-												Leave these following fields blank if you don't want to
-												update password.
+												Leave these password fields blank if you don't want to
+												update.
 											</span>
 										</label>
 
