@@ -2,10 +2,11 @@ import { HeaderContainer as Container } from '../styles/components/header';
 import { FaBug, HiAdjustments, HiColorSwatch } from 'react-icons/all';
 import { useThemeContext } from '../context/ThemeContext';
 import { motion } from 'framer-motion';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { NavigateFunction, useNavigate, useLocation } from 'react-router-dom';
 
 export default function Header() {
 	const navigate: NavigateFunction = useNavigate();
+	const { pathname } = useLocation();
 	const { controlModal } = useThemeContext();
 
 	return (
@@ -22,7 +23,10 @@ export default function Header() {
 						whileTap={{ scale: 0.9 }}
 						className='user'
 						title='Settings and adjustments'
-						onClick={() => navigate('/tab/adjustments')}
+						onClick={() => {
+							if (pathname === '/tab/adjustments') return;
+							navigate('/tab/adjustments');
+						}}
 					>
 						<HiAdjustments />
 					</motion.button>
@@ -35,7 +39,6 @@ export default function Header() {
 						<HiColorSwatch /> <span>Theme</span>
 					</motion.button>
 				</div>
-				
 			</section>
 		</Container>
 	);
