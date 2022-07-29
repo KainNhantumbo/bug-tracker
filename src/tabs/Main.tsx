@@ -5,6 +5,7 @@ import ToolBar from '../components/ToolBar';
 import { MainContainer as Container } from '../styles/main';
 import SearchBox from '../components/SearchBox';
 import { SubmitEvent } from '../types/form';
+import SortBox from '../components/SortBox';
 
 interface Data {
 	name: string;
@@ -20,6 +21,7 @@ interface Data {
 
 export default function Main(): JSX.Element {
 	const [isSearchActive, setisSearchActive] = useState(false);
+	const [isSortActive, setIsSortActive] = useState(false);
 	const [searchValue, setSearchValue] = useState('');
 
 	const [bugsData, setBugsData] = useState<Data[]>([
@@ -44,11 +46,15 @@ export default function Main(): JSX.Element {
 	const searchBoxController = (): void =>
 		setisSearchActive((prevState) => !prevState);
 
+	const sortBoxController = (): void =>
+		setIsSortActive((prevState) => !prevState);
+
+	const handleSort = async (option: string): Promise<void> => {};
+
 	useEffect(() => {
-		
 		// cleanup function
 		return () => {
-			setisSearchActive(false)
+			setisSearchActive(false);
 		};
 	}, []);
 
@@ -56,13 +62,17 @@ export default function Main(): JSX.Element {
 		<>
 			<Header />
 			<ThemeDialogBox />
-			<ToolBar openSearchBoxFn={searchBoxController} />
+			<ToolBar
+				openSearchBoxFn={searchBoxController}
+				openSortBoxFn={sortBoxController}
+			/>
 			<SearchBox
 				active={isSearchActive}
 				stateFn={setSearchValue}
 				quit={searchBoxController}
 				actionFn={searchBug}
 			/>
+			<SortBox fn={handleSort} quit={sortBoxController} active={isSortActive} />
 			<Container></Container>
 		</>
 	);

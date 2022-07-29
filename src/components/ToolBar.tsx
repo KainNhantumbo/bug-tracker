@@ -11,7 +11,8 @@ import {
 import { useNavigate, NavigateFunction } from 'react-router-dom';
 
 interface Props {
-	openSearchBoxFn: ()=> void
+	openSearchBoxFn: () => void;
+	openSortBoxFn: () => void;
 }
 
 export default function ToolBar(props: Props): JSX.Element {
@@ -47,7 +48,7 @@ export default function ToolBar(props: Props): JSX.Element {
 				whileTap={{ scale: 0.95 }}
 				title='Sort'
 				className='descripted'
-				onClick={() => {}}
+				onClick={props.openSortBoxFn}
 			>
 				<BiSortAlt2 />
 				<span>Sort</span>
@@ -71,7 +72,7 @@ export default function ToolBar(props: Props): JSX.Element {
 				className='descripted'
 				onClick={props.openSearchBoxFn}
 			>
-				<BiSearch/>
+				<BiSearch />
 				<span>Search</span>
 			</motion.button>
 
