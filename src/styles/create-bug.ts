@@ -16,6 +16,13 @@ export const CreateBugContainer = styled.main`
 		background: rgb(${({ theme }) => theme.foreground});
 		border-radius: 0 0 10px 10px;
 		padding: 20px;
+
+		@media screen and (max-width: 825px) {
+			width: 650px;
+		}
+		@media screen and (max-width: 685px) {
+			width: 100%;
+		}
 	}
 
 	.form-container {
@@ -24,10 +31,6 @@ export const CreateBugContainer = styled.main`
 		display: flex;
 		justify-content: flex-start;
 		flex-direction: column;
-
-		@media screen and (max-width: 340px) {
-			padding: 40px 15px;
-		}
 
 		form {
 			display: flex;
@@ -47,8 +50,15 @@ export const CreateBugContainer = styled.main`
 				width: 100%;
 				gap: 10px;
 
-				@media screen and (max-width: 655px) {
+				@media screen and (max-width: 570px) {
 					flex-direction: column;
+					width: 400px;
+				}
+				@media screen and (max-width: 470px) {
+					width: 300px;
+				}
+				@media screen and (max-width: 365px) {
+					width: 100%;
 				}
 			}
 

@@ -3,18 +3,13 @@ import { CreateBugContainer as Container } from '../styles/create-bug';
 import Header from '../components/Header';
 import NavigationBar from '../components/NavigationBar';
 import {
-	BiBug,
-	FaPerbyte,
-	FaUser,
 	HiAnnotation,
 	HiChartBar,
 	HiCheck,
-	HiDocumentAdd,
 	HiDocumentDuplicate,
 	HiDotsHorizontal,
 	HiFlag,
 	HiHashtag,
-	HiLibrary,
 	HiSave,
 	HiStatusOnline,
 	HiUser,
@@ -40,7 +35,7 @@ export default function CreateBug(): JSX.Element {
 	const [issueData, setIssueData] = useState<DataProps>({
 		title: '',
 		feature: '',
-		priority: 'high',
+		priority: 'low',
 		description: '',
 		author: '',
 		status: 'in progress',
@@ -59,7 +54,9 @@ export default function CreateBug(): JSX.Element {
 	const { id } = useParams();
 	const isUpdate = Number(id);
 
-	const handleSubmit = async (e: SubmitEvent): Promise<void> => {};
+	const handleSubmit = async (e: SubmitEvent): Promise<void> => {
+		e.preventDefault();
+	};
 
 	useEffect(() => {}, []);
 
@@ -72,10 +69,6 @@ export default function CreateBug(): JSX.Element {
 				icon={<VscIssueDraft />}
 			/>
 			<Container>
-				<section className='form-section'></section>
-				<section className='form-section'></section>
-				<section className='form-section'></section>
-				<section className='form-section'></section>
 				<section className='wrapper'>
 					<div className='form-container'>
 						<form onSubmit={handleSubmit}>
@@ -87,7 +80,7 @@ export default function CreateBug(): JSX.Element {
 								<input
 									type='text'
 									placeholder='Type bug title here.'
-									name='name'
+									name='title'
 									value={issueData.title}
 									required
 									onChange={handleChange}
@@ -123,6 +116,7 @@ export default function CreateBug(): JSX.Element {
 										name='priority'
 										defaultValue={issueData.priority}
 										onChange={handleChange}
+										defaultChecked={true}
 									>
 										<option value='low'>Low</option>
 										<option value='medium'>Medium</option>
@@ -141,9 +135,8 @@ export default function CreateBug(): JSX.Element {
 									<input
 										type='text'
 										placeholder='Type bug reporter.'
-										name='feature'
+										name='author'
 										value={issueData.author}
-										required
 										onChange={handleChange}
 									/>
 								</div>
@@ -155,9 +148,8 @@ export default function CreateBug(): JSX.Element {
 									<input
 										type='text'
 										placeholder='Type issue bug that is associated to.'
-										name='feature'
+										name='associated'
 										value={issueData.associated}
-										required
 										onChange={handleChange}
 									/>
 								</div>
@@ -173,7 +165,6 @@ export default function CreateBug(): JSX.Element {
 									placeholder='Notice the feature that is affected by bug.'
 									name='feature'
 									value={issueData.feature}
-									required
 									onChange={handleChange}
 								/>
 							</div>
@@ -199,7 +190,7 @@ export default function CreateBug(): JSX.Element {
 									<span>Comment</span>
 								</label>
 								<textarea
-									name='description'
+									name='comment'
 									placeholder='Type some comments here.'
 									value={issueData.comment}
 									required
