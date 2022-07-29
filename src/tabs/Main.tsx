@@ -6,6 +6,7 @@ import { MainContainer as Container } from '../styles/main';
 import SearchBox from '../components/SearchBox';
 import { SubmitEvent } from '../types/form';
 import SortBox from '../components/SortBox';
+import FilterBox from '../components/FilterBox';
 
 interface Data {
 	name: string;
@@ -20,10 +21,13 @@ interface Data {
 }
 
 export default function Main(): JSX.Element {
-	const [isSearchActive, setisSearchActive] = useState(false);
+	// modal state control
+	const [isSearchActive, setIsSearchActive] = useState(false);
 	const [isSortActive, setIsSortActive] = useState(false);
-	const [searchValue, setSearchValue] = useState('');
+	const [isFilterActive, setIsFilterActive] = useState(false);
 
+	// core states
+	const [searchValue, setSearchValue] = useState('');
 	const [bugsData, setBugsData] = useState<Data[]>([
 		{
 			name: '',
@@ -35,26 +39,37 @@ export default function Main(): JSX.Element {
 		},
 	]);
 
+	// core functions
 	const getBugsData = async (): Promise<void> => {};
 	const deleteBug = async (): Promise<void> => {};
 	const updateBug = async (): Promise<void> => {};
 
-	const searchBug = async (e: SubmitEvent): Promise<void> => {
+	// search functions
+	const searchBoxController = (): void =>
+		setIsSearchActive((prevState) => !prevState);
+
+	const handleSearch = async (e: SubmitEvent): Promise<void> => {
 		e.preventDefault();
 	};
 
-	const searchBoxController = (): void =>
-		setisSearchActive((prevState) => !prevState);
-
+	// sort functions
 	const sortBoxController = (): void =>
 		setIsSortActive((prevState) => !prevState);
 
 	const handleSort = async (option: string): Promise<void> => {};
 
+	// filter functions
+	const filterBoxController = (): void =>
+		setIsFilterActive((prevState) => !prevState);
+
+	const handleFilter = async (option: string): Promise<void> => {};
+
 	useEffect(() => {
-		// cleanup function
+		// cleanup function to prevent memory leaks
 		return () => {
-			setisSearchActive(false);
+			setIsSearchActive(false);
+			setIsFilterActive(false);
+			setIsSortActive(false);
 		};
 	}, []);
 
@@ -65,14 +80,21 @@ export default function Main(): JSX.Element {
 			<ToolBar
 				openSearchBoxFn={searchBoxController}
 				openSortBoxFn={sortBoxController}
+				openFilterBoxFn={filterBoxController}
 			/>
 			<SearchBox
 				active={isSearchActive}
 				stateFn={setSearchValue}
 				quit={searchBoxController}
-				actionFn={searchBug}
+				actionFn={handleSearch}
+			/>
+			<FilterBox
+				quit={filterBoxController}
+				fn={handleFilter}
+				active={isFilterActive}
 			/>
 			<SortBox fn={handleSort} quit={sortBoxController} active={isSortActive} />
+
 			<Container></Container>
 		</>
 	);

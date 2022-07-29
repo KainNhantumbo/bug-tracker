@@ -1,26 +1,26 @@
-import * as React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { BiSortAlt2, FaSort, FiX } from 'react-icons/all';
 import { SortBoxContainer as Container } from '../styles/components/sort-box';
+import { motion, AnimatePresence } from 'framer-motion';
+import { BiFilter, BiFilterAlt, FiX } from 'react-icons/all';
+
 interface Props {
 	active: boolean;
 	quit: () => void;
 	fn: (param: string) => void;
 }
 
-interface SortProps {
+interface FilterProps {
 	code: string;
 	name: string;
 }
 
-const SortOptions: SortProps[] = [
-	{ code: 'name: DESC', name: 'Name' },
-	{ code: 'name,ASC', name: 'Name (ascending)' },
-	{ code: 'updatedAt, DESC', name: 'Last update' },
-	{ code: 'updatedAt, ASC', name: 'Last update (ascending)' },
+const FilterOptions: FilterProps[] = [
+	{ code: '', name: 'Name' },
+	{ code: '', name: 'Name (ascending)' },
+	{ code: '', name: 'Last update' },
+	{ code: '', name: 'Last update (ascending)' },
 ];
 
-export default function SortBox(props: Props): JSX.Element {
+export default function FilterBox(props: Props): JSX.Element {
 	return (
 		<AnimatePresence>
 			{props.active && (
@@ -42,15 +42,15 @@ export default function SortBox(props: Props): JSX.Element {
 						<section className='dialog-prompt'>
 							<div className='top'>
 								<h2>
-									<BiSortAlt2 />
-									<span>Sort by</span>
+									<BiFilter />
+									<span>Filter by</span>
 								</h2>
 								<button className='quit' title='Close' onClick={props.quit}>
 									<FiX />
 								</button>
 							</div>
 							<section className='prompt-info'>
-								{SortOptions.map((option) => (
+								{FilterOptions.map((option) => (
 									<motion.div
 										whileHover={{ scale: 1.04 }}
 										whileTap={{ scale: 0.8 }}
@@ -60,7 +60,7 @@ export default function SortBox(props: Props): JSX.Element {
 											props.fn(option.code);
 										}}
 									>
-										<FaSort />
+										<BiFilterAlt />
 										<span>{option.name}</span>
 									</motion.div>
 								))}

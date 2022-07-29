@@ -13,6 +13,7 @@ import { useNavigate, NavigateFunction } from 'react-router-dom';
 interface Props {
 	openSearchBoxFn: () => void;
 	openSortBoxFn: () => void;
+	openFilterBoxFn: () => void;
 }
 
 export default function ToolBar(props: Props): JSX.Element {
@@ -59,7 +60,7 @@ export default function ToolBar(props: Props): JSX.Element {
 				whileTap={{ scale: 0.95 }}
 				title='Filter'
 				className='descripted'
-				onClick={() => {}}
+				onClick={props.openFilterBoxFn}
 			>
 				<BiFilter />
 				<span>Filter</span>

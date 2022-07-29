@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SearchBoxContainer as Container } from '../styles/components/search-box';
 import { BiSearch, FiX } from 'react-icons/all';
