@@ -19,6 +19,7 @@ import ThemeDialogBox from '../components/ThemeDialogBox';
 import { AdjustmentsContainer as Container } from '../styles/adjustments';
 import { useState, useEffect } from 'react';
 import PromptDialogBox from '../components/PromptDialogBox';
+import EditAccountBox from '../components/EditAccountBox';
 
 interface UserData {
 	name: string;
@@ -40,6 +41,12 @@ export default function Adjustments(): JSX.Element {
 
 	const deleteUser = async (): Promise<void> => {};
 
+	// edit account functions
+	const [isEditAccountActive, setIsEditAccountActive] = useState(false);
+
+	const editBoxController = (): void =>
+		setIsEditAccountActive((prevState) => !prevState);
+
 	useEffect(() => {}, []);
 
 	return (
@@ -47,6 +54,8 @@ export default function Adjustments(): JSX.Element {
 			<Header />
 			<ThemeDialogBox />
 			<NavigationBar locationName='Adjustments' icon={<HiAdjustments />} />
+			<EditAccountBox active={isEditAccountActive} quit={editBoxController} />
+
 			<PromptDialogBox
 				active={isModalActive}
 				action={deleteUser}
@@ -89,7 +98,7 @@ export default function Adjustments(): JSX.Element {
 								</div>
 
 								<section className='profile-actions'>
-									<button className='edit-btn'>
+									<button className='edit-btn' onClick={editBoxController}>
 										<FaUserEdit />
 										<span>Edit profile</span>
 									</button>
