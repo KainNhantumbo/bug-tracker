@@ -37,12 +37,20 @@ export default function Main(): JSX.Element {
 	const deleteBug = async (): Promise<void> => {};
 	const updateBug = async (): Promise<void> => {};
 
-	const searchBug = async (e: SubmitEvent): Promise<void> => {};
+	const searchBug = async (e: SubmitEvent): Promise<void> => {
+		e.preventDefault();
+	};
 
 	const searchBoxController = (): void =>
 		setisSearchActive((prevState) => !prevState);
 
-	useEffect(() => {}, []);
+	useEffect(() => {
+		
+		// cleanup function
+		return () => {
+			setisSearchActive(false)
+		};
+	}, []);
 
 	return (
 		<>

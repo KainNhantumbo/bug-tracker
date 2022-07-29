@@ -27,16 +27,8 @@ export default function SearchBox(props: Props): JSX.Element {
 					<motion.section
 						className='dialog-modal'
 						initial={{ y: -290 }}
-						animate={{
-							opacity: 1,
-							y: 0,
-							transition: {
-								duration: 0.3,
-							},
-						}}
-						exit={{ y: -290,transition: {
-              duration: 0.3,
-            }, }}
+						animate={{ y: 0, transition: { duration: 0.3 } }}
+						exit={{ y: -290, transition: { duration: 0.3 } }}
 					>
 						<div className='dialog-prompt'>
 							<div className='top'>
@@ -53,7 +45,7 @@ export default function SearchBox(props: Props): JSX.Element {
 									<input
 										type='search'
 										name='name'
-										placeholder='Seach'
+										placeholder='Search bugs...'
 										onChange={(e) => props.stateFn(e.target.value)}
 									/>
 								</form>

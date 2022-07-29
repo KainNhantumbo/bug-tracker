@@ -1,12 +1,6 @@
 import { ThemeDialog as Container } from '../styles/components/theme-dialog-box';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-	FiX,
-	FaSort,
-	FaCookie,
-	HiColorSwatch,
-	HiCubeTransparent,
-} from 'react-icons/all';
+import { FiX, HiColorSwatch, HiCubeTransparent } from 'react-icons/all';
 import { useThemeContext } from '../context/ThemeContext';
 
 interface ThemeData {
