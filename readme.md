@@ -1,6 +1,11 @@
 # Bug Tracker App
 
-This is a **bug tracker application** built with React.JS and Typescript. To be short, the main goal here is to help developers to keep track of the software development issues.
+This is a **bug tracker application** built with React.JS and Typescript. To be short, the main goal here is to help developers to keep track of the software development issues.\
+
+Here a some screenshots:
+![](./src/docs/img/1.png)
+![](./src/docs/img/2.png)
+![](./src/docs/img/3.png)
 
 ## Project status
 
@@ -15,6 +20,8 @@ Has the developmet goes further I will be listing the introduced and new applica
 - Has more than just default dark and light themes.
 
 - Uses the browser localStorage to save user theme preferences.
+
+- Built-in from scratch, a  custom, beautiful, clean layout and animations. 
 
 ## Scripts for testing
 
