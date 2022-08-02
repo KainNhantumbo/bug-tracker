@@ -8,7 +8,7 @@ export const CreateAccountContainer = styled.div`
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-	gap: 40px;
+	gap: 20px;
 
 	header {
 		width: 100%;
@@ -17,7 +17,6 @@ export const CreateAccountContainer = styled.div`
 		flex-direction: column;
 		justify-content: start;
 		align-items: center;
-		gap: 10px;
 		margin: 0;
 		h1 {
 			position: relative;

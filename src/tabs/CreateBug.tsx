@@ -27,7 +27,7 @@ interface DataProps {
 	author: string;
 	status: string;
 	associated: string;
-	comment: string;
+	notes: string;
 }
 
 export default function CreateBug(): JSX.Element {
@@ -40,7 +40,7 @@ export default function CreateBug(): JSX.Element {
 		author: '',
 		status: 'in progress',
 		associated: '',
-		comment: '',
+		notes: '',
 	});
 
 	// picks data from inputs
@@ -82,6 +82,7 @@ export default function CreateBug(): JSX.Element {
 									placeholder='Type bug title here.'
 									name='title'
 									value={issueData.title}
+									maxLength={256}
 									required
 									onChange={handleChange}
 								/>
@@ -137,6 +138,7 @@ export default function CreateBug(): JSX.Element {
 										placeholder='Type bug reporter.'
 										name='author'
 										value={issueData.author}
+										maxLength={64}
 										onChange={handleChange}
 									/>
 								</div>
@@ -149,6 +151,7 @@ export default function CreateBug(): JSX.Element {
 										type='text'
 										placeholder='Type issue bug that is associated to.'
 										name='associated'
+										maxLength={256}
 										value={issueData.associated}
 										onChange={handleChange}
 									/>
@@ -164,6 +167,7 @@ export default function CreateBug(): JSX.Element {
 									type='text'
 									placeholder='Notice the feature that is affected by bug.'
 									name='feature'
+									maxLength={512}
 									value={issueData.feature}
 									onChange={handleChange}
 								/>
@@ -176,6 +180,7 @@ export default function CreateBug(): JSX.Element {
 								</label>
 								<textarea
 									name='description'
+									maxLength={4096}
 									placeholder='Type issue description and details here.'
 									value={issueData.description}
 									required
@@ -187,12 +192,13 @@ export default function CreateBug(): JSX.Element {
 							<div className='form-element'>
 								<label>
 									<HiDotsHorizontal />
-									<span>Comment</span>
+									<span>Notes</span>
 								</label>
 								<textarea
-									name='comment'
+									name='notes'
+									maxLength={1536}
 									placeholder='Type some comments here.'
-									value={issueData.comment}
+									value={issueData.notes}
 									required
 									onChange={handleChange}
 									rows={5}

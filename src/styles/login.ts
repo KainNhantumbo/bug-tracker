@@ -8,7 +8,7 @@ export const LoginContainer = styled.div`
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-	gap: 40px;
+	gap: 20px;
 
 	header {
 		width: 100%;
@@ -17,10 +17,9 @@ export const LoginContainer = styled.div`
 		flex-direction: column;
 		justify-content: start;
 		align-items: center;
-		gap: 10px;
 		margin: 0;
 		h1 {
-      position: relative;
+			position: relative;
 			color: rgb(${({ theme }) => theme.primary});
 			line-height: 1rem;
 			text-transform: capitalize;
@@ -31,7 +30,7 @@ export const LoginContainer = styled.div`
 			gap: 10px;
 		}
 		h5 {
-      text-align: center;
+			text-align: center;
 		}
 	}
 
@@ -49,7 +48,7 @@ export const LoginContainer = styled.div`
 			background: rgb(${({ theme }) => theme.foreground});
 			border-radius: 10px;
 			border: 1px solid rgba(${({ theme }) => theme.accent}, 0.2);
-      box-shadow: 0 0 20px rgba(${({ theme }) => theme.accent}, 0.2);
+			box-shadow: 0 0 20px rgba(${({ theme }) => theme.accent}, 0.2);
 			padding: 40px 20px;
 
 			@media screen and (min-width: 440px) {
@@ -97,6 +96,16 @@ export const LoginContainer = styled.div`
 					.register {
 						${BaseButton_Danger}
 					}
+				}
+			}
+			.links {
+				color: rgb(${({ theme }) => theme.alternative_b});
+				font-size: 0.9rem;
+				font-weight: 500;
+
+				:hover {
+					color: rgb(${({ theme }) => theme.alternative_a});
+					transition: all 200ms ease;
 				}
 			}
 		}

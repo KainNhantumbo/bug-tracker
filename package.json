@@ -1,12 +1,13 @@
 {
-	"name": "bug-tracker",
+	"name": "bug-tracker-app",
 	"private": true,
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"author": {
 		"name": "Kain Nhantumbo",
 		"email": "nhantumbok@gmail.com",
 		"url": "https://portifolio-dev-mu.vercel.app"
 	},
+	"license": "Apache License Version 2.0",
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc && vite build",

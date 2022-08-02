@@ -1,8 +1,15 @@
 import { useState } from 'react';
 import { LoginContainer as Container } from '../styles/login';
 import type { SubmitEvent, InputEvents } from '../types/form';
-import { FaLock, FaUser, BiLogIn, FaBug, BiLockOpen } from 'react-icons/all';
-import { useNavigate } from 'react-router-dom';
+import {
+	FaLock,
+	FaUser,
+	BiLogIn,
+	FaBug,
+	BiLockOpen,
+	FaEnvelope,
+} from 'react-icons/all';
+import { Link, useNavigate } from 'react-router-dom';
 import api from '../api/axios';
 import feedBack from '../utils/feedback';
 
@@ -72,13 +79,13 @@ export default function Login(): JSX.Element {
 						<p>Login to your account to continue. </p>
 						<form onSubmit={handleSubmit}>
 							<label htmlFor='username'>
-								<FaUser />
-								<span>Username</span>
+								<FaEnvelope />
+								<span>E-mail</span>
 							</label>
 							<input
-								type='text'
-								placeholder='Type your username here.'
-								name='user_name'
+								type='email'
+								name='email'
+								placeholder='Type your e-mail here.'
 								required
 								onChange={(e) => handleChange(e)}
 							/>
@@ -107,6 +114,11 @@ export default function Login(): JSX.Element {
 								</button>
 							</section>
 						</form>
+						<Link to={'/tab/account-recouvery'}>
+							<span className='links'>
+								Forgot password? Recover your account.
+							</span>
+						</Link>
 					</div>
 				</article>
 			</main>
