@@ -1,13 +1,29 @@
-import { useState, createContext, ReactNode, ContextType } from 'react';
+import { useState, createContext, ReactNode, useContext } from 'react';
 
 interface Props {
 	children: ReactNode;
 }
 
-interface ContextProps {}
+interface ContextProps {
+	userRecouveryKey: string;
+	setUserRecouveryKey: React.Dispatch<React.SetStateAction<string>>;
+}
 
-const context = createContext({});
+const context = createContext<ContextProps>({
+	userRecouveryKey: '',
+	setUserRecouveryKey: () => {},
+});
 
 export default function AppContext(props: Props) {
-	return <context.Provider value={{}}>{props.children}</context.Provider>;
+	const [userRecouveryKey, setUserRecouveryKey] = useState<string>('');
+	return (
+		<context.Provider value={{ userRecouveryKey, setUserRecouveryKey }}>
+			{props.children}
+		</context.Provider>
+	);
 }
+
+export const useAppContext = (): ContextProps => {
+	const data = useContext(context);
+	return data;
+};
