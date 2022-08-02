@@ -53,7 +53,7 @@ export default function AccountRecovery(): JSX.Element {
 				url: '/auth/recovery',
 				data: formData,
 			});
-			navigate(`/tab/message/recover`);
+			navigate(`/tab/message/recover/:id`);
 		} catch (err: any) {
 			console.log(err.response.data?.message);
 			feedback(setErrorMessage, err.response.data?.message, 5000);
@@ -88,11 +88,11 @@ export default function AccountRecovery(): JSX.Element {
 							<section className='form-section'>
 								<div className='form-element'>
 									<label>
-										<FaKey/>
+										<FaKey />
 										<span>Recovery Key</span>
 									</label>
 									<input
-										type='text'
+										type='password'
 										placeholder='Type your recouvery key here.'
 										name='recovery_key'
 										required

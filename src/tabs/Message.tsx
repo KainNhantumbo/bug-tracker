@@ -33,6 +33,14 @@ export default function Message(): JSX.Element {
 				url: '/tab/login',
 			});
 		}
+		if (type == 'recover') {
+			setData({
+				title: 'Password updated successfuly.',
+				message: `Please keep your recovery key in a safe place, it will still be used to recover your account in case you forgot your password again.`,
+				btnText: 'Proceed to login page',
+				url: '/tab/login',
+			});
+		}
 	};
 
 	useEffect(() => {

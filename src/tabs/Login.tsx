@@ -114,7 +114,7 @@ export default function Login(): JSX.Element {
 								</button>
 							</section>
 						</form>
-						<Link to={'/tab/account-recouvery'}>
+						<Link to={'/tab/account-recovery'}>
 							<span className='links'>
 								Forgot password? Recover your account.
 							</span>

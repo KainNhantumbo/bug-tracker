@@ -58,7 +58,7 @@ export default function CreateAccount(): JSX.Element {
 				url: '/auth/register',
 				data: formData,
 			});
-			navigate(`/tab/message/account/${data.user_recouvery}`);
+			navigate(`/tab/message/account/${data.user_recovery}`);
 		} catch (err: any) {
 			console.log(err.response.data?.message);
 			feedback(setErrorMessage, err.response.data?.message, 5000);

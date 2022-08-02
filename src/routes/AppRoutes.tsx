@@ -12,7 +12,7 @@ export default function AppRoutes() {
 		<Routes>
 			<Route path='/' element={<Main />} />
 			<Route path='/tab/login' element={<Login />} />
-			<Route path='/tab/account-recouvery' element={<AccountRecovery />} />
+			<Route path='/tab/account-recovery' element={<AccountRecovery />} />
 			<Route path='/tab/message/:msg/:id' element={<Message />} />
 			<Route path='/tab/create-account' element={<CreateAccount />} />
 			<Route path='/tab/create-bug/:id' element={<CreateBug />} />
