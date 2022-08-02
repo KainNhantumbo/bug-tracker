@@ -3,28 +3,27 @@ import { LoginContainer as Container } from '../styles/login';
 import type { SubmitEvent, InputEvents } from '../types/form';
 import {
 	FaLock,
-	FaUser,
 	BiLogIn,
 	FaBug,
 	BiLockOpen,
 	FaEnvelope,
 } from 'react-icons/all';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
 import api from '../api/axios';
 import feedBack from '../utils/feedback';
 
 interface UserData {
-	user_name: string;
+	email: string;
 	password: string;
 }
 
 export default function Login(): JSX.Element {
 	const [formData, setFormData] = useState<UserData>({
-		user_name: '',
+		email: '',
 		password: '',
 	});
 	const [errorMessage, setErrorMessage] = useState('');
-	const navigate = useNavigate();
+	const navigate: NavigateFunction = useNavigate();
 
 	const handleChange = (e: InputEvents): void => {
 		setFormData((prevData) => ({
@@ -50,12 +49,12 @@ export default function Login(): JSX.Element {
 			});
 			localStorage.setItem(
 				'accessToken',
-				JSON.stringify({ token: user.token })
+				JSON.stringify({ token: user.token, user: user.username })
 			);
-			navigate('/admin/dashboard');
+			navigate('/');
 		} catch (err: any) {
-			console.log(err.message);
-			feedBack(setErrorMessage, err.response.data.message, 3000);
+			console.log(err.response.data?.message);
+			feedBack(setErrorMessage, err.response.data?.message, 3000);
 		}
 	};
 
