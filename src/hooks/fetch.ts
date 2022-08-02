@@ -12,7 +12,7 @@ type config = {
  * @param config object with connection method, url and data (optional)
  * @returns AxiosPromise<any>
  */
-const useConnect = (config: config): AxiosPromise<any> => {
+const useConnectAPI = (config: config): AxiosPromise<any> => {
 	const acessToken = JSON.parse(
 		localStorage.getItem('accessToken') || `{"token":""}`
 	);
@@ -25,4 +25,4 @@ const useConnect = (config: config): AxiosPromise<any> => {
 	});
 };
 
-export default useConnect;
+export default useConnectAPI;

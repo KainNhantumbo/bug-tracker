@@ -52,23 +52,16 @@ export default function CreateAccount(): JSX.Element {
 				3000
 			);
 
-		if (formData.password.length < 6)
-			return feedback(
-				setErrorMessage,
-				'Password must have at least 6 characters.',
-				3000
-			);
-
 		try {
-			await api({
+			const { data } = await api({
 				method: 'post',
 				url: '/auth/register',
 				data: formData,
 			});
-			navigate('/tab/login');
+			navigate(`/tab/message/account/${data.user_recouvery}`);
 		} catch (err: any) {
-			console.log(err.message);
-			feedback(setErrorMessage, err.response.data.message, 3000);
+			console.log(err.response.data?.message);
+			feedback(setErrorMessage, err.response.data?.message, 5000);
 		}
 	};
 

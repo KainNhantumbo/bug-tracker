@@ -99,7 +99,7 @@ export const LoginContainer = styled.div`
 				}
 			}
 			.links {
-				color: rgb(${({ theme }) => theme.alternative_b});
+				color: rgb(${({ theme }) => theme.font});
 				font-size: 0.9rem;
 				font-weight: 500;
 

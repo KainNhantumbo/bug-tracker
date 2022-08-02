@@ -3,7 +3,6 @@ import { MessageContainer as Container } from '../styles/message';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, NavigateFunction } from 'react-router-dom';
 import { HiArrowCircleRight } from 'react-icons/hi';
-import { useAppContext } from '../context/AppContext';
 
 interface PageProps {
 	message: string;
@@ -14,7 +13,6 @@ interface PageProps {
 }
 
 export default function Message(): JSX.Element {
-	const { userRecouveryKey } = useAppContext();
 	const [data, setData] = useState<PageProps>({
 		title: '',
 		message: '',
@@ -23,15 +21,15 @@ export default function Message(): JSX.Element {
 	});
 
 	const navigate: NavigateFunction = useNavigate();
-	const { msg } = useParams();
+	const { msg, id } = useParams();
 
 	const loadPage = (type: string | undefined): void => {
 		if (type == 'account') {
 			setData({
 				title: 'Congratulations! Account created successfuly.',
-				message: `Please keep the following code a in a safe place, it will be used to recover your account in case that you forgot your password.`,
+				message: `Please keep the following code a in a safe place, it will be used to recover your account in case if you forgot your password.`,
 				btnText: 'Proceed to login page',
-				code: `449ae972-9c8c-415a-bc51-0fb3d7907b0b`,
+				code: id,
 				url: '/tab/login',
 			});
 		}
@@ -40,6 +38,7 @@ export default function Message(): JSX.Element {
 	useEffect(() => {
 		loadPage(msg);
 	}, []);
+
 	return (
 		<Container>
 			<header className='upper-container'>
@@ -55,7 +54,7 @@ export default function Message(): JSX.Element {
 					<p>{data.message}</p>
 					{data.code && (
 						<h3>
-							Recouvery account key: <i>{data.code}</i>
+							Recouvery account key:&nbsp;&nbsp;&nbsp; <i>{data.code}</i>
 						</h3>
 					)}
 					<button onClick={() => navigate(data.url)}>

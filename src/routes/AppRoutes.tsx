@@ -5,13 +5,15 @@ import CreateBug from '../tabs/CreateBug';
 import Login from '../tabs/Login';
 import CreateAccount from '../tabs/CreateAccount';
 import Message from '../tabs/Message';
+import AccountRecouvery from '../tabs/AccountRecouvery';
 
 export default function AppRoutes() {
 	return (
 		<Routes>
 			<Route path='/' element={<Main />} />
 			<Route path='/tab/login' element={<Login />} />
-			<Route path='/tab/message/:msg' element={<Message />} />
+			<Route path='/tab/account-recouvery' element={<AccountRecouvery />} />
+			<Route path='/tab/message/:msg/:id' element={<Message />} />
 			<Route path='/tab/create-account' element={<CreateAccount />} />
 			<Route path='/tab/create-bug/:id' element={<CreateBug />} />
 			<Route path='/tab/adjustments' element={<Adjustments />} />

@@ -62,8 +62,12 @@ export const MessageContainer = styled.div`
 					color: rgb(${({ theme }) => theme.alternative_a});
 					font-weight: 600;
 					background: rgba(${({ theme }) => theme.primary}, 0.2);
-					padding: 2px ;
+					padding: 5px 8px;
 					border-radius: 5px;
+					@media screen and (max-width: 455px) {
+						display: block;
+						width: fit-content;
+					}
 				}
 			}
 
