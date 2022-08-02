@@ -16,8 +16,10 @@ import {
 	VscIssueDraft,
 } from 'react-icons/all';
 import ThemeDialogBox from '../components/ThemeDialogBox';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate, NavigateFunction } from 'react-router-dom';
 import { InputEvents, SubmitEvent } from '../types/form';
+import feedBack from '../utils/feedback';
+import useConnectAPI from '../hooks/fetch';
 
 interface DataProps {
 	title: string;
@@ -31,6 +33,7 @@ interface DataProps {
 }
 
 export default function CreateBug(): JSX.Element {
+	const navigate: NavigateFunction = useNavigate();
 	const [errorMessage, setErrorMessage] = useState('');
 	const [issueData, setIssueData] = useState<DataProps>({
 		title: '',
@@ -56,6 +59,13 @@ export default function CreateBug(): JSX.Element {
 
 	const handleSubmit = async (e: SubmitEvent): Promise<void> => {
 		e.preventDefault();
+		try {
+			await useConnectAPI({ method: 'post', url: '/bugs', data: issueData });
+			navigate('/');
+		} catch (err: any) {
+			console.log(err.response.data?.message);
+			feedBack(setErrorMessage, err.response.data?.message, 5000);
+		}
 	};
 
 	useEffect(() => {}, []);
@@ -197,9 +207,8 @@ export default function CreateBug(): JSX.Element {
 								<textarea
 									name='notes'
 									maxLength={1536}
-									placeholder='Type some comments here.'
+									placeholder='Type some notes or comments here.'
 									value={issueData.notes}
-									required
 									onChange={handleChange}
 									rows={5}
 								/>

@@ -40,7 +40,14 @@ export default function Main(): JSX.Element {
 	]);
 
 	// core functions
-	const getBugsData = async (): Promise<void> => {};
+	const getBugsData = async (): Promise<void> => {
+		try {
+			
+		} catch (err: any) {
+			console.log(err.response.data?.message);
+			feedBack(setErrorMessage, err.response.data?.message, 5000);
+		}
+	};
 	const deleteBug = async (): Promise<void> => {};
 	const updateBug = async (): Promise<void> => {};
 
