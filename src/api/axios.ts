@@ -8,7 +8,8 @@ api.defaults.headers.common['Accept'] = 'application/json';
 api.defaults.headers.common['Content-Type'] = 'application/json';
 // interceptors
 api.interceptors.response.use(undefined, (err) => {
-	if (err.response?.status == 403) {
+	const status = err.response?.status;
+	if (status == 403 || status == 401) {
 		location.assign('/tab/login');
 	}
 });

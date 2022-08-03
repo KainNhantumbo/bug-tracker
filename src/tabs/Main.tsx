@@ -11,6 +11,7 @@ import useConnectAPI from '../hooks/fetch';
 import { HiDotsVertical } from 'react-icons/hi';
 import moment from 'moment';
 import { useDate } from '../utils/date-functions';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 interface Data {
 	createdAt: string;
@@ -37,6 +38,7 @@ export default function Main(): JSX.Element {
 	const [bugsData, setBugsData] = useState<Data[]>([]);
 
 	// core functions
+	const navigate: NavigateFunction = useNavigate();
 	const getBugsData = async (): Promise<void> => {
 		try {
 			const { data } = await useConnectAPI({ method: 'get', url: '/bugs' });
@@ -139,7 +141,17 @@ export default function Main(): JSX.Element {
 						</section>
 						{bugsData.length > 0 &&
 							bugsData.map((bug) => (
-								<section className='bug' key={bug._id}>
+								<section
+									className='bug'
+									key={bug._id}
+									onClick={(e) => {
+										const classList = (e as any).target.classList.contains(
+											'action-dots'
+										);
+										if (!classList)
+											return navigate(`/tab/create-bug/${bug._id}`);
+									}}
+								>
 									<div className='title'>{bug.title}</div>
 									<div className='reporter'>{bug.author}</div>
 									<div className='status'>{bug.status}</div>

@@ -76,6 +76,11 @@ export const MainContainer = styled.main`
 					top: calc(50% - 10px);
 					right: 5px;
 					cursor: pointer;
+					z-index: 200;
+
+					svg {
+						pointer-events: none;
+					}
 				}
 			}
 		}

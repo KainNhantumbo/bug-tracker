@@ -55,11 +55,15 @@ export default function CreateBug(): JSX.Element {
 	};
 
 	const { id } = useParams();
-	const isUpdate = Number(id);
+	const isUpdate = id !== ':id';
 
 	const handleSubmit = async (e: SubmitEvent): Promise<void> => {
 		e.preventDefault();
+
 		try {
+			// if (isUpdate) {
+			// 	await useConnectAPI({ method: '', url: '/bugs', data: issueData });
+			// }
 			await useConnectAPI({ method: 'post', url: '/bugs', data: issueData });
 			navigate('/');
 		} catch (err: any) {
@@ -76,14 +80,15 @@ export default function CreateBug(): JSX.Element {
 				method: 'get',
 				url: `/bugs/${id}`,
 			});
-			// setIssueData(data)
-			console.log(data)
+			setIssueData(data.bug);
 		} catch (err) {
 			console.error(err);
 		}
 	};
 
-	useEffect(() => {}, []);
+	useEffect(() => {
+		getBugData();
+	}, []);
 
 	return (
 		<>
