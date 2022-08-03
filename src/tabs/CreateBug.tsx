@@ -149,6 +149,7 @@ export default function CreateBug(): JSX.Element {
 										name='author'
 										value={issueData.author}
 										maxLength={64}
+										required
 										onChange={handleChange}
 									/>
 								</div>
@@ -210,7 +211,7 @@ export default function CreateBug(): JSX.Element {
 									placeholder='Type some notes or comments here.'
 									value={issueData.notes}
 									onChange={handleChange}
-									rows={5}
+									rows={7}
 								/>
 							</div>
 

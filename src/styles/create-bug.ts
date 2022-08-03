@@ -1,15 +1,14 @@
 import styled from 'styled-components';
-import { BaseButton, BaseButton_Danger } from './generics/buttons';
+import { BaseButton_Danger } from './generics/buttons';
 import { StyledInputs, StyledLabels } from './generics/form';
 
 export const CreateBugContainer = styled.main`
-	position: relative;
 	width: 100vw;
+	position: relative;
 	top: 95px;
 	display: grid;
 	justify-content: center;
-	align-items: center;
-
+	
 	.wrapper {
 		width: 800px;
 		margin-bottom: 20px;

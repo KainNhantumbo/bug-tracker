@@ -7,17 +7,22 @@ import SearchBox from '../components/SearchBox';
 import { SubmitEvent } from '../types/form';
 import SortBox from '../components/SortBox';
 import FilterBox from '../components/FilterBox';
+import useConnectAPI from '../hooks/fetch';
+import { HiDotsVertical } from 'react-icons/hi';
+import moment from 'moment';
 
 interface Data {
-	name: string;
 	createdAt: string;
 	updatedAt: string;
+	title: string;
+	feature: string;
+	priority: string;
+	description: string;
 	author: string;
 	status: string;
-	priority: string;
-	// description: string
-	// email: string
-	// type: string
+	associated: string;
+	notes: string;
+	_id: string;
 }
 
 export default function Main(): JSX.Element {
@@ -28,24 +33,16 @@ export default function Main(): JSX.Element {
 
 	// core states
 	const [searchValue, setSearchValue] = useState('');
-	const [bugsData, setBugsData] = useState<Data[]>([
-		{
-			name: '',
-			createdAt: '',
-			updatedAt: '',
-			author: '',
-			status: '',
-			priority: '',
-		},
-	]);
+	const [bugsData, setBugsData] = useState<Data[]>([]);
 
 	// core functions
 	const getBugsData = async (): Promise<void> => {
 		try {
-			
+			const { data } = await useConnectAPI({ method: 'get', url: '/bugs' });
+			setBugsData(data.bugs);
+			console.log(data.bugs);
 		} catch (err: any) {
 			console.log(err.response.data?.message);
-			feedBack(setErrorMessage, err.response.data?.message, 5000);
 		}
 	};
 	const deleteBug = async (): Promise<void> => {};
@@ -80,6 +77,12 @@ export default function Main(): JSX.Element {
 	};
 
 	useEffect(() => {
+		getBugsData();
+		window.scroll({
+			top: 0,
+			left: 0,
+			behavior: 'smooth',
+		});
 		// cleanup function to prevent memory leaks
 		return () => {
 			setIsSearchActive(false);
@@ -110,7 +113,47 @@ export default function Main(): JSX.Element {
 			/>
 			<SortBox fn={handleSort} quit={sortBoxController} active={isSortActive} />
 
-			<Container></Container>
+			<Container>
+				<article className='body'>
+					<section className='bugs-wrapper'>
+						<section
+							className='menu'
+							style={{ display: bugsData.length == 0 ? 'none' : 'grid' }}
+						>
+							<div className='title'>
+								<span>Title</span>
+							</div>
+							<div className='reporter'>
+								<span>Reporter</span>
+							</div>
+							<div>
+								<span>Status</span>
+							</div>
+							<div>
+								<span>Priority</span>
+							</div>
+							<div>
+								<span>Created</span>
+							</div>
+						</section>
+						{bugsData.length > 0 &&
+							bugsData.map((bug) => (
+								<section className='bug' key={bug._id}>
+									<div className='title'>{bug.title}</div>
+									<div className='reporter'>{bug.author}</div>
+									<div className='status'>{bug.status}</div>
+									<div className='priority'>{bug.priority}</div>
+									<div className='created'>
+										{moment(bug.createdAt).calendar('LLLL')}
+									</div>
+									<div className='action-dots' id={bug._id}>
+										<HiDotsVertical />
+									</div>
+								</section>
+							))}
+					</section>
+				</article>
+			</Container>
 		</>
 	);
 }
