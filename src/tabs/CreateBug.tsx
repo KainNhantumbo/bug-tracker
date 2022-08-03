@@ -61,9 +61,15 @@ export default function CreateBug(): JSX.Element {
 		e.preventDefault();
 
 		try {
-			// if (isUpdate) {
-			// 	await useConnectAPI({ method: '', url: '/bugs', data: issueData });
-			// }
+			if (isUpdate) {
+				await useConnectAPI({
+					method: 'patch',
+					url: `/bugs/${id}`,
+					data: issueData,
+				});
+				navigate('/');
+				return;
+			}
 			await useConnectAPI({ method: 'post', url: '/bugs', data: issueData });
 			navigate('/');
 		} catch (err: any) {
@@ -125,14 +131,14 @@ export default function CreateBug(): JSX.Element {
 									</label>
 									<select
 										name='status'
-										defaultValue={issueData.status}
+										value={issueData.status}
 										onChange={handleChange}
 										defaultChecked={true}
 									>
 										<option value='Unknown'>Unknown</option>
 										<option value='In progress'>In progress</option>
 										<option value='Pending'>Pending</option>
-										<option value='Review'>In review</option>
+										<option value='In review'>In review</option>
 										<option value='Completed'>Completed</option>
 										<option value='Solved'>Solved</option>
 									</select>
@@ -145,7 +151,7 @@ export default function CreateBug(): JSX.Element {
 									</label>
 									<select
 										name='priority'
-										defaultValue={issueData.priority}
+										value={issueData.priority}
 										onChange={handleChange}
 										defaultChecked={true}
 									>
