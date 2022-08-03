@@ -68,6 +68,21 @@ export default function CreateBug(): JSX.Element {
 		}
 	};
 
+	// gets bug data to fill the fields
+	const getBugData = async (): Promise<void> => {
+		if (!isUpdate) return;
+		try {
+			const { data } = await useConnectAPI({
+				method: 'get',
+				url: `/bugs/${id}`,
+			});
+			// setIssueData(data)
+			console.log(data)
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
 	useEffect(() => {}, []);
 
 	return (
@@ -109,12 +124,12 @@ export default function CreateBug(): JSX.Element {
 										onChange={handleChange}
 										defaultChecked={true}
 									>
-										<option value='progress'>In progress</option>
-										<option value='unknown'>Unknown</option>
-										<option value='pending'>Pending</option>
-										<option value='review'>In review</option>
-										<option value='completed'>Completed</option>
-										<option value='solved'>Solved</option>
+										<option value='Unknown'>Unknown</option>
+										<option value='In progress'>In progress</option>
+										<option value='Pending'>Pending</option>
+										<option value='Review'>In review</option>
+										<option value='Completed'>Completed</option>
+										<option value='Solved'>Solved</option>
 									</select>
 								</div>
 
@@ -129,11 +144,11 @@ export default function CreateBug(): JSX.Element {
 										onChange={handleChange}
 										defaultChecked={true}
 									>
-										<option value='low'>Low</option>
-										<option value='medium'>Medium</option>
-										<option value='high'>High</option>
-										<option value='critical'>Critical</option>
-										<option value='severe'>Severe</option>
+										<option value='Low'>Low</option>
+										<option value='Medium'>Medium</option>
+										<option value='High'>High</option>
+										<option value='Critical'>Critical</option>
+										<option value='Severe'>Severe</option>
 									</select>
 								</div>
 							</section>

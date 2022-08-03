@@ -10,6 +10,7 @@ import FilterBox from '../components/FilterBox';
 import useConnectAPI from '../hooks/fetch';
 import { HiDotsVertical } from 'react-icons/hi';
 import moment from 'moment';
+import { useDate } from '../utils/date-functions';
 
 interface Data {
 	createdAt: string;
@@ -40,9 +41,8 @@ export default function Main(): JSX.Element {
 		try {
 			const { data } = await useConnectAPI({ method: 'get', url: '/bugs' });
 			setBugsData(data.bugs);
-			console.log(data.bugs);
 		} catch (err: any) {
-			console.log(err.response.data?.message);
+			console.log(err.response?.data?.message);
 		}
 	};
 	const deleteBug = async (): Promise<void> => {};
@@ -78,6 +78,7 @@ export default function Main(): JSX.Element {
 
 	useEffect(() => {
 		getBugsData();
+		// corrects the windows Yaxis position
 		window.scroll({
 			top: 0,
 			left: 0,
@@ -143,9 +144,7 @@ export default function Main(): JSX.Element {
 									<div className='reporter'>{bug.author}</div>
 									<div className='status'>{bug.status}</div>
 									<div className='priority'>{bug.priority}</div>
-									<div className='created'>
-										{moment(bug.createdAt).calendar('LLLL')}
-									</div>
+									<div className='created'>{useDate(bug.createdAt, 'L')}</div>
 									<div className='action-dots' id={bug._id}>
 										<HiDotsVertical />
 									</div>
