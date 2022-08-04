@@ -1,19 +1,17 @@
+import { HiBackspace, BiTrashAlt } from 'react-icons/all';
+import { MainContainer as Container } from '../styles/main';
 import { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import ThemeDialogBox from '../components/ThemeDialogBox';
 import ToolBar from '../components/ToolBar';
-import { MainContainer as Container } from '../styles/main';
 import SearchBox from '../components/SearchBox';
 import { SubmitEvent } from '../types/form';
 import SortBox from '../components/SortBox';
 import FilterBox from '../components/FilterBox';
 import useConnectAPI from '../hooks/fetch';
-import { HiBackspace, HiDotsVertical } from 'react-icons/hi';
-import moment from 'moment';
 import { useDate } from '../utils/date-functions';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import PromptDialogBox from '../components/PromptDialogBox';
-import { BiTrashAlt } from 'react-icons/bi';
 
 interface Data {
 	createdAt: string;

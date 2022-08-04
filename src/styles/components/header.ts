@@ -44,12 +44,22 @@ export const HeaderContainer = styled.header`
 
 		h5 {
 			align-self: center;
-			font-size: .9rem;
+			font-size: 0.9rem;
 			font-weight: 500;
 			color: rgb(${({ theme }) => theme.font});
+			position: relative;
 
-			@media screen and (max-width: 480px) {
+			@media screen and (max-width: 550px) {
 				display: none;
+			}
+
+			svg {
+				width: 18px;
+				height: 18px;
+				position: absolute;
+				top: -2px;
+				left: -20px;
+				color: rgb(${({ theme }) => theme.alternative_b});
 			}
 		}
 

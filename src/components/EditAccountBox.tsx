@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
 	FaEnvelope,
 	FaLock,
@@ -11,11 +11,14 @@ import {
 } from 'react-icons/all';
 import { EditAccountContainer as Container } from '../styles/components/edit-account-box';
 import { motion, AnimatePresence } from 'framer-motion';
-import { InputEvents } from '../types/form';
+import { InputEvents, SubmitEvent } from '../types/form';
+import useConnectAPI from '../hooks/fetch';
+import feedBack from '../utils/feedback';
 
 interface Props {
 	active: boolean;
 	quit: () => void;
+	reload: () => Promise<void>;
 }
 
 interface UserData {
@@ -28,7 +31,7 @@ interface UserData {
 }
 
 function EditAccountBox(props: Props): JSX.Element {
-	const [errorMessage, setErrorMessage] = useState('');
+	const [message, setMessage] = useState('');
 	const [accountData, setAccountData] = useState<UserData>({
 		password: '',
 		confirm_password: '',
@@ -45,7 +48,53 @@ function EditAccountBox(props: Props): JSX.Element {
 		}));
 	};
 
-	const handleUpdate = async (): Promise<void> => {};
+	const handleUpdate = async (): Promise<void> => {
+		const { password, confirm_password } = accountData;
+
+		if (password.length > 0 && password.length < 6)
+			return feedBack(
+				setMessage,
+				'Password must have at least 6 characters.',
+				5000
+			);
+
+		if (password !== confirm_password)
+			return feedBack(setMessage, 'Passwords must match each other.', 5000);
+
+		try {
+			const { data } = await useConnectAPI({
+				method: 'patch',
+				url: `/users`,
+				data: accountData,
+			});
+			feedBack(setMessage, data.message, 5000);
+			// reloads data on page
+			setAccountData((prevData) => ({
+				...prevData,
+				password: '',
+				confirm_password: '',
+			}));
+			props.reload();
+		} catch (err: any) {
+			feedBack(setMessage, err.response?.data?.message, 5000);
+			console.error(err.response?.data?.message);
+			console.error(err);
+		}
+	};
+
+	const getInitialData = async (): Promise<void> => {
+		try {
+			const { data } = await useConnectAPI({ method: 'get', url: '/users' });
+			setAccountData({ ...data.user_data, password: '', confirm_password: '' });
+		} catch (err: any) {
+			console.error(err.response?.data?.message);
+			console.error(err);
+		}
+	};
+
+	useEffect(() => {
+		getInitialData();
+	}, []);
 
 	return (
 		<AnimatePresence>
@@ -79,7 +128,7 @@ function EditAccountBox(props: Props): JSX.Element {
 								</p>
 
 								<section className='content-container'>
-									<form onSubmit={handleUpdate}>
+									<form onSubmit={(e) => e.preventDefault()}>
 										<section className='form-section'>
 											<div className='form-element'>
 												<label>
@@ -178,19 +227,19 @@ function EditAccountBox(props: Props): JSX.Element {
 											</div>
 										</section>
 
-										<span className='errorMessage'>{errorMessage}</span>
+										<span className='errorMessage'>{message}</span>
+										<div className='prompt-actions'>
+											<button className='prompt-cancel' onClick={props.quit}>
+												<HiArrowLeft />
+												<span>Cancel</span>
+											</button>
+											<button className='prompt-accept' onClick={handleUpdate}>
+												<HiCheck />
+												<span>Update</span>
+											</button>
+										</div>
 									</form>
 								</section>
-							</div>
-							<div className='prompt-actions'>
-								<button className='prompt-cancel' onClick={props.quit}>
-									<HiArrowLeft />
-									<span>Cancel</span>
-								</button>
-								<button className='prompt-accept' type={'submit'}>
-									<HiCheck />
-									<span>Update</span>
-								</button>
 							</div>
 						</div>
 					</motion.section>

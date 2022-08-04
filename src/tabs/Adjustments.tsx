@@ -11,6 +11,7 @@ import {
 	GiMite,
 	HiAdjustments,
 	HiCode,
+	HiStar,
 	SiAboutdotme,
 } from 'react-icons/all';
 import Header from '../components/Header';
@@ -20,19 +21,23 @@ import { AdjustmentsContainer as Container } from '../styles/adjustments';
 import { useState, useEffect } from 'react';
 import PromptDialogBox from '../components/PromptDialogBox';
 import EditAccountBox from '../components/EditAccountBox';
+import useConnectAPI from '../hooks/fetch';
+import { useDate } from '../utils/date-functions';
 
 interface UserData {
-	name: string;
-	surname: string;
+	first_name: string;
+	last_name: string;
 	email: string;
+	createdAt: string;
 }
 
 export default function Adjustments(): JSX.Element {
 	const [isModalActive, setisModalActive] = useState(false);
 	const [userData, setUserData] = useState<UserData>({
-		name: 'John',
-		surname: 'Doe',
-		email: 'basberry@mail.co.nz',
+		first_name: '',
+		last_name: '',
+		email: '',
+		createdAt: '',
 	});
 
 	// controls the state of the prompt modal
@@ -47,14 +52,26 @@ export default function Adjustments(): JSX.Element {
 	const editBoxController = (): void =>
 		setIsEditAccountActive((prevState) => !prevState);
 
-	useEffect(() => {}, []);
+	const getUserDetails = async (): Promise<void> => {
+		try {
+			const { data } = await useConnectAPI({ method: 'get', url: '/users' });
+			setUserData({ ...data.user_data });
+		} catch (err: any) {
+			console.error(err.response?.data?.message);
+			console.error(err);
+		}
+	};
+
+	useEffect(() => {
+		getUserDetails();
+	}, []);
 
 	return (
 		<>
 			<Header />
 			<ThemeDialogBox />
 			<NavigationBar locationName='Adjustments' icon={<HiAdjustments />} />
-			<EditAccountBox active={isEditAccountActive} quit={editBoxController} />
+			<EditAccountBox active={isEditAccountActive} reload={getUserDetails} quit={editBoxController} />
 
 			<PromptDialogBox
 				active={isModalActive}
@@ -86,7 +103,7 @@ export default function Adjustments(): JSX.Element {
 										<span>Name: </span>
 									</h3>
 									<span title='User name'>
-										{userData.name + ' ' + userData.surname}
+										{userData.first_name + ' ' + userData.last_name}
 									</span>
 								</div>
 								<div className='user-info'>
@@ -95,6 +112,15 @@ export default function Adjustments(): JSX.Element {
 										<span>E-mail: </span>
 									</h3>
 									<span title='User e-mail'>{userData.email}</span>
+								</div>
+								<div className='user-info'>
+									<h3>
+										<HiStar />
+										<span>Active since: </span>
+									</h3>
+									<span title='Active since'>
+										{useDate(userData.createdAt, 'LL')}
+									</span>
 								</div>
 
 								<section className='profile-actions'>

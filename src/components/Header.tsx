@@ -1,5 +1,5 @@
 import { HeaderContainer as Container } from '../styles/components/header';
-import { FaBug, HiAdjustments, HiColorSwatch } from 'react-icons/all';
+import { FaBug, HiAdjustments, HiColorSwatch, HiSparkles } from 'react-icons/all';
 import { useThemeContext } from '../context/ThemeContext';
 import { motion } from 'framer-motion';
 import { NavigateFunction, useNavigate, useLocation } from 'react-router-dom';
@@ -34,6 +34,7 @@ export default function Header() {
 			</section>
 			<section className='side-back'>
 				<h5>
+					<HiSparkles/>
 					<span>Hi {username}!</span>
 				</h5>
 				<div className='actions'>
