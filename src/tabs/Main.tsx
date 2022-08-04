@@ -70,14 +70,6 @@ export default function Main(): JSX.Element {
 
 	const handleFilter = async (option: string): Promise<void> => {};
 
-	// picks user name fro localstorage
-	const retrieveUser = (): void => {
-		const { user } = JSON.parse(
-			localStorage.getItem('accessToken') || `{"user":"Unknown"}`
-		);
-		return user;
-	};
-
 	useEffect(() => {
 		getBugsData();
 		// corrects the windows Yaxis position

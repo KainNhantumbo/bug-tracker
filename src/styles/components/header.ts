@@ -42,6 +42,17 @@ export const HeaderContainer = styled.header`
 		flex-direction: row;
 		gap: 10px;
 
+		h5 {
+			align-self: center;
+			font-size: .9rem;
+			font-weight: 500;
+			color: rgb(${({ theme }) => theme.font});
+
+			@media screen and (max-width: 480px) {
+				display: none;
+			}
+		}
+
 		.actions {
 			display: flex;
 			flex-direction: row;
