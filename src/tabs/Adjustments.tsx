@@ -23,28 +23,40 @@ import PromptDialogBox from '../components/PromptDialogBox';
 import EditAccountBox from '../components/EditAccountBox';
 import useConnectAPI from '../hooks/fetch';
 import { useDate } from '../utils/date-functions';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 interface UserData {
 	first_name: string;
 	last_name: string;
 	email: string;
 	createdAt: string;
+	_id: string;
 }
 
 export default function Adjustments(): JSX.Element {
+	const navigate: NavigateFunction = useNavigate();
 	const [isModalActive, setisModalActive] = useState(false);
 	const [userData, setUserData] = useState<UserData>({
 		first_name: '',
 		last_name: '',
 		email: '',
 		createdAt: '',
+		_id: '',
 	});
 
 	// controls the state of the prompt modal
 	const modalController = (): void =>
 		setisModalActive((prevState) => !prevState);
 
-	const deleteUser = async (): Promise<void> => {};
+	const deleteUser = async (): Promise<void> => {
+		try {
+			await useConnectAPI({ method: 'delete', url: `/users/${userData._id}` });
+			navigate('/tab/login');
+		} catch (err: any) {
+			console.error(err.response?.data?.message);
+			console.error(err);
+		}
+	};
 
 	// edit account functions
 	const [isEditAccountActive, setIsEditAccountActive] = useState(false);
@@ -71,7 +83,11 @@ export default function Adjustments(): JSX.Element {
 			<Header />
 			<ThemeDialogBox />
 			<NavigationBar locationName='Adjustments' icon={<HiAdjustments />} />
-			<EditAccountBox active={isEditAccountActive} reload={getUserDetails} quit={editBoxController} />
+			<EditAccountBox
+				active={isEditAccountActive}
+				reload={getUserDetails}
+				quit={editBoxController}
+			/>
 
 			<PromptDialogBox
 				active={isModalActive}

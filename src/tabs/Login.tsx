@@ -40,7 +40,6 @@ export default function Login(): JSX.Element {
 				'Password must have at least 6 characters.',
 				3000
 			);
-
 		try {
 			const { data: user } = await api({
 				method: 'post',
@@ -53,8 +52,8 @@ export default function Login(): JSX.Element {
 			);
 			navigate('/');
 		} catch (err: any) {
-			console.log(err.response.data?.message);
-			feedBack(setErrorMessage, err.response.data?.message, 3000);
+			console.log(err.response?.data?.message);
+			feedBack(setErrorMessage, err.response?.data?.message, 5000);
 		}
 	};
 
