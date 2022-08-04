@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { BaseButton_Danger } from './generics/buttons';
+import { BaseButton, BaseButton_Danger } from './generics/buttons';
 import { StyledInputs, StyledLabels } from './generics/form';
 
 export const CreateBugContainer = styled.main`
@@ -8,7 +8,7 @@ export const CreateBugContainer = styled.main`
 	top: 95px;
 	display: grid;
 	justify-content: center;
-	
+
 	.wrapper {
 		width: 800px;
 		margin-bottom: 20px;
@@ -74,8 +74,19 @@ export const CreateBugContainer = styled.main`
 				font-size: 0.9rem;
 			}
 
-			button {
-				${BaseButton_Danger}
+			.actions {
+				width: 100%;
+				display: flex;
+				justify-content: flex-start;
+				gap: 20px;
+				flex-flow: row wrap;
+				
+				.discard {
+					${BaseButton}
+				}
+				.submit {
+					${BaseButton_Danger}
+				}
 			}
 		}
 	}

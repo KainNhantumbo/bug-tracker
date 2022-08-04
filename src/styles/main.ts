@@ -24,13 +24,12 @@ export const MainContainer = styled.main`
 			margin: 0 auto;
 			width: 100%;
 
-			padding: 10px;
+			padding: 10px 0;
 			max-width: 1000px;
 
 			.menu {
 				width: 100%;
 				max-width: 1000px;
-
 				color: rgb(${({ theme }) => theme.primary});
 				font-size: 0.9rem;
 				font-weight: 600;
@@ -38,12 +37,13 @@ export const MainContainer = styled.main`
 				position: fixed;
 				top: 95px;
 				left: calc(50% - 500px);
-				z-index: 4000;
+				z-index: 1000;
 				background: rgb(${({ theme }) => theme.foreground});
 			}
 
 			.bug,
 			.menu {
+				width: 100%;
 				display: grid;
 				grid-template-columns: 40% 20% repeat(3, 100px);
 				align-items: center;
@@ -70,15 +70,26 @@ export const MainContainer = styled.main`
 				}
 
 				.action-dots {
-					width: 20px;
-					height: 20px;
+					width: 30px;
+					height: 30px;
+					padding: 5px;
+					border-radius: 50%;
 					position: absolute;
-					top: calc(50% - 10px);
+					display: grid;
+					place-items: center;
+					place-content: center;
+					top: calc(50% - 15px);
 					right: 5px;
 					cursor: pointer;
 					z-index: 200;
 
+					:hover {
+						background: rgba(${({ theme }) => theme.font}, 0.2);
+					}
+
 					svg {
+						width: 25px;
+						height: 25px;
 						pointer-events: none;
 					}
 				}

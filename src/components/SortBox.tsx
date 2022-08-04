@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { BiSortAlt2, FaSort, FiX } from 'react-icons/all';
+import { BiSortAlt2, FiX, HiSelector } from 'react-icons/all';
 import { SortBoxContainer as Container } from '../styles/components/sort-box';
 interface Props {
 	active: boolean;
@@ -60,7 +60,7 @@ export default function SortBox(props: Props): JSX.Element {
 											props.fn(option.code);
 										}}
 									>
-										<FaSort />
+										<HiSelector />
 										<span>{option.name}</span>
 									</motion.div>
 								))}

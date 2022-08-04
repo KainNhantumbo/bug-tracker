@@ -4,12 +4,15 @@ import Header from '../components/Header';
 import NavigationBar from '../components/NavigationBar';
 import {
 	HiAnnotation,
+	HiBan,
 	HiChartBar,
 	HiCheck,
 	HiDocumentDuplicate,
 	HiDotsHorizontal,
 	HiFlag,
 	HiHashtag,
+	HiPencil,
+	HiPuzzle,
 	HiSave,
 	HiStatusOnline,
 	HiUser,
@@ -158,8 +161,6 @@ export default function CreateBug(): JSX.Element {
 										<option value='Low'>Low</option>
 										<option value='Medium'>Medium</option>
 										<option value='High'>High</option>
-										<option value='Critical'>Critical</option>
-										<option value='Severe'>Severe</option>
 									</select>
 								</div>
 							</section>
@@ -181,7 +182,7 @@ export default function CreateBug(): JSX.Element {
 								</div>
 								<div className='form-element'>
 									<label>
-										<HiDocumentDuplicate />
+										<HiPuzzle />
 										<span>Associated to</span>
 									</label>
 									<input
@@ -228,7 +229,7 @@ export default function CreateBug(): JSX.Element {
 
 							<div className='form-element'>
 								<label>
-									<HiDotsHorizontal />
+									<HiPencil />
 									<span>Notes</span>
 								</label>
 								<textarea
@@ -243,19 +244,25 @@ export default function CreateBug(): JSX.Element {
 
 							<span className='errorMessage'>{errorMessage}</span>
 
-							<button className='submit' type='submit'>
-								{isUpdate ? (
-									<>
-										<HiCheck />
-										<span>Update</span>
-									</>
-								) : (
-									<>
-										<HiSave />
-										<span>Save</span>
-									</>
-								)}
-							</button>
+							<div className='actions'>
+								<button className='discard' onClick={() => navigate('/')}>
+									<HiBan />
+									<span>Discard</span>
+								</button>
+								<button className='submit' type='submit'>
+									{isUpdate ? (
+										<>
+											<HiCheck />
+											<span>Update</span>
+										</>
+									) : (
+										<>
+											<HiSave />
+											<span>Save</span>
+										</>
+									)}
+								</button>
+							</div>
 						</form>
 					</div>
 				</section>

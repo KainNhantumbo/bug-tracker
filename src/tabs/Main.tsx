@@ -8,7 +8,7 @@ import { SubmitEvent } from '../types/form';
 import SortBox from '../components/SortBox';
 import FilterBox from '../components/FilterBox';
 import useConnectAPI from '../hooks/fetch';
-import { HiDotsVertical } from 'react-icons/hi';
+import { HiBackspace, HiDotsVertical } from 'react-icons/hi';
 import moment from 'moment';
 import { useDate } from '../utils/date-functions';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
@@ -152,13 +152,17 @@ export default function Main(): JSX.Element {
 											return navigate(`/tab/create-bug/${bug._id}`);
 									}}
 								>
-									<div className='title'>{bug.title}</div>
-									<div className='reporter'>{bug.author}</div>
+									<div title={bug.title} className='title'>
+										{bug.title}
+									</div>
+									<div title={bug.author} className='reporter'>
+										{bug.author}
+									</div>
 									<div className='status'>{bug.status}</div>
 									<div className='priority'>{bug.priority}</div>
 									<div className='created'>{useDate(bug.createdAt, 'L')}</div>
-									<div className='action-dots' id={bug._id}>
-										<HiDotsVertical />
+									<div title='Delete bug' className='action-dots' id={bug._id}>
+										<HiBackspace />
 									</div>
 								</section>
 							))}
