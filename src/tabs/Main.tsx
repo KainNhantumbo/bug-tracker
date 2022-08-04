@@ -12,6 +12,8 @@ import { HiBackspace, HiDotsVertical } from 'react-icons/hi';
 import moment from 'moment';
 import { useDate } from '../utils/date-functions';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
+import PromptDialogBox from '../components/PromptDialogBox';
+import { BiTrashAlt } from 'react-icons/bi';
 
 interface Data {
 	createdAt: string;
@@ -32,10 +34,12 @@ export default function Main(): JSX.Element {
 	const [isSearchActive, setIsSearchActive] = useState(false);
 	const [isSortActive, setIsSortActive] = useState(false);
 	const [isFilterActive, setIsFilterActive] = useState(false);
+	const [isPromptActive, setIsPromptActive] = useState(false);
 
 	// core states
 	const [searchValue, setSearchValue] = useState('');
 	const [bugsData, setBugsData] = useState<Data[]>([]);
+	const [selectedBugID, setSelectedBugID] = useState<string>('');
 
 	// core functions
 	const navigate: NavigateFunction = useNavigate();
@@ -47,8 +51,22 @@ export default function Main(): JSX.Element {
 			console.log(err.response?.data?.message);
 		}
 	};
-	const deleteBug = async (): Promise<void> => {};
-	const updateBug = async (): Promise<void> => {};
+
+	// delete bug functions
+	const promptBoxController = (): void =>
+		setIsPromptActive((prevState) => !prevState);
+
+	const deleteBug = async (): Promise<void> => {
+		try {
+			await useConnectAPI({ method: 'delete', url: `/bugs/${selectedBugID}` });
+			promptBoxController();
+			getBugsData();
+			setSelectedBugID('');
+		} catch (err: any) {
+			console.error(err.response?.data?.message);
+			console.error(err);
+		}
+	};
 
 	// search functions
 	const searchBoxController = (): void =>
@@ -80,6 +98,7 @@ export default function Main(): JSX.Element {
 		});
 		// cleanup function to prevent memory leaks
 		return () => {
+			setIsPromptActive(false);
 			setIsSearchActive(false);
 			setIsFilterActive(false);
 			setIsSortActive(false);
@@ -107,6 +126,18 @@ export default function Main(): JSX.Element {
 				active={isFilterActive}
 			/>
 			<SortBox fn={handleSort} quit={sortBoxController} active={isSortActive} />
+
+			<PromptDialogBox
+				active={isPromptActive}
+				action={deleteBug}
+				prompt_title={'Delete Bug'}
+				prompt_message={
+					'This will permanently delete selected bug report. Are you sure?'
+				}
+				button_text={'Confirm'}
+				icon={<BiTrashAlt />}
+				quit={promptBoxController}
+			/>
 
 			<Container>
 				<article className='body'>
@@ -153,7 +184,15 @@ export default function Main(): JSX.Element {
 									<div className='status'>{bug.status}</div>
 									<div className='priority'>{bug.priority}</div>
 									<div className='created'>{useDate(bug.createdAt, 'L')}</div>
-									<div title='Delete bug' className='action-dots' id={bug._id}>
+									<div
+										title='Delete bug'
+										className='action-dots'
+										id={bug._id}
+										onClick={() => {
+											setSelectedBugID(bug._id);
+											promptBoxController();
+										}}
+									>
 										<HiBackspace />
 									</div>
 								</section>
