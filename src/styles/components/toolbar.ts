@@ -5,7 +5,7 @@ export const ToolbarContainer = styled.section`
 	position: fixed;
 	left: 0;
 	top: 60px;
-	padding: 5px 30px;
+	padding: 5px 10px;
 	width: 100%;
 	height: 35px;
 	background: rgb(${({ theme }) => theme.foreground});
@@ -13,10 +13,18 @@ export const ToolbarContainer = styled.section`
 	border-top: 1px solid rgba(${({ theme }) => theme.font}, 0.2);
 	z-index: 5000;
 	display: flex;
-	justify-content: flex-start;
+	justify-content: space-between;
 	flex-direction: row;
 	align-items: center;
 	gap: 30px;
+
+	.left-container , .right-container {
+		display: flex;
+		justify-content: flex-start;
+		flex-direction: row;
+		align-items: center;
+		gap: 20px;
+	}
 
 	.mono {
 		${Button_Mono_B}

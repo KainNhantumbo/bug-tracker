@@ -113,6 +113,7 @@ export default function Main(): JSX.Element {
 				openSearchBoxFn={searchBoxController}
 				openSortBoxFn={sortBoxController}
 				openFilterBoxFn={filterBoxController}
+				itemsCount={bugsData.length}
 			/>
 			<SearchBox
 				active={isSearchActive}
