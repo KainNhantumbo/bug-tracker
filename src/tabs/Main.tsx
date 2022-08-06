@@ -1,10 +1,10 @@
 import {
 	HiBackspace,
 	BiTrashAlt,
-	HiRewind,
 	CgDanger,
 	VscEmptyWindow,
 	FaCat,
+	FaParachuteBox,
 } from 'react-icons/all';
 import { MainContainer as Container } from '../styles/main';
 import { useState, useEffect } from 'react';
@@ -44,27 +44,28 @@ interface InfoProps {
 	buttonText?: string;
 	err?: string;
 	actionFn?: () => void;
+	setStateFn?: React.Dispatch<React.SetStateAction<InfoProps>>;
 }
 
 export default function Main(): JSX.Element {
-	// modal state control
+	// modal state control--------
 	const [isSearchActive, setIsSearchActive] = useState(false);
 	const [isSortActive, setIsSortActive] = useState(false);
 	const [isFilterActive, setIsFilterActive] = useState(false);
 	const [isPromptActive, setIsPromptActive] = useState(false);
-	// loading states
+	// loading states-------------
 	const [isLoading, setIsLoading] = useState(false);
 	const [info, setInfo] = useState<InfoProps>({
 		active: false,
 		message: '',
 		icon: <CgDanger />,
 	});
-	// core states
+	// core states----------------
 	const [searchValue, setSearchValue] = useState('');
 	const [bugsData, setBugsData] = useState<Data[]>([]);
 	const [selectedBugID, setSelectedBugID] = useState<string>('');
 
-	// core functions
+	// core functions---------------------------------------------
 	const navigate: NavigateFunction = useNavigate();
 
 	const getBugsData = async (): Promise<void> => {
@@ -98,7 +99,7 @@ export default function Main(): JSX.Element {
 		}
 	};
 
-	// delete bug functions
+	// delete bug functions-------------------------------------
 	const promptBoxController = (): void =>
 		setIsPromptActive((prevState) => !prevState);
 
@@ -114,9 +115,12 @@ export default function Main(): JSX.Element {
 		}
 	};
 
-	// search functions
-	const searchBoxController = (): void =>
+	// search functions-----------------------------------------
+	const searchBoxController = (): void => {
+		setIsFilterActive(false);
+		setIsSortActive(false);
 		setIsSearchActive((prevState) => !prevState);
+	};
 
 	const handleSearch = async (e: SubmitEvent): Promise<void> => {
 		e.preventDefault();
@@ -128,35 +132,66 @@ export default function Main(): JSX.Element {
 			});
 			setBugsData([...data.bugs]);
 			setIsLoading(false);
+			if (data.bugs.length < 1) {
+				setInfo({
+					message: 'No reports matched your search criteria.',
+					active: true,
+					icon: <FaParachuteBox />,
+					buttonText: 'Reload page',
+					actionFn: getBugsData,
+				});
+			}
 		} catch (err: any) {
+			setInfo({
+				message: 'Oops! Looks something went wrong.',
+				active: true,
+				actionFn: getBugsData,
+				icon: <FaCat />,
+				buttonText: 'Reload page',
+				err: err.response?.data?.message || err.code,
+			});
 			console.error(err.message);
 			console.error(err.response?.data?.message);
 		}
 	};
 
-	// sort functions
-	const sortBoxController = (): void =>
+	// sort functions--------------------------------------
+	const sortBoxController = (): void => {
+		setIsFilterActive(false);
+		setIsSearchActive(false);
 		setIsSortActive((prevState) => !prevState);
+	};
 
 	const handleSort = async (option: string): Promise<void> => {
 		try {
+			setIsLoading(true);
 			const { data } = await useConnectAPI({
 				method: 'get',
 				url: `/bugs?sort=${option}&fields=title,status,author,createdAt,priority`,
 			});
 			setBugsData([...data.bugs]);
+			setIsLoading(false);
 		} catch (err: any) {
+			setInfo({
+				message: 'Oops! Looks something went wrong.',
+				active: true,
+				actionFn: getBugsData,
+				icon: <FaCat />,
+				buttonText: 'Reload page',
+				err: err.response?.data?.message || err.code,
+			});
 			console.error(err.message);
 			console.error(err.response?.data?.message);
 		}
 	};
 
-	// filter functions
+	// filter functions--------------------------------------
 	const filterBoxController = (): void =>
 		setIsFilterActive((prevState) => !prevState);
 
 	const handleFilter = async (option: string): Promise<void> => {};
 
+	// ---------*--------------*-------------*------------//
 	useEffect(() => {
 		getBugsData();
 		// corrects the windows Yaxis position
@@ -171,6 +206,7 @@ export default function Main(): JSX.Element {
 			setIsSearchActive(false);
 			setIsFilterActive(false);
 			setIsSortActive(false);
+			setInfo((prevState) => ({ ...prevState, active: false }));
 		};
 	}, []);
 
@@ -204,6 +240,7 @@ export default function Main(): JSX.Element {
 				buttonText={info.buttonText}
 				actionFn={info.actionFn}
 				err={info.err}
+				setStateFn={setInfo}
 			/>
 
 			<SortBox fn={handleSort} quit={sortBoxController} active={isSortActive} />

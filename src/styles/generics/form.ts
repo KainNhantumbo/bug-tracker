@@ -39,7 +39,7 @@ export const StyledInputs = css`
 			border: 1px solid rgba(${({ theme }) => theme.accent}, 0.3);
 		}
 		::placeholder {
-			color: rgb(${({ theme }) => theme.font});
+			color: rgba(${({ theme }) => theme.font}, 0.6);
 			font-size: 0.9rem;
 		}
 		:disabled {

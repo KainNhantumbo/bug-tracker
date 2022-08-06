@@ -6,7 +6,7 @@ export const InfoBoxContainer = styled.section`
 	width: 100vw;
 	height: 100vh;
 	background: rgb(${({ theme }) => theme.background});
-	z-index: 4000;
+	z-index: 500;
 	top: 95px;
 	left: 0;
 	display: grid;
@@ -15,7 +15,7 @@ export const InfoBoxContainer = styled.section`
 	position: fixed;
 
 	.content {
-		margin-top: -95px;
+		margin-top: -395px;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
