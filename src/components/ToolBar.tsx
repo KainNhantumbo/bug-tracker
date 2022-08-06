@@ -1,14 +1,13 @@
-import { ToolbarContainer as Container } from '../styles/components/toolbar';
-import { motion } from 'framer-motion';
 import {
 	BiSortAlt2,
-	HiViewGrid,
 	BiFilter,
 	FaBars,
 	HiPlus,
 	BiSearch,
 } from 'react-icons/all';
+import { motion } from 'framer-motion';
 import { useNavigate, NavigateFunction } from 'react-router-dom';
+import { ToolbarContainer as Container } from '../styles/components/toolbar';
 
 interface Props {
 	openSearchBoxFn: () => void;
@@ -78,18 +77,8 @@ export default function ToolBar(props: Props): JSX.Element {
 					<BiSearch />
 					<span>Search</span>
 				</motion.button>
-
-				{/* <motion.button
-					whileHover={{ scale: 1.05 }}
-					whileTap={{ scale: 0.95 }}
-					title='Change view'
-					className='descripted'
-					onClick={() => {}}
-				>
-					<HiViewGrid />
-					<span>View</span>
-				</motion.button> */}
 			</section>
+
 			<section className='right-container'>
 				<div className='count'>
 					<span>{props.itemsCount} items</span>

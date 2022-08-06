@@ -1,13 +1,8 @@
 import { InfoBoxContainer as Container } from '../styles/components/info-box';
+import { InfoProps } from '../context/InfoBoxContext';
 
-interface Props {
-	active: boolean;
-	message: string;
-	icon: JSX.Element;
-	buttonText?: string;
-	actionFn?: () => Promise<void> | void;
-	setStateFn: React.Dispatch<React.SetStateAction<any>>;
-	err?: string;
+interface Props extends InfoProps {
+	setStateFn: React.Dispatch<React.SetStateAction<InfoProps>>;
 }
 
 export default function InfoBox(props: Props): JSX.Element {

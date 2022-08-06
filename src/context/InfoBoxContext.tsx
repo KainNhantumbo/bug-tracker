@@ -1,5 +1,5 @@
-import { useState, createContext, ReactNode, useContext } from 'react';
 import { CgDanger } from 'react-icons/cg';
+import { useState, createContext, ReactNode, useContext } from 'react';
 
 interface Props {
 	children: ReactNode;
@@ -11,14 +11,13 @@ interface ContextProps {
 }
 
 // interface for infoBox component data props
-interface InfoProps {
+export interface InfoProps {
 	active: boolean;
 	message: string;
 	icon: JSX.Element;
 	buttonText?: string;
 	err?: string;
 	actionFn?: () => void;
-	setStateFn?: React.Dispatch<React.SetStateAction<InfoProps>>;
 }
 
 const context = createContext<ContextProps>({

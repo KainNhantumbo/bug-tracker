@@ -23,17 +23,12 @@ import InfoBox from '../components/InfoBox';
 import { useInfoBoxContext } from '../context/InfoBoxContext';
 
 interface Data {
-	createdAt: string;
-	updatedAt: string;
+	_id: string;
 	title: string;
-	feature: string;
 	priority: string;
-	description: string;
 	author: string;
 	status: string;
-	associated: string;
-	notes: string;
-	_id: string;
+	createdAt: string;
 }
 
 export default function Main(): JSX.Element {
@@ -54,6 +49,7 @@ export default function Main(): JSX.Element {
 	const navigate: NavigateFunction = useNavigate();
 
 	const getBugsData = async (): Promise<void> => {
+		setInfo((prevState) => ({ ...prevState, active: false }));
 		setIsLoading(true);
 		try {
 			const { data } = await useConnectAPI({
@@ -109,6 +105,7 @@ export default function Main(): JSX.Element {
 
 	const handleSearch = async (e: SubmitEvent): Promise<void> => {
 		e.preventDefault();
+		setInfo((prevState) => ({ ...prevState, active: false }));
 		setIsLoading(true);
 		try {
 			const { data } = await useConnectAPI({
@@ -149,6 +146,7 @@ export default function Main(): JSX.Element {
 
 	const handleSort = async (option: string): Promise<void> => {
 		try {
+			setInfo((prevState) => ({ ...prevState, active: false }));
 			setIsLoading(true);
 			const { data } = await useConnectAPI({
 				method: 'get',

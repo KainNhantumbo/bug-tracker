@@ -1,8 +1,5 @@
-import { useState, useEffect } from 'react';
-import { CreateBugContainer as Container } from '../styles/create-bug';
-import Header from '../components/Header';
-import NavigationBar from '../components/NavigationBar';
 import {
+	FaCat,
 	HiAnnotation,
 	HiBan,
 	HiChartBar,
@@ -16,12 +13,17 @@ import {
 	HiUser,
 	VscIssueDraft,
 } from 'react-icons/all';
+import Header from '../components/Header';
+import NavigationBar from '../components/NavigationBar';
 import ThemeDialogBox from '../components/ThemeDialogBox';
-import { useParams, useNavigate, NavigateFunction } from 'react-router-dom';
-import { InputEvents, SubmitEvent } from '../types/form';
 import feedBack from '../utils/feedback';
 import useConnectAPI from '../hooks/fetch';
 import Loading from '../components/Loading';
+import { useInfoBoxContext } from '../context/InfoBoxContext';
+import { useState, useEffect } from 'react';
+import { InputEvents, SubmitEvent } from '../types/form';
+import { CreateBugContainer as Container } from '../styles/create-bug';
+import { useParams, useNavigate, NavigateFunction } from 'react-router-dom';
 
 interface DataProps {
 	title: string;
@@ -36,8 +38,11 @@ interface DataProps {
 
 export default function CreateBug(): JSX.Element {
 	const navigate: NavigateFunction = useNavigate();
+	// loading states-------------
 	const [isLoading, setIsLoading] = useState(true);
 	const [errorMessage, setErrorMessage] = useState('');
+	const { info, setInfo } = useInfoBoxContext();
+	// core states----------------
 	const [issueData, setIssueData] = useState<DataProps>({
 		title: '',
 		feature: '',
@@ -83,6 +88,7 @@ export default function CreateBug(): JSX.Element {
 	// gets bug data to fill the fields
 	const getBugData = async (): Promise<void> => {
 		if (!isUpdate) return;
+		setInfo((prevState) => ({ ...prevState, active: false }));
 		setIsLoading(true);
 		try {
 			const { data } = await useConnectAPI({
@@ -91,8 +97,17 @@ export default function CreateBug(): JSX.Element {
 			});
 			setIssueData(data.bug);
 			setIsLoading(false);
-		} catch (err) {
+		} catch (err: any) {
 			setIsLoading(false);
+			setInfo({
+				message: 'Oops! Looks something went wrong.',
+				active: true,
+				actionFn: getBugData,
+				icon: <FaCat />,
+				buttonText: 'Refresh and try again',
+				err: err.response?.data?.message || err.code,
+			});
+			console.log(err.response?.data?.message);
 			console.error(err);
 		}
 	};
@@ -103,6 +118,7 @@ export default function CreateBug(): JSX.Element {
 		// function called to avoid memory leaks
 		return () => {
 			setIsLoading(false);
+			setInfo((prevState) => ({ ...prevState, active: false }));
 		};
 	}, []);
 
@@ -115,7 +131,7 @@ export default function CreateBug(): JSX.Element {
 				locationName={isUpdate ? 'View & Update Bug' : 'Create Bug'}
 				icon={<VscIssueDraft />}
 			/>
-			
+
 			<Container>
 				<section className='wrapper'>
 					<div className='form-container'>
