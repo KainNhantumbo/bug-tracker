@@ -44,13 +44,16 @@ export default function Main(): JSX.Element {
 	// core functions
 	const navigate: NavigateFunction = useNavigate();
 	const getBugsData = async (): Promise<void> => {
+		setIsLoading(true);
 		try {
 			const { data } = await useConnectAPI({
 				method: 'get',
 				url: '/bugs?fields=title,status,author,createdAt,priority',
 			});
 			setBugsData(data.bugs);
+			setIsLoading(false);
 		} catch (err: any) {
+			setIsLoading(false);
 			console.log(err.response?.data?.message);
 		}
 	};
@@ -77,12 +80,14 @@ export default function Main(): JSX.Element {
 
 	const handleSearch = async (e: SubmitEvent): Promise<void> => {
 		e.preventDefault();
+		setIsLoading(true)
 		try {
 			const { data } = await useConnectAPI({
 				method: 'get',
 				url: `/bugs?search=${searchValue}&fields=title,status,author,createdAt,priority`,
 			});
 			setBugsData([...data.bugs]);
+			setIsLoading(false)
 		} catch (err: any) {
 			console.error(err.message);
 			console.error(err.response?.data?.message);

@@ -21,6 +21,7 @@ import { useParams, useNavigate, NavigateFunction } from 'react-router-dom';
 import { InputEvents, SubmitEvent } from '../types/form';
 import feedBack from '../utils/feedback';
 import useConnectAPI from '../hooks/fetch';
+import Loading from '../components/Loading';
 
 interface DataProps {
 	title: string;
@@ -35,6 +36,7 @@ interface DataProps {
 
 export default function CreateBug(): JSX.Element {
 	const navigate: NavigateFunction = useNavigate();
+	const [isLoading, setIsLoading] = useState(false);
 	const [errorMessage, setErrorMessage] = useState('');
 	const [issueData, setIssueData] = useState<DataProps>({
 		title: '',
@@ -60,7 +62,6 @@ export default function CreateBug(): JSX.Element {
 
 	const handleSubmit = async (e: SubmitEvent): Promise<void> => {
 		e.preventDefault();
-
 		try {
 			if (isUpdate) {
 				await useConnectAPI({
@@ -82,13 +83,16 @@ export default function CreateBug(): JSX.Element {
 	// gets bug data to fill the fields
 	const getBugData = async (): Promise<void> => {
 		if (!isUpdate) return;
+		setIsLoading(true);
 		try {
 			const { data } = await useConnectAPI({
 				method: 'get',
 				url: `/bugs/${id}`,
 			});
 			setIssueData(data.bug);
+			setIsLoading(false);
 		} catch (err) {
+			setIsLoading(false);
 			console.error(err);
 		}
 	};
@@ -101,6 +105,7 @@ export default function CreateBug(): JSX.Element {
 		<>
 			<Header />
 			<ThemeDialogBox />
+			<Loading active={isLoading} />
 			<NavigationBar
 				locationName={isUpdate ? 'Update Bug' : 'Create Bug'}
 				icon={<VscIssueDraft />}
