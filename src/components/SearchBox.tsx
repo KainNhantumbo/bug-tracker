@@ -7,6 +7,7 @@ interface Props {
 	active: boolean;
 	quit: () => void;
 	actionFn: (e: SubmitEvent) => Promise<void>;
+	reloadFn:() => Promise<void> | void;
 	stateFn: React.Dispatch<React.SetStateAction<string>>;
 }
 
@@ -44,8 +45,13 @@ export default function SearchBox(props: Props): JSX.Element {
 									<input
 										type='search'
 										name='name'
-										placeholder='Search bugs...'
-										onChange={(e) => props.stateFn(e.target.value)}
+										placeholder='Search anything...'
+										onChange={(e) => {
+											props.stateFn(e.target.value)
+											if (e.target.value.length < 1) {
+												props.reloadFn()
+											}
+										}}
 									/>
 								</form>
 							</div>

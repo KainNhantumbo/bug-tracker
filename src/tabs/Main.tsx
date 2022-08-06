@@ -75,6 +75,16 @@ export default function Main(): JSX.Element {
 
 	const handleSearch = async (e: SubmitEvent): Promise<void> => {
 		e.preventDefault();
+		try {
+			const { data } = await useConnectAPI({
+				method: 'get',
+				url: `/bugs?search=${searchValue}&fields=title,status,author,createdAt,priority`,
+			});
+			setBugsData([...data.bugs]);
+		} catch (err: any) {
+			console.error(err.message);
+			console.error(err.response?.data?.message);
+		}
 	};
 
 	// sort functions
@@ -132,6 +142,7 @@ export default function Main(): JSX.Element {
 				stateFn={setSearchValue}
 				quit={searchBoxController}
 				actionFn={handleSearch}
+				reloadFn={getBugsData}
 			/>
 			<FilterBox
 				quit={filterBoxController}
