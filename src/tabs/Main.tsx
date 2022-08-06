@@ -1,7 +1,6 @@
 import {
 	HiBackspace,
 	BiTrashAlt,
-	CgDanger,
 	VscEmptyWindow,
 	FaCat,
 	FaParachuteBox,
@@ -21,6 +20,7 @@ import { useDate } from '../utils/date-functions';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import Loading from '../components/Loading';
 import InfoBox from '../components/InfoBox';
+import { useInfoBoxContext } from '../context/InfoBoxContext';
 
 interface Data {
 	createdAt: string;
@@ -36,17 +36,6 @@ interface Data {
 	_id: string;
 }
 
-// interface for infoBox component data props
-interface InfoProps {
-	active: boolean;
-	message: string;
-	icon: JSX.Element;
-	buttonText?: string;
-	err?: string;
-	actionFn?: () => void;
-	setStateFn?: React.Dispatch<React.SetStateAction<InfoProps>>;
-}
-
 export default function Main(): JSX.Element {
 	// modal state control--------
 	const [isSearchActive, setIsSearchActive] = useState(false);
@@ -55,11 +44,7 @@ export default function Main(): JSX.Element {
 	const [isPromptActive, setIsPromptActive] = useState(false);
 	// loading states-------------
 	const [isLoading, setIsLoading] = useState(false);
-	const [info, setInfo] = useState<InfoProps>({
-		active: false,
-		message: '',
-		icon: <CgDanger />,
-	});
+	const { info, setInfo } = useInfoBoxContext();
 	// core states----------------
 	const [searchValue, setSearchValue] = useState('');
 	const [bugsData, setBugsData] = useState<Data[]>([]);

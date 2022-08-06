@@ -1,10 +1,13 @@
 import ThemeContext from './context/ThemeContext';
 import AppRoutes from './routes/AppRoutes';
+import InfoBoxContext from './context/InfoBoxContext';
 
 function App() {
 	return (
 		<ThemeContext>
-			<AppRoutes />
+			<InfoBoxContext>
+				<AppRoutes />
+			</InfoBoxContext>
 		</ThemeContext>
 	);
 }
