@@ -3,6 +3,7 @@ import {
 	BiTrashAlt,
 	BsApp,
 	FaBug,
+	FaCat,
 	FaCopyright,
 	FaEnvelope,
 	FaGithub,
@@ -28,6 +29,7 @@ import useConnectAPI from '../hooks/fetch';
 import { useDate } from '../utils/date-functions';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { useThemeContext } from '../context/ThemeContext';
+import { useInfoBoxContext } from '../context/InfoBoxContext';
 import Loading from '../components/Loading';
 
 interface UserData {
@@ -40,15 +42,18 @@ interface UserData {
 
 export default function Adjustments(): JSX.Element {
 	const navigate: NavigateFunction = useNavigate();
-	const { controlModal } = useThemeContext();
+	// loading states-------------
 	const [isLoading, setIsLoading] = useState(true);
+	const { info, setInfo } = useInfoBoxContext();
+	// core states----------------
+	const { controlModal } = useThemeContext();
 	const [isModalActive, setisModalActive] = useState(false);
 	const [userData, setUserData] = useState<UserData>({
+		_id: '',
 		first_name: '',
 		last_name: '',
 		email: '',
 		createdAt: '',
-		_id: '',
 	});
 
 	// controls the state of the prompt modal
@@ -57,9 +62,20 @@ export default function Adjustments(): JSX.Element {
 
 	const deleteUser = async (): Promise<void> => {
 		try {
+			setIsLoading(true);
 			await useConnectAPI({ method: 'delete', url: `/users/${userData._id}` });
+			setIsLoading(false);
 			navigate('/tab/login');
 		} catch (err: any) {
+			setIsLoading(false);
+			setInfo({
+				message: 'Oops! Looks something went wrong.',
+				active: true,
+				actionFn: deleteUser,
+				icon: <FaCat />,
+				buttonText: 'Refresh and try again',
+				err: err.response?.data?.message || err.code,
+			});
 			console.error(err.response?.data?.message);
 			console.error(err);
 		}
@@ -72,13 +88,22 @@ export default function Adjustments(): JSX.Element {
 		setIsEditAccountActive((prevState) => !prevState);
 
 	const getUserDetails = async (): Promise<void> => {
+		setInfo((prevState) => ({ ...prevState, active: false }));
+		setIsLoading(true);
 		try {
-			setIsLoading(true);
 			const { data } = await useConnectAPI({ method: 'get', url: '/users' });
 			setUserData({ ...data.user_data });
 			setIsLoading(false);
 		} catch (err: any) {
 			setIsLoading(false);
+			setInfo({
+				message: 'Oops! Looks something went wrong.',
+				active: true,
+				actionFn: getUserDetails,
+				icon: <FaCat />,
+				buttonText: 'Refresh and try again',
+				err: err.response?.data?.message || err.code,
+			});
 			console.error(err.response?.data?.message);
 			console.error(err);
 		}
@@ -91,6 +116,7 @@ export default function Adjustments(): JSX.Element {
 		return () => {
 			setIsLoading(false);
 			setisModalActive(false);
+			setInfo((prevState) => ({ ...prevState, active: false }));
 		};
 	}, []);
 
