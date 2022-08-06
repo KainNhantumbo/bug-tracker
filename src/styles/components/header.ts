@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { BaseButton, Button_Mono_B } from '../generics/buttons';
+import { BaseButton, Button_Mono_A, Button_Mono_B } from '../generics/buttons';
 import { StyledInputs } from '../generics/form';
 
 export const HeaderContainer = styled.header`
@@ -70,11 +70,6 @@ export const HeaderContainer = styled.header`
 
 			.user {
 				${Button_Mono_B}
-			}
-
-			.help,
-			.themes {
-				${BaseButton}
 			}
 		}
 
