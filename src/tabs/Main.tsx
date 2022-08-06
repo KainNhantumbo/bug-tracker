@@ -43,7 +43,10 @@ export default function Main(): JSX.Element {
 	const navigate: NavigateFunction = useNavigate();
 	const getBugsData = async (): Promise<void> => {
 		try {
-			const { data } = await useConnectAPI({ method: 'get', url: '/bugs' });
+			const { data } = await useConnectAPI({
+				method: 'get',
+				url: '/bugs?fields=title,status,author,createdAt,priority',
+			});
 			setBugsData(data.bugs);
 		} catch (err: any) {
 			console.log(err.response?.data?.message);
@@ -78,7 +81,18 @@ export default function Main(): JSX.Element {
 	const sortBoxController = (): void =>
 		setIsSortActive((prevState) => !prevState);
 
-	const handleSort = async (option: string): Promise<void> => {};
+	const handleSort = async (option: string): Promise<void> => {
+		try {
+			const { data } = await useConnectAPI({
+				method: 'get',
+				url: `/bugs?sort=${option}&fields=title,status,author,createdAt,priority`,
+			});
+			setBugsData([...data.bugs]);
+		} catch (err: any) {
+			console.error(err.message);
+			console.error(err.response?.data?.message);
+		}
+	};
 
 	// filter functions
 	const filterBoxController = (): void =>

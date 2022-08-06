@@ -14,10 +14,14 @@ interface SortProps {
 }
 
 const SortOptions: SortProps[] = [
-	{ code: 'name: DESC', name: 'Name' },
-	{ code: 'name,ASC', name: 'Name (ascending)' },
-	{ code: 'updatedAt, DESC', name: 'Last update' },
-	{ code: 'updatedAt, ASC', name: 'Last update (ascending)' },
+	{ code: 'title', name: 'Title' },
+	{ code: '-title', name: 'Title (descending)' },
+	{ code: 'reporter', name: 'Reporter' },
+	{ code: '-reporter', name: 'Reporter (descending)' },
+	{ code: 'status', name: 'Status' },
+	{ code: '-status', name: 'Status (descending)' },
+	{ code: 'createdAt', name: 'Created' },
+	{ code: '-createdAt', name: 'Created (descending)' },
 ];
 
 export default function SortBox(props: Props): JSX.Element {
