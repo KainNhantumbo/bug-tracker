@@ -9,12 +9,13 @@ export const AdjustmentsContainer = styled.main`
 	display: grid;
 	justify-content: center;
 	align-items: center;
-  
+
 	article {
-    width: 100%;
-    max-width: 1100px;
+		width: 100%;
+		max-width: 1100px;
 		background: rgb(${({ theme }) => theme.foreground});
 		border-radius: 0 0 10px 10px;
+		margin-bottom: 20px;
 
 		.title {
 			position: relative;
@@ -95,6 +96,47 @@ export const AdjustmentsContainer = styled.main`
 					}
 					.erase-btn {
 						${BaseButton_Danger}
+					}
+				}
+			}
+		}
+
+		.app-container {
+			border-top: 1px solid rgba(${({ theme }) => theme.font}, 0.2);
+			padding: 20px;
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+			justify-content: flex-start;
+
+			.title {
+				position: relative;
+				svg {
+					width: 20px;
+					height: 20px;
+					position: absolute;
+					top: -2px;
+					left: 0;
+					color: rgb(${({ theme }) => theme.primary});
+				}
+				span {
+					padding-left: 25px;
+					text-transform: capitalize;
+					font-weight: 500;
+				}
+			}
+
+			.section-container,
+			.appearence {
+				display: flex;
+				gap: 20px;
+				flex-direction: column;
+
+				.appearence {
+					gap: 10px;
+
+					button {
+						${BaseButton}
 					}
 				}
 			}

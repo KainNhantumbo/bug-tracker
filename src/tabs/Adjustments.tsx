@@ -1,6 +1,7 @@
 import {
 	BiTrash,
 	BiTrashAlt,
+	BsApp,
 	FaBug,
 	FaCopyright,
 	FaEnvelope,
@@ -11,7 +12,9 @@ import {
 	GiMite,
 	HiAdjustments,
 	HiCode,
+	HiColorSwatch,
 	HiStar,
+	HiViewBoards,
 	SiAboutdotme,
 } from 'react-icons/all';
 import Header from '../components/Header';
@@ -24,6 +27,7 @@ import EditAccountBox from '../components/EditAccountBox';
 import useConnectAPI from '../hooks/fetch';
 import { useDate } from '../utils/date-functions';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { useThemeContext } from '../context/ThemeContext';
 
 interface UserData {
 	first_name: string;
@@ -35,6 +39,7 @@ interface UserData {
 
 export default function Adjustments(): JSX.Element {
 	const navigate: NavigateFunction = useNavigate();
+	const { controlModal } = useThemeContext();
 	const [isModalActive, setisModalActive] = useState(false);
 	const [userData, setUserData] = useState<UserData>({
 		first_name: '',
@@ -153,6 +158,27 @@ export default function Adjustments(): JSX.Element {
 						</section>
 					</section>
 
+					<section className='app-container'>
+						<h2 className='title'>
+							<BsApp />
+							<span>Application</span>
+						</h2>
+						<section className='section-container'>
+							<div className='appearence'>
+								<h3 className='sub-title'>
+									<HiColorSwatch />
+									<span>Themes and Color Schemes</span>
+								</h3>
+								<div className='content'>
+									<button onClick={controlModal}>
+										<HiViewBoards />
+										<span>Change theme</span>
+									</button>
+								</div>
+							</div>
+						</section>
+					</section>
+
 					<section className='about-container'>
 						<h2 className='title'>
 							<SiAboutdotme />
@@ -167,7 +193,7 @@ export default function Adjustments(): JSX.Element {
 								<div className='user-info'>
 									<h3>
 										<FaBug />
-										<span>Bug Tracker V0.0.2 (beta)</span>
+										<span>Bug Tracker V1.0.0 (Desktop)</span>
 									</h3>
 								</div>
 								<div className='user-info'>
