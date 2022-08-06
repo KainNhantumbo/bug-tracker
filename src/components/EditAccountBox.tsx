@@ -11,7 +11,7 @@ import {
 } from 'react-icons/all';
 import { EditAccountContainer as Container } from '../styles/components/edit-account-box';
 import { motion, AnimatePresence } from 'framer-motion';
-import { InputEvents, SubmitEvent } from '../types/form';
+import { InputEvents } from '../types/form';
 import useConnectAPI from '../hooks/fetch';
 import feedBack from '../utils/feedback';
 

@@ -16,7 +16,7 @@ export const ToolbarContainer = styled.section`
 	justify-content: space-between;
 	flex-direction: row;
 	align-items: center;
-	gap: 30px;
+	gap: 5px;
 
 	.left-container , .right-container {
 		display: flex;

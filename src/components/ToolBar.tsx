@@ -57,7 +57,7 @@ export default function ToolBar(props: Props): JSX.Element {
 					<span>Sort</span>
 				</motion.button>
 
-				<motion.button
+				{/* <motion.button
 					whileHover={{ scale: 1.05 }}
 					whileTap={{ scale: 0.95 }}
 					title='Filter'
@@ -66,7 +66,7 @@ export default function ToolBar(props: Props): JSX.Element {
 				>
 					<BiFilter />
 					<span>Filter</span>
-				</motion.button>
+				</motion.button> */}
 
 				<motion.button
 					whileHover={{ scale: 1.05 }}
@@ -79,7 +79,7 @@ export default function ToolBar(props: Props): JSX.Element {
 					<span>Search</span>
 				</motion.button>
 
-				<motion.button
+				{/* <motion.button
 					whileHover={{ scale: 1.05 }}
 					whileTap={{ scale: 0.95 }}
 					title='Change view'
@@ -88,7 +88,7 @@ export default function ToolBar(props: Props): JSX.Element {
 				>
 					<HiViewGrid />
 					<span>View</span>
-				</motion.button>
+				</motion.button> */}
 			</section>
 			<section className='right-container'>
 				<div className='count'>

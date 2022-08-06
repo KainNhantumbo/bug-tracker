@@ -65,6 +65,14 @@ export const AdjustmentsContainer = styled.main`
 				grid-template-columns: 1fr 2fr;
 				align-items: center;
 
+				@media screen and (max-width: 500px) {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					justify-content: center;
+					gap: 20px;
+				}
+
 				.user-avatar {
 					margin: 0 auto;
 					svg,
@@ -156,9 +164,21 @@ export const AdjustmentsContainer = styled.main`
 				align-items: center;
 				gap: 10px;
 
+				@media screen and (max-width: 670px) {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					justify-content: center;
+					gap: 40px;
+				}
+
 				.logo {
 					position: relative;
 					color: rgb(${({ theme }) => theme.primary});
+
+					@media screen and (max-width: 670px) {
+						margin-top: 20px;
+					}
 
 					svg {
 						position: absolute;

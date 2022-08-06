@@ -7,8 +7,6 @@ import {
 	HiBan,
 	HiChartBar,
 	HiCheck,
-	HiDocumentDuplicate,
-	HiDotsHorizontal,
 	HiFlag,
 	HiHashtag,
 	HiPencil,
