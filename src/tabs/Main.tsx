@@ -1,4 +1,11 @@
-import { HiBackspace, BiTrashAlt } from 'react-icons/all';
+import {
+	HiBackspace,
+	BiTrashAlt,
+	HiRewind,
+	CgDanger,
+	VscEmptyWindow,
+	FaCat,
+} from 'react-icons/all';
 import { MainContainer as Container } from '../styles/main';
 import { useState, useEffect } from 'react';
 import Header from '../components/Header';
@@ -13,6 +20,7 @@ import PromptDialogBox from '../components/PromptDialogBox';
 import { useDate } from '../utils/date-functions';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import Loading from '../components/Loading';
+import InfoBox from '../components/InfoBox';
 
 interface Data {
 	createdAt: string;
@@ -28,14 +36,29 @@ interface Data {
 	_id: string;
 }
 
+// interface for infoBox component data props
+interface InfoProps {
+	active: boolean;
+	message: string;
+	icon: JSX.Element;
+	buttonText?: string;
+	err?: string;
+	actionFn?: () => void;
+}
+
 export default function Main(): JSX.Element {
 	// modal state control
 	const [isSearchActive, setIsSearchActive] = useState(false);
 	const [isSortActive, setIsSortActive] = useState(false);
 	const [isFilterActive, setIsFilterActive] = useState(false);
 	const [isPromptActive, setIsPromptActive] = useState(false);
+	// loading states
 	const [isLoading, setIsLoading] = useState(false);
-
+	const [info, setInfo] = useState<InfoProps>({
+		active: false,
+		message: '',
+		icon: <CgDanger />,
+	});
 	// core states
 	const [searchValue, setSearchValue] = useState('');
 	const [bugsData, setBugsData] = useState<Data[]>([]);
@@ -43,6 +66,7 @@ export default function Main(): JSX.Element {
 
 	// core functions
 	const navigate: NavigateFunction = useNavigate();
+
 	const getBugsData = async (): Promise<void> => {
 		setIsLoading(true);
 		try {
@@ -52,9 +76,25 @@ export default function Main(): JSX.Element {
 			});
 			setBugsData(data.bugs);
 			setIsLoading(false);
+			if (data.bugs.length < 1) {
+				setInfo({
+					message: 'You have no bug reports saved. They will appear here.',
+					active: true,
+					icon: <VscEmptyWindow />,
+				});
+			}
 		} catch (err: any) {
 			setIsLoading(false);
+			setInfo({
+				message: 'Oops! Looks something went wrong.',
+				active: true,
+				actionFn: getBugsData,
+				icon: <FaCat />,
+				buttonText: 'Reload page',
+				err: err.response?.data?.message || err.code,
+			});
 			console.log(err.response?.data?.message);
+			console.log(err);
 		}
 	};
 
@@ -80,14 +120,14 @@ export default function Main(): JSX.Element {
 
 	const handleSearch = async (e: SubmitEvent): Promise<void> => {
 		e.preventDefault();
-		setIsLoading(true)
+		setIsLoading(true);
 		try {
 			const { data } = await useConnectAPI({
 				method: 'get',
 				url: `/bugs?search=${searchValue}&fields=title,status,author,createdAt,priority`,
 			});
 			setBugsData([...data.bugs]);
-			setIsLoading(false)
+			setIsLoading(false);
 		} catch (err: any) {
 			console.error(err.message);
 			console.error(err.response?.data?.message);
@@ -157,6 +197,15 @@ export default function Main(): JSX.Element {
 				fn={handleFilter}
 				active={isFilterActive}
 			/>
+			<InfoBox
+				active={info.active}
+				message={info.message}
+				icon={info.icon}
+				buttonText={info.buttonText}
+				actionFn={info.actionFn}
+				err={info.err}
+			/>
+
 			<SortBox fn={handleSort} quit={sortBoxController} active={isSortActive} />
 
 			<PromptDialogBox

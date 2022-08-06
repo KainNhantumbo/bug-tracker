@@ -6,6 +6,7 @@ interface Props {
 	icon: JSX.Element;
 	buttonText?: string;
 	actionFn?: () => Promise<void> | void;
+	err?: string;
 }
 
 export default function InfoBox(props: Props): JSX.Element {
@@ -14,9 +15,16 @@ export default function InfoBox(props: Props): JSX.Element {
 			{props.active && (
 				<Container>
 					<section className='content'>
-						<div className='title'>Now Loading</div>
-						<div className='sub-title'>Please wait...</div>
-						<i className='loader'></i>
+						<div className='icon'>{props.icon}</div>
+						<div className='message'>
+							<span>{props.message}</span>
+							{props.err && <h3>{props.err}</h3>}
+						</div>
+						{props.buttonText && (
+							<button onClick={props.actionFn}>
+								<span>{props.buttonText}</span>
+							</button>
+						)}
 					</section>
 				</Container>
 			)}

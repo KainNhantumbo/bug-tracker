@@ -112,9 +112,10 @@ export default function CreateBug(): JSX.Element {
 			<ThemeDialogBox />
 			<Loading active={isLoading} />
 			<NavigationBar
-				locationName={isUpdate ? 'Update Bug' : 'Create Bug'}
+				locationName={isUpdate ? 'View & Update Bug' : 'Create Bug'}
 				icon={<VscIssueDraft />}
 			/>
+			
 			<Container>
 				<section className='wrapper'>
 					<div className='form-container'>

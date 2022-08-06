@@ -1,12 +1,13 @@
 import styled from 'styled-components';
+import { BaseButton_Danger } from '../generics/buttons';
 
 export const InfoBoxContainer = styled.section`
 	position: fixed;
 	width: 100vw;
 	height: 100vh;
 	background: rgb(${({ theme }) => theme.background});
-	z-index: 10000;
-  top: 95px;
+	z-index: 4000;
+	top: 95px;
 	left: 0;
 	display: grid;
 	place-content: center;
@@ -14,20 +15,39 @@ export const InfoBoxContainer = styled.section`
 	position: fixed;
 
 	.content {
-    margin-top: -95px;
+		margin-top: -95px;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 		gap: 10px;
+		line-height: 1.6rem;
+		margin: 0 10px;
 
-		.title {
-			font-size: 1.2rem;
-			font-weight: 600;
+		svg {
+			width: 70px;
+			height: 70px;
+			color: rgb(${({ theme }) => theme.secondary});
 		}
 
-		.sub-title {
+		.message {
+			text-align: center;
+			span {
+				font-size: 1.2rem;
+				font-weight: 500;
+			}
+
+			h3 {
+				margin-top: 20px;
+			}
 		}
 
+		button {
+			${BaseButton_Danger}
+			margin-top: 20px;
+			span {
+				padding: 0;
+			}
+		}
 	}
 `;

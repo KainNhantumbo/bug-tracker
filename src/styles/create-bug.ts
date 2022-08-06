@@ -78,7 +78,7 @@ export const CreateBugContainer = styled.main`
 				width: 100%;
 				display: flex;
 				justify-content: flex-start;
-				gap: 20px;
+				gap: 10px;
 				flex-flow: row wrap;
 				
 				.discard {
