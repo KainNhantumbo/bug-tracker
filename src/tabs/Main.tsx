@@ -12,6 +12,7 @@ import useConnectAPI from '../hooks/fetch';
 import PromptDialogBox from '../components/PromptDialogBox';
 import { useDate } from '../utils/date-functions';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
+import Loading from '../components/Loading';
 
 interface Data {
 	createdAt: string;
@@ -33,6 +34,7 @@ export default function Main(): JSX.Element {
 	const [isSortActive, setIsSortActive] = useState(false);
 	const [isFilterActive, setIsFilterActive] = useState(false);
 	const [isPromptActive, setIsPromptActive] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	// core states
 	const [searchValue, setSearchValue] = useState('');
@@ -131,6 +133,7 @@ export default function Main(): JSX.Element {
 		<>
 			<Header />
 			<ThemeDialogBox />
+			<Loading active={isLoading} />
 			<ToolBar
 				openSearchBoxFn={searchBoxController}
 				openSortBoxFn={sortBoxController}
