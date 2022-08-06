@@ -28,6 +28,7 @@ import useConnectAPI from '../hooks/fetch';
 import { useDate } from '../utils/date-functions';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { useThemeContext } from '../context/ThemeContext';
+import Loading from '../components/Loading';
 
 interface UserData {
 	first_name: string;
@@ -40,6 +41,7 @@ interface UserData {
 export default function Adjustments(): JSX.Element {
 	const navigate: NavigateFunction = useNavigate();
 	const { controlModal } = useThemeContext();
+	const [isLoading, setIsLoading] = useState(true);
 	const [isModalActive, setisModalActive] = useState(false);
 	const [userData, setUserData] = useState<UserData>({
 		first_name: '',
@@ -71,9 +73,12 @@ export default function Adjustments(): JSX.Element {
 
 	const getUserDetails = async (): Promise<void> => {
 		try {
+			setIsLoading(true);
 			const { data } = await useConnectAPI({ method: 'get', url: '/users' });
 			setUserData({ ...data.user_data });
+			setIsLoading(false);
 		} catch (err: any) {
+			setIsLoading(false);
 			console.error(err.response?.data?.message);
 			console.error(err);
 		}
@@ -81,12 +86,19 @@ export default function Adjustments(): JSX.Element {
 
 	useEffect(() => {
 		getUserDetails();
+
+		// function called to avoid memory leaks
+		return () => {
+			setIsLoading(false);
+			setisModalActive(false);
+		};
 	}, []);
 
 	return (
 		<>
 			<Header />
 			<ThemeDialogBox />
+			<Loading active={isLoading} />
 			<NavigationBar locationName='Adjustments' icon={<HiAdjustments />} />
 			<EditAccountBox
 				active={isEditAccountActive}

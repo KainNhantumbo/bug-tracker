@@ -37,10 +37,7 @@ export const LoadingContainer = styled.section`
 			font-size: 1.2rem;
 			font-weight: 600;
 		}
-
-		.sub-title {
-		}
-
+    
 		.loader {
 			position: relative;
 			border-radius: 10px;

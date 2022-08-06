@@ -36,7 +36,7 @@ interface DataProps {
 
 export default function CreateBug(): JSX.Element {
 	const navigate: NavigateFunction = useNavigate();
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 	const [errorMessage, setErrorMessage] = useState('');
 	const [issueData, setIssueData] = useState<DataProps>({
 		title: '',
@@ -99,6 +99,11 @@ export default function CreateBug(): JSX.Element {
 
 	useEffect(() => {
 		getBugData();
+		if (!isUpdate) setIsLoading(false);
+		// function called to avoid memory leaks
+		return () => {
+			setIsLoading(false);
+		};
 	}, []);
 
 	return (
