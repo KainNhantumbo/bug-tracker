@@ -17,6 +17,7 @@ export const MainContainer = styled.main`
 
 	.body {
 		width: 100vw;
+
 		.bugs-wrapper {
 			position: relative;
 			display: flex;
@@ -26,6 +27,9 @@ export const MainContainer = styled.main`
 
 			padding: 10px 0;
 			max-width: 1000px;
+			/* @media screen and (min-width: 1000px) {
+				display: flex;
+			} */
 
 			.menu {
 				width: 100%;
@@ -38,7 +42,6 @@ export const MainContainer = styled.main`
 				top: 95px;
 				left: calc(50% - 500px);
 				z-index: 1000;
-				background: rgb(${({ theme }) => theme.foreground});
 			}
 
 			.bug,
@@ -46,6 +49,7 @@ export const MainContainer = styled.main`
 				width: 100%;
 				display: grid;
 				grid-template-columns: 40% 20% repeat(3, 100px);
+				background: rgb(${({ theme }) => theme.foreground});
 				align-items: center;
 				user-select: none;
 				gap: 10px;
@@ -64,7 +68,6 @@ export const MainContainer = styled.main`
 				top: 25px;
 				line-height: 1.4rem;
 				border-bottom: 1px solid rgba(${({ theme }) => theme.font}, 0.2);
-				background: rgb(${({ theme }) => theme.foreground});
 				padding: 8px 10px;
 				:hover {
 					background: rgba(${({ theme }) => theme.secondary}, 0.1);
@@ -95,6 +98,26 @@ export const MainContainer = styled.main`
 					}
 				}
 			}
+
+			/* @media screen and (max-width: 1000px) {
+				display: none;
+				background: #000;
+			} */
 		}
+
+		.end-mark {
+			display: grid;
+			justify-content: center;
+			align-items: center;
+			padding: 1px;
+			background: rgb(${({ theme }) => theme.foreground});
+			border-radius: 0 0 10px 10px;
+			margin-top: 25px;
+			svg {
+				width: 20px;
+				height: 20px;
+			}
+		}
+
 	}
 `;

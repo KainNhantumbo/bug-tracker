@@ -18,6 +18,11 @@ export const NavigationBarContainer = styled.section`
 	align-items: center;
 	gap: 30px;
 
+	@media screen and (max-width: 390px) {
+		padding: 5px 10px;
+		gap: 10px;
+	}
+
 	button {
 		${Button_Mono_B}
 		padding: 0;

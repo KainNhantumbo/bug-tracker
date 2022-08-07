@@ -112,6 +112,12 @@ export default function Adjustments(): JSX.Element {
 	useEffect(() => {
 		getUserDetails();
 
+		window.scroll({
+			top: 0,
+			left: 0,
+			behavior: 'auto',
+		});
+
 		// function called to avoid memory leaks
 		return () => {
 			setIsLoading(false);

@@ -1,6 +1,6 @@
 import { ThemeDialog as Container } from '../styles/components/theme-dialog-box';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiX, HiColorSwatch, HiCubeTransparent } from 'react-icons/all';
+import { BiPalette, FiX, HiColorSwatch } from 'react-icons/all';
 import { useThemeContext } from '../context/ThemeContext';
 
 interface ThemeData {
@@ -63,7 +63,7 @@ export default function ThemeDialogBox(): JSX.Element {
 											themeSwitcher(option.code);
 										}}
 									>
-										<HiCubeTransparent />
+										<BiPalette />
 										<span>{option.name}</span>
 									</motion.div>
 								))}

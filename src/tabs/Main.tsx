@@ -4,6 +4,7 @@ import {
 	VscEmptyWindow,
 	FaCat,
 	FaParachuteBox,
+	HiDotsHorizontal,
 } from 'react-icons/all';
 import { MainContainer as Container } from '../styles/main';
 import { useState, useEffect } from 'react';
@@ -298,6 +299,11 @@ export default function Main(): JSX.Element {
 									</div>
 								</section>
 							))}
+						{bugsData.length > 0 && (
+							<div className='end-mark'>
+								<HiDotsHorizontal />
+							</div>
+						)}
 					</section>
 				</article>
 			</Container>

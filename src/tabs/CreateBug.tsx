@@ -1,16 +1,16 @@
 import {
 	FaCat,
+	FaNeuter,
+	FaSignature,
+	FaSwatchbook,
+	FaUserTag,
 	HiAnnotation,
-	HiBan,
 	HiChartBar,
 	HiCheck,
 	HiFlag,
-	HiHashtag,
 	HiPencil,
 	HiPuzzle,
-	HiSave,
-	HiStatusOnline,
-	HiUser,
+	IoSyncSharp,
 	VscIssueDraft,
 } from 'react-icons/all';
 import Header from '../components/Header';
@@ -138,7 +138,7 @@ export default function CreateBug(): JSX.Element {
 						<form onSubmit={handleSubmit}>
 							<div className='form-element'>
 								<label>
-									<HiHashtag />
+									<FaSignature />
 									<span>
 										Bug title <i>*</i>
 									</span>
@@ -156,7 +156,7 @@ export default function CreateBug(): JSX.Element {
 							<section className='form-section'>
 								<div className='form-element'>
 									<label>
-										<HiStatusOnline />
+										<FaSwatchbook />
 										<span>Status</span>
 									</label>
 									<select
@@ -194,8 +194,10 @@ export default function CreateBug(): JSX.Element {
 							<section className='form-section'>
 								<div className='form-element'>
 									<label>
-										<HiUser />
-										<span>Reporter <i>*</i></span>
+										<FaUserTag />
+										<span>
+											Reporter <i>*</i>
+										</span>
 									</label>
 									<input
 										type='text'
@@ -241,7 +243,9 @@ export default function CreateBug(): JSX.Element {
 							<div className='form-element'>
 								<label>
 									<HiAnnotation />
-									<span>Description <i>*</i></span>
+									<span>
+										Description <i>*</i>
+									</span>
 								</label>
 								<textarea
 									name='description'
@@ -273,18 +277,18 @@ export default function CreateBug(): JSX.Element {
 
 							<div className='actions'>
 								<button className='discard' onClick={() => navigate('/')}>
-									<HiBan />
+									<FaNeuter />
 									<span>Discard</span>
 								</button>
 								<button className='submit' type='submit'>
 									{isUpdate ? (
 										<>
-											<HiCheck />
+											<IoSyncSharp />
 											<span>Update</span>
 										</>
 									) : (
 										<>
-											<HiSave />
+											<HiCheck />
 											<span>Save</span>
 										</>
 									)}
