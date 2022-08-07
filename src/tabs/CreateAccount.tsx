@@ -95,7 +95,7 @@ export default function CreateAccount(): JSX.Element {
 								<div className='form-element'>
 									<label>
 										<FaUserEdit />
-										<span>First name</span>
+										<span>First name <i>*</i></span>
 									</label>
 									<input
 										type='text'
@@ -108,7 +108,7 @@ export default function CreateAccount(): JSX.Element {
 								<div className='form-element'>
 									<label>
 										<FaUserEdit />
-										<span>Last name</span>
+										<span>Last name <i>*</i></span>
 									</label>
 									<input
 										type='text'
@@ -124,7 +124,7 @@ export default function CreateAccount(): JSX.Element {
 								<div className='form-element'>
 									<label>
 										<FaUser />
-										<span>Username</span>
+										<span>Username <i>*</i></span>
 									</label>
 									<input
 										type='text'
@@ -137,7 +137,7 @@ export default function CreateAccount(): JSX.Element {
 								<div className='form-element'>
 									<label>
 										<FaEnvelope />
-										<span>E-mail</span>
+										<span>E-mail <i>*</i></span>
 									</label>
 									<input
 										type='email'
@@ -153,7 +153,7 @@ export default function CreateAccount(): JSX.Element {
 								<div className='form-element'>
 									<label>
 										<FaUnlock />
-										<span>Password</span>
+										<span>Password <i>*</i></span>
 									</label>
 									<input
 										type='password'
@@ -165,7 +165,7 @@ export default function CreateAccount(): JSX.Element {
 								<div className='form-element'>
 									<label>
 										<FaLock />
-										<span>Confirm Password</span>
+										<span>Confirm Password <i>*</i></span>
 									</label>
 									<input
 										type='password'

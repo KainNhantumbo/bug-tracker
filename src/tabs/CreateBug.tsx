@@ -139,7 +139,9 @@ export default function CreateBug(): JSX.Element {
 							<div className='form-element'>
 								<label>
 									<HiHashtag />
-									<span>Bug title</span>
+									<span>
+										Bug title <i>*</i>
+									</span>
 								</label>
 								<input
 									type='text'
@@ -193,7 +195,7 @@ export default function CreateBug(): JSX.Element {
 								<div className='form-element'>
 									<label>
 										<HiUser />
-										<span>Reporter</span>
+										<span>Reporter <i>*</i></span>
 									</label>
 									<input
 										type='text'
@@ -239,7 +241,7 @@ export default function CreateBug(): JSX.Element {
 							<div className='form-element'>
 								<label>
 									<HiAnnotation />
-									<span>Description</span>
+									<span>Description <i>*</i></span>
 								</label>
 								<textarea
 									name='description'

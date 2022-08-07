@@ -64,9 +64,10 @@ export const MainContainer = styled.main`
 				top: 25px;
 				line-height: 1.4rem;
 				border-bottom: 1px solid rgba(${({ theme }) => theme.font}, 0.2);
+				background: rgb(${({ theme }) => theme.foreground});
 				padding: 8px 10px;
 				:hover {
-					background: rgba(${({ theme }) => theme.secondary}, 0.2);
+					background: rgba(${({ theme }) => theme.secondary}, 0.1);
 				}
 
 				.action-dots {
