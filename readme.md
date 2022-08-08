@@ -1,30 +1,23 @@
 # Bug Tracker App
 
-This is a **bug tracker application** built with React.JS and Typescript. To be short, the main goal here is to help developers to keep track of the software development issues.\
+This is a **bug tracker application** built with React.JS and Typescript. To be short, the main goal here is to help developers to keep track of the software development bugs and issues, in a simple and more efficient way. You can find the API source code [here](https://github.com/KainNhantumbo/bug-tracker-api).
 
-Here a some screenshots:
-![](./src/docs/img/1.png)
-![](./src/docs/img/2.png)
-![](./src/docs/img/3.png)
+**Here are some screenshots in default dark theme:**\
+\
+![](./src/docs/img/login-tab.jpeg)
+![](./src/docs/img/main-tab.jpeg)
+![](./src/docs/img/settings-tab.jpeg)
 
-## Project status
+## Version 1.0.0 released!
+Finally, I just released the first stable version of the app. Has the development goes further I will be listing the introduced and new application features. For now, they are:
 
-This projects is in initial stage of its development. Further details of it's bulding, software architecture and features will be given in more advanced stages of development.
+- This application is able to perform all CRUD operations to manipulate data to accomplish its purposes.
 
-## Features
+- Built from scratch, a custom, beautiful and clean user interface, all built powered with styled-components, and ofcourse, animations.
 
-Has the developmet goes further I will be listing the introduced and new application features. For now, they are:
-
-- This application will be able to perform all CRUD operations to manipulate data.
-
-- Has more than just default dark and light themes.
-
-- Uses the browser localStorage to save user theme preferences.
-
-- Built-in from scratch, a  custom, beautiful, clean layout and animations. 
+- Has more than just default dark and light themes, for now, there are 4 themes to choose, between light and dark themes. Uses the browser localStorage to save user theme preferences.
 
 ## Scripts for testing
-
 Make sure you have installed **Node.js (v16.15.1 or later recommended) and also comes with npm**.\
 In the project directory, you can run in terminal:
 
