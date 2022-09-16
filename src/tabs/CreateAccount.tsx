@@ -1,6 +1,3 @@
-import { useState } from 'react';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
-import { CreateAccountContainer as Container } from '../styles/create-account';
 import {
 	FaEnvelope,
 	FaLock,
@@ -11,10 +8,12 @@ import {
 	BiLogIn,
 	BiLockOpen,
 } from 'react-icons/all';
+import { useState } from 'react';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { CreateAccountContainer as Container } from '../styles/create-account';
 import type { SubmitEvent, InputEvents } from '../types/form';
 import feedback from '../utils/feedback';
 import api from '../api/axios';
-
 interface UserData {
 	password: string;
 	confirm_password: string;
@@ -95,7 +94,9 @@ export default function CreateAccount(): JSX.Element {
 								<div className='form-element'>
 									<label>
 										<FaUserEdit />
-										<span>First name <i>*</i></span>
+										<span>
+											First name <i>*</i>
+										</span>
 									</label>
 									<input
 										type='text'
@@ -108,7 +109,9 @@ export default function CreateAccount(): JSX.Element {
 								<div className='form-element'>
 									<label>
 										<FaUserEdit />
-										<span>Last name <i>*</i></span>
+										<span>
+											Last name <i>*</i>
+										</span>
 									</label>
 									<input
 										type='text'
@@ -124,7 +127,9 @@ export default function CreateAccount(): JSX.Element {
 								<div className='form-element'>
 									<label>
 										<FaUser />
-										<span>Username <i>*</i></span>
+										<span>
+											Username <i>*</i>
+										</span>
 									</label>
 									<input
 										type='text'
@@ -137,7 +142,9 @@ export default function CreateAccount(): JSX.Element {
 								<div className='form-element'>
 									<label>
 										<FaEnvelope />
-										<span>E-mail <i>*</i></span>
+										<span>
+											E-mail <i>*</i>
+										</span>
 									</label>
 									<input
 										type='email'
@@ -153,7 +160,9 @@ export default function CreateAccount(): JSX.Element {
 								<div className='form-element'>
 									<label>
 										<FaUnlock />
-										<span>Password <i>*</i></span>
+										<span>
+											Password <i>*</i>
+										</span>
 									</label>
 									<input
 										type='password'
@@ -165,7 +174,9 @@ export default function CreateAccount(): JSX.Element {
 								<div className='form-element'>
 									<label>
 										<FaLock />
-										<span>Confirm Password <i>*</i></span>
+										<span>
+											Confirm Password <i>*</i>
+										</span>
 									</label>
 									<input
 										type='password'

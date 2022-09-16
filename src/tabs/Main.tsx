@@ -5,23 +5,25 @@ import {
 	FaCat,
 	FaParachuteBox,
 	HiDotsHorizontal,
+	HiAnnotation,
+	HiX,
 } from 'react-icons/all';
 import { MainContainer as Container } from '../styles/main';
 import { useState, useEffect } from 'react';
+import { useDate } from '../utils/date-functions';
+import { SubmitEvent } from '../types/form';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { useInfoBoxContext } from '../context/InfoBoxContext';
 import Header from '../components/Header';
 import ThemeDialogBox from '../components/ThemeDialogBox';
 import ToolBar from '../components/ToolBar';
 import SearchBox from '../components/SearchBox';
-import { SubmitEvent } from '../types/form';
 import SortBox from '../components/SortBox';
 import FilterBox from '../components/FilterBox';
 import useConnectAPI from '../hooks/fetch';
 import PromptDialogBox from '../components/PromptDialogBox';
-import { useDate } from '../utils/date-functions';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
 import Loading from '../components/Loading';
 import InfoBox from '../components/InfoBox';
-import { useInfoBoxContext } from '../context/InfoBoxContext';
 
 interface Data {
 	_id: string;
@@ -248,6 +250,9 @@ export default function Main(): JSX.Element {
 							className='menu'
 							style={{ display: bugsData.length == 0 ? 'none' : 'grid' }}
 						>
+							<section>
+								<span>Bug reports</span>{' '}
+							</section>
 							<div className='title'>
 								<span>Title</span>
 							</div>
@@ -264,41 +269,66 @@ export default function Main(): JSX.Element {
 								<span>Created</span>
 							</div>
 						</section>
-						{bugsData.length > 0 &&
-							bugsData.map((bug) => (
-								<section
-									className='bug'
-									key={bug._id}
-									onClick={(e) => {
-										const classList = (e as any).target.classList.contains(
-											'action-dots'
-										);
-										if (!classList)
-											return navigate(`/tab/create-bug/${bug._id}`);
-									}}
-								>
-									<div title={bug.title} className='title'>
-										{bug.title}
-									</div>
-									<div title={bug.author} className='reporter'>
-										{bug.author}
-									</div>
-									<div className='status'>{bug.status}</div>
-									<div className='priority'>{bug.priority}</div>
-									<div className='created'>{useDate(bug.createdAt, 'L')}</div>
-									<div
-										title='Delete bug'
-										className='action-dots'
-										id={bug._id}
-										onClick={() => {
-											setSelectedBugID(bug._id);
-											promptBoxController();
+						<section className='bugs-container'>
+							{bugsData.length > 0 &&
+								bugsData.map((bug) => (
+									<section
+										className='bug'
+										key={bug._id}
+										onClick={(e) => {
+											const classList = (e as any).target.classList.contains(
+												'action-dots'
+											);
+											if (!classList)
+												return navigate(`/tab/create-bug/${bug._id}`);
 										}}
 									>
-										<HiBackspace />
-									</div>
-								</section>
-							))}
+										<div title={bug.title} className='title'>
+											{bug.title}
+										</div>
+										<div title={bug.author} className='reporter'>
+											<label>
+												<span>Author:</span>
+												{'   '}
+											</label>
+											{bug.author}
+										</div>
+										<div className='status'>
+											<label>
+												<span>Status:</span>
+												{'   '}
+											</label>
+											<span>{bug.status}</span>
+										</div>
+										<div className='priority'>
+											<label>
+												<span>Priority:</span>
+												{'   '}
+											</label>
+											<span>{bug.priority}</span>
+										</div>
+										<div className='created'>
+										<label>
+												<span>Created:</span>
+												{'   '}
+											</label>
+											<span>{useDate(bug.createdAt, 'L')}</span>
+										</div>
+										<div
+											title='Delete bug'
+											className='action-dots'
+											id={bug._id}
+											onClick={() => {
+												setSelectedBugID(bug._id);
+												promptBoxController();
+											}}
+										>
+											<HiBackspace className='icon-a' />
+											<HiX className='icon-b' />
+										</div>
+									</section>
+								))}
+						</section>
 						{bugsData.length > 0 && (
 							<div className='end-mark'>
 								<HiDotsHorizontal />

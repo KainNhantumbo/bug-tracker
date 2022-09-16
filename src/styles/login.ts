@@ -81,7 +81,9 @@ export const LoginContainer = styled.div`
 				.errorMessage {
 					color: rgb(${({ theme }) => theme.alternative_a});
 					font-weight: 500;
-					font-size: 0.9rem;
+					font-size: 0.8rem;
+					max-width: 320px;
+					line-height: 1.4rem;
 				}
 
 				.actions {

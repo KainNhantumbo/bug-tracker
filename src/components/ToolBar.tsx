@@ -22,18 +22,6 @@ export default function ToolBar(props: Props): JSX.Element {
 	return (
 		<Container>
 			<section className='left-container'>
-				{false && (
-					<motion.button
-						whileHover={{ scale: 1.05 }}
-						whileTap={{ scale: 0.95 }}
-						title='Add new bug issue'
-						onClick={() => {}}
-						className='mono'
-					>
-						<FaBars />
-					</motion.button>
-				)}
-
 				<motion.button
 					whileHover={{ scale: 1.05 }}
 					whileTap={{ scale: 0.95 }}

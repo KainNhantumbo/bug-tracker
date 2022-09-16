@@ -18,12 +18,24 @@ export const ToolbarContainer = styled.section`
 	align-items: center;
 	gap: 5px;
 
-	.left-container , .right-container {
+	.left-container,
+	.right-container {
 		display: flex;
 		justify-content: flex-start;
 		flex-direction: row;
 		align-items: center;
 		gap: 20px;
+
+		@media screen and (max-width: 320px) {
+			gap: 12px;
+			font-size: 0.9rem;
+		}
+	}
+
+	@media screen and (max-width: 380px) {
+		.right-container {
+			display: none;
+		}
 	}
 
 	.mono {
@@ -53,6 +65,10 @@ export const ToolbarContainer = styled.section`
 			height: 18px;
 			left: 0;
 			top: calc(50% - 9px);
+
+			@media screen and (max-width: 320px) {
+				top: calc(50% - 9px);
+			}
 		}
 	}
 `;
