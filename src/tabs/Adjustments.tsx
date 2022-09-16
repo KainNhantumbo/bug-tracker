@@ -237,7 +237,7 @@ export default function Adjustments(): JSX.Element {
 								<div className='user-info'>
 									<h3>
 										<FaBug />
-										<span>Bug Tracker V1.0.0 (Desktop)</span>
+										<span>Bug Tracker V1.0.1</span>
 									</h3>
 								</div>
 								<div className='user-info'>

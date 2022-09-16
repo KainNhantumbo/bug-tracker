@@ -7,8 +7,15 @@ This is a **bug tracker application** built with React.JS and Typescript. To be 
 ![](./src/docs/img/login-tab.jpeg)
 ![](./src/docs/img/main-tab.jpeg)
 ![](./src/docs/img/settings-tab.jpeg)
+![](./src/docs/img/v2.jpeg)
+![](./src/docs/img/v5.jpeg)
+
+## Version 1.0.1 released!
+
+- Improved application layout to be responsive on mobile devices.
 
 ## Version 1.0.0 released!
+
 Finally, I just released the first stable version of the app. Has the development goes further I will be listing the introduced and new application features. For now, they are:
 
 - This application is able to perform all CRUD operations to manipulate data to accomplish its purposes.
@@ -18,6 +25,7 @@ Finally, I just released the first stable version of the app. Has the developmen
 - Has more than just default dark and light themes, for now, there are 4 themes to choose, between light and dark themes. Uses the browser localStorage to save user theme preferences.
 
 ## Scripts for testing
+
 Make sure you have installed **Node.js (v16.15.1 or later recommended) and also comes with npm**.\
 In the project directory, you can run in terminal:
 
