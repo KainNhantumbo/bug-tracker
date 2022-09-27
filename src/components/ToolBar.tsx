@@ -1,11 +1,5 @@
-import {
-	BiSortAlt2,
-	BiFilter,
-	FaBars,
-	HiPlus,
-	BiSearch,
-} from 'react-icons/all';
 import { motion } from 'framer-motion';
+import { BiSortAlt2, HiPlus, BiSearch } from 'react-icons/all';
 import { useNavigate, NavigateFunction } from 'react-router-dom';
 import { ToolbarContainer as Container } from '../styles/components/toolbar';
 

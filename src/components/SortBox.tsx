@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BiSortAlt2, FiX, HiSelector } from 'react-icons/all';
 import { SortBoxContainer as Container } from '../styles/components/sort-box';

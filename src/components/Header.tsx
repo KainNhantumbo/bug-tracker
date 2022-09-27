@@ -14,12 +14,11 @@ import PromptDialogBox from './PromptDialogBox';
 export default function Header() {
 	const navigate: NavigateFunction = useNavigate();
 	const { pathname } = useLocation();
-
 	const [username, setUsername] = useState<string>('');
 
 	// picks user name fro localstorage
 	const retrieveUser = (): void => {
-		let { user } = JSON.parse(
+		const { user } = JSON.parse(
 			localStorage.getItem('accessToken') || `{"user":"Unknown"}`
 		);
 		setUsername(user);

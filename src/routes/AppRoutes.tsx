@@ -9,7 +9,7 @@ import Message from '../tabs/Message';
 import AccountRecovery from '../tabs/AccountRecovery';
 import ErrorRedirect from './ErrorRedirect';
 
-export default function AppRoutes() {
+export default function AppRoutes(): JSX.Element {
 	return (
 		<Routes>
 			<Route path='/tab/login' element={<Login />} />

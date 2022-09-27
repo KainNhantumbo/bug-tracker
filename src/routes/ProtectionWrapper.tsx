@@ -6,7 +6,7 @@ interface Props {
 }
 
 // used to restrict access to routes that require authentication
-const ProtectionWrapper: FC<Props> = ({ children }) => {
+const ProtectionWrapper: FC<Props> = ({ children }): JSX.Element => {
 	const { token } = JSON.parse(
 		localStorage.getItem('accessToken') || `{"token":""}`
 	);
