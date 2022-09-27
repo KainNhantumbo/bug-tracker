@@ -7,6 +7,7 @@ import Login from '../tabs/Login';
 import CreateAccount from '../tabs/CreateAccount';
 import Message from '../tabs/Message';
 import AccountRecovery from '../tabs/AccountRecovery';
+import ErrorRedirect from './ErrorRedirect';
 
 export default function AppRoutes() {
 	return (
@@ -39,6 +40,7 @@ export default function AppRoutes() {
 					</ProtectionWrapper>
 				}
 			/>
+			<Route path='*' element={<ErrorRedirect />} />
 		</Routes>
 	);
 }

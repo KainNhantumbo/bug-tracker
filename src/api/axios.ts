@@ -10,6 +10,7 @@ api.defaults.headers.common['Content-Type'] = 'application/json';
 api.interceptors.response.use(undefined, (err: AxiosError) => {
 	const status = err.response?.status;
 	if (status == 403) {
+		localStorage.removeItem('accessToken');
 		location.assign('/tab/login');
 	}
 	return Promise.reject(err);
