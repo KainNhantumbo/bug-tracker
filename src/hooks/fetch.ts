@@ -1,27 +1,18 @@
 import api from '../api/axios';
-import { AxiosPromise } from 'axios';
-
-type config = {
-	method: string;
-	url: string;
-	data?: object | object[];
-};
+import { AxiosPromise, AxiosRequestConfig } from 'axios';
 
 /**
  * Makes connection to the server api
- * @param config object with connection method, url and data (optional)
+ * @param config AxiosRequestConfig object
  * @returns AxiosPromise<any>
  */
-const useConnectAPI = (config: config): AxiosPromise<any> => {
-	const acessToken = JSON.parse(
+const useConnectAPI = (config: AxiosRequestConfig): AxiosPromise<any> => {
+	const { token } = JSON.parse(
 		localStorage.getItem('accessToken') || `{"token":""}`
 	);
-	const token = `Bearer ${acessToken.token}`;
 	return api({
 		...config,
-		headers: {
-			authorization: token,
-		},
+		headers: { authorization: `Bearer ${token}` },
 	});
 };
 

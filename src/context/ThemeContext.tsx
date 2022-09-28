@@ -7,24 +7,23 @@ import {
 	useContext,
 } from 'react';
 import { light_default } from '../themes/light-themes';
-import { dark_default, dark_drackula, dark_rumble } from '../themes/dark-themes';
+import {
+	dark_default,
+	dark_drackula,
+	dark_rumble,
+} from '../themes/dark-themes';
 import GlobalStylesheet from '../styles/global';
 
-interface Props {
-	children: ReactNode;
-}
+type ThemeType = { theme: string };
+type Props = { children: ReactNode };
 
-interface ThemeSettings {
-	theme: string;
-}
-
-interface ContextProps {
+interface IContextProps {
 	themeSwitcher: (theme: string) => void;
 	controlModal: () => void;
 	isModalActive: boolean;
 }
 
-export const context = createContext<ContextProps>({
+export const context = createContext<IContextProps>({
 	themeSwitcher: (theme: string) => {},
 	isModalActive: false,
 	controlModal: () => {},
@@ -39,7 +38,7 @@ function ThemeContext(props: Props) {
 	const controlModal = (): void => setIsModalActive((prevstate) => !prevstate);
 
 	const loadTheme = (themeCode?: string): void => {
-		const { theme }: ThemeSettings = JSON.parse(
+		const { theme }: ThemeType = JSON.parse(
 			localStorage.getItem(THEME_STORAGE_KEY) || `{"theme":"light-default"}`
 		);
 
@@ -102,7 +101,7 @@ function ThemeContext(props: Props) {
 
 export default ThemeContext;
 
-export function useThemeContext(): ContextProps {
+export function useThemeContext(): IContextProps {
 	const data = useContext(context);
 	return data;
 }

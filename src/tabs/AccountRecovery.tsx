@@ -14,7 +14,7 @@ import type { SubmitEvent, InputEvents } from '../types/form';
 import feedback from '../utils/feedback';
 import api from '../api/axios';
 
-interface UserData {
+interface IUserData {
 	password: string;
 	confirm_password: string;
 	user_email: string;
@@ -22,7 +22,7 @@ interface UserData {
 }
 
 export default function AccountRecovery(): JSX.Element {
-	const [formData, setFormData] = useState<UserData>({
+	const [formData, setFormData] = useState<IUserData>({
 		password: '',
 		confirm_password: '',
 		user_email: '',
@@ -55,7 +55,7 @@ export default function AccountRecovery(): JSX.Element {
 			});
 			navigate(`/tab/message/recover/:id`);
 		} catch (err: any) {
-			console.log(err.response.data?.message);
+			console.log(err.response?.data?.message);
 			feedback(setErrorMessage, err.response.data?.message, 5000);
 		}
 	};
