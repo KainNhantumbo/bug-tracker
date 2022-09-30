@@ -5,7 +5,6 @@ import {
 	FaCat,
 	FaParachuteBox,
 	HiDotsHorizontal,
-	HiAnnotation,
 	HiX,
 } from 'react-icons/all';
 import { MainContainer as Container } from '../styles/main';
@@ -94,8 +93,7 @@ export default function Main(): JSX.Element {
 			getBugsData();
 			setSelectedBugID('');
 		} catch (err: any) {
-			console.error(err.response?.data?.message);
-			console.error(err);
+			console.error(err.response?.data?.message || err);
 		}
 	};
 
@@ -308,7 +306,7 @@ export default function Main(): JSX.Element {
 											<span>{bug.priority}</span>
 										</div>
 										<div className='created'>
-										<label>
+											<label>
 												<span>Created:</span>
 												{'   '}
 											</label>

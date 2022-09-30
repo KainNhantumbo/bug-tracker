@@ -62,7 +62,7 @@ export default function Message(): JSX.Element {
 					<p>{data.message}</p>
 					{data.code && (
 						<h3>
-							Recouvery account key:&nbsp;&nbsp;&nbsp; <i>{data.code}</i>
+							Recovery account key:&nbsp;&nbsp;&nbsp; <i>{data.code}</i>
 						</h3>
 					)}
 					<button onClick={() => navigate(data.url)}>
