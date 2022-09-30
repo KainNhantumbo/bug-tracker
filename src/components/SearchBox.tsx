@@ -2,13 +2,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { SearchBoxContainer as Container } from '../styles/components/search-box';
 import { BiSearch, FiX } from 'react-icons/all';
 import { SubmitEvent } from '../types/form';
+import type { Actions, State } from '../reducers/mainReducer';
+import { ActionTypes } from '../reducers/actions';
 
 interface Props {
 	active: boolean;
 	quit: () => void;
 	actionFn: (e: SubmitEvent) => Promise<void>;
 	reloadFn: () => Promise<void> | void;
-	stateFn: React.Dispatch<React.SetStateAction<string>>;
+	stateFn: React.Dispatch<Actions>;
+	state: State;
 }
 
 export default function SearchBox(props: Props): JSX.Element {
@@ -48,7 +51,13 @@ export default function SearchBox(props: Props): JSX.Element {
 										placeholder='Search for anything...'
 										autoFocus={true}
 										onChange={(e) => {
-											props.stateFn(e.target.value);
+											props.stateFn({
+												type: ActionTypes.SET_SEARCH_VALUE,
+												payload: {
+													...props.state,
+													searchValue: e.target.value,
+												},
+											});
 											if (e.target.value.length < 1) {
 												props.reloadFn();
 											}

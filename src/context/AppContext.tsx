@@ -24,6 +24,5 @@ export default function AppContext(props: Props) {
 }
 
 export const useAppContext = (): ContextProps => {
-	const data = useContext(context);
-	return data;
+	return useContext(context);
 };

@@ -8,7 +8,9 @@ import {
 	HiX,
 } from 'react-icons/all';
 import { MainContainer as Container } from '../styles/main';
-import { useState, useEffect } from 'react';
+import { useEffect, useReducer } from 'react';
+import { reducer, initialState } from '../reducers/mainReducer';
+import { ActionTypes } from '../reducers/actions';
 import { useDate } from '../utils/date-functions';
 import { SubmitEvent } from '../types/form';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
@@ -18,7 +20,6 @@ import ThemeDialogBox from '../components/ThemeDialogBox';
 import ToolBar from '../components/ToolBar';
 import SearchBox from '../components/SearchBox';
 import SortBox from '../components/SortBox';
-import FilterBox from '../components/FilterBox';
 import useConnectAPI from '../hooks/fetch';
 import PromptDialogBox from '../components/PromptDialogBox';
 import Loading from '../components/Loading';
@@ -34,32 +35,25 @@ interface Data {
 }
 
 export default function Main(): JSX.Element {
-	// modal state control--------
-	const [isSearchActive, setIsSearchActive] = useState(false);
-	const [isSortActive, setIsSortActive] = useState(false);
-	const [isFilterActive, setIsFilterActive] = useState(false);
-	const [isPromptActive, setIsPromptActive] = useState(false);
-	// loading states-------------
-	const [isLoading, setIsLoading] = useState(false);
 	const { info, setInfo } = useInfoBoxContext();
-	// core states----------------
-	const [searchValue, setSearchValue] = useState('');
-	const [bugsData, setBugsData] = useState<Data[]>([]);
-	const [selectedBugID, setSelectedBugID] = useState<string>('');
-
-	// core functions---------------------------------------------
+	const [state, dispatch] = useReducer(reducer, initialState);
 	const navigate: NavigateFunction = useNavigate();
-
+	// core functions---------------------------------------------
 	const getBugsData = async (): Promise<void> => {
 		setInfo((prevState) => ({ ...prevState, active: false }));
-		setIsLoading(true);
+		dispatch({
+			type: ActionTypes.LOADING,
+			payload: { ...state, isLoading: true },
+		});
 		try {
 			const { data } = await useConnectAPI({
 				method: 'get',
 				url: '/bugs?fields=title,status,author,createdAt,priority',
 			});
-			setBugsData(data.bugs);
-			setIsLoading(false);
+			dispatch({
+				type: ActionTypes.SET_BUGS_DATA,
+				payload: { ...state, bugsData: [...data.bugs] },
+			});
 			if (data.bugs.length < 1) {
 				setInfo({
 					message: 'You have no bug reports saved. They will appear here.',
@@ -68,7 +62,10 @@ export default function Main(): JSX.Element {
 				});
 			}
 		} catch (err: any) {
-			setIsLoading(false);
+			dispatch({
+				type: ActionTypes.LOADING,
+				payload: { ...state, isLoading: false },
+			});
 			setInfo({
 				message: 'Oops! Looks something went wrong.',
 				active: true,
@@ -83,15 +80,22 @@ export default function Main(): JSX.Element {
 	};
 
 	// delete bug functions-------------------------------------
-	const promptBoxController = (): void =>
-		setIsPromptActive((prevState) => !prevState);
+	const promptBoxController = (): void => {
+		dispatch({ type: ActionTypes.PROMPT_BOX_CONTROL });
+	};
 
 	const deleteBug = async (): Promise<void> => {
 		try {
-			await useConnectAPI({ method: 'delete', url: `/bugs/${selectedBugID}` });
+			await useConnectAPI({
+				method: 'delete',
+				url: `/bugs/${state.selectedBugID}`,
+			});
 			promptBoxController();
 			getBugsData();
-			setSelectedBugID('');
+			dispatch({
+				type: ActionTypes.SELECTED_BUG_ID,
+				payload: { ...state, selectedBugID: '' },
+			});
 		} catch (err: any) {
 			console.error(err.response?.data?.message || err);
 		}
@@ -99,22 +103,25 @@ export default function Main(): JSX.Element {
 
 	// search functions-----------------------------------------
 	const searchBoxController = (): void => {
-		setIsFilterActive(false);
-		setIsSortActive(false);
-		setIsSearchActive((prevState) => !prevState);
+		dispatch({ type: ActionTypes.SEARCH_BOX_CONTROL });
 	};
 
 	const handleSearch = async (e: SubmitEvent): Promise<void> => {
 		e.preventDefault();
 		setInfo((prevState) => ({ ...prevState, active: false }));
-		setIsLoading(true);
+		dispatch({
+			type: ActionTypes.LOADING,
+			payload: { ...state, isLoading: true },
+		});
 		try {
 			const { data } = await useConnectAPI({
 				method: 'get',
-				url: `/bugs?search=${searchValue}&fields=title,status,author,createdAt,priority`,
+				url: `/bugs?search=${state.searchValue}&fields=title,status,author,createdAt,priority`,
 			});
-			setBugsData([...data.bugs]);
-			setIsLoading(false);
+			dispatch({
+				type: ActionTypes.SET_BUGS_DATA,
+				payload: { ...state, bugsData: [...data.bugs] },
+			});
 			if (data.bugs.length < 1) {
 				setInfo({
 					message: 'No reports matched your search criteria.',
@@ -140,21 +147,24 @@ export default function Main(): JSX.Element {
 
 	// sort functions--------------------------------------
 	const sortBoxController = (): void => {
-		setIsFilterActive(false);
-		setIsSearchActive(false);
-		setIsSortActive((prevState) => !prevState);
+		dispatch({ type: ActionTypes.SORT_BOX_CONTROL });
 	};
 
 	const handleSort = async (option: string): Promise<void> => {
 		try {
 			setInfo((prevState) => ({ ...prevState, active: false }));
-			setIsLoading(true);
+			dispatch({
+				type: ActionTypes.LOADING,
+				payload: { ...state, isLoading: true },
+			});
 			const { data } = await useConnectAPI({
 				method: 'get',
 				url: `/bugs?sort=${option}&fields=title,status,author,createdAt,priority`,
 			});
-			setBugsData([...data.bugs]);
-			setIsLoading(false);
+			dispatch({
+				type: ActionTypes.SET_BUGS_DATA,
+				payload: { ...state, bugsData: [...data.bugs] },
+			});
 		} catch (err: any) {
 			setInfo({
 				message: 'Oops! Looks something went wrong.',
@@ -169,12 +179,6 @@ export default function Main(): JSX.Element {
 		}
 	};
 
-	// filter functions--------------------------------------
-	const filterBoxController = (): void =>
-		setIsFilterActive((prevState) => !prevState);
-
-	const handleFilter = async (option: string): Promise<void> => {};
-
 	// ---------*--------------*-------------*------------//
 	useEffect(() => {
 		getBugsData();
@@ -186,10 +190,7 @@ export default function Main(): JSX.Element {
 		});
 		// cleanup function to prevent memory leaks
 		return () => {
-			setIsPromptActive(false);
-			setIsSearchActive(false);
-			setIsFilterActive(false);
-			setIsSortActive(false);
+			dispatch({ type: ActionTypes.CLEAN_UP_MODALS });
 			setInfo((prevState) => ({ ...prevState, active: false }));
 		};
 	}, []);
@@ -198,25 +199,21 @@ export default function Main(): JSX.Element {
 		<>
 			<Header />
 			<ThemeDialogBox />
-			<Loading active={isLoading} />
+			<Loading active={state.isLoading} />
 			<ToolBar
 				openSearchBoxFn={searchBoxController}
 				openSortBoxFn={sortBoxController}
-				openFilterBoxFn={filterBoxController}
-				itemsCount={bugsData.length}
+				itemsCount={state.bugsData.length}
 			/>
 			<SearchBox
-				active={isSearchActive}
-				stateFn={setSearchValue}
+				active={state.isSearchActive}
+				stateFn={dispatch}
 				quit={searchBoxController}
 				actionFn={handleSearch}
 				reloadFn={getBugsData}
+				state={state}
 			/>
-			<FilterBox
-				quit={filterBoxController}
-				fn={handleFilter}
-				active={isFilterActive}
-			/>
+
 			<InfoBox
 				active={info.active}
 				message={info.message}
@@ -227,10 +224,14 @@ export default function Main(): JSX.Element {
 				setStateFn={setInfo}
 			/>
 
-			<SortBox fn={handleSort} quit={sortBoxController} active={isSortActive} />
+			<SortBox
+				fn={handleSort}
+				quit={sortBoxController}
+				active={state.isSortActive}
+			/>
 
 			<PromptDialogBox
-				active={isPromptActive}
+				active={state.isPromptActive}
 				action={deleteBug}
 				prompt_title={'Delete Bug'}
 				prompt_message={
@@ -246,7 +247,7 @@ export default function Main(): JSX.Element {
 					<section className='bugs-wrapper'>
 						<section
 							className='menu'
-							style={{ display: bugsData.length == 0 ? 'none' : 'grid' }}
+							style={{ display: state.bugsData.length == 0 ? 'none' : 'grid' }}
 						>
 							<section>
 								<span>Bug reports</span>{' '}
@@ -268,8 +269,8 @@ export default function Main(): JSX.Element {
 							</div>
 						</section>
 						<section className='bugs-container'>
-							{bugsData.length > 0 &&
-								bugsData.map((bug) => (
+							{state.bugsData.length > 0 &&
+								state.bugsData.map((bug) => (
 									<section
 										className='bug'
 										key={bug._id}
@@ -317,7 +318,10 @@ export default function Main(): JSX.Element {
 											className='action-dots'
 											id={bug._id}
 											onClick={() => {
-												setSelectedBugID(bug._id);
+												dispatch({
+													type: ActionTypes.SELECTED_BUG_ID,
+													payload: { ...state, selectedBugID: bug._id },
+												});
 												promptBoxController();
 											}}
 										>
@@ -327,7 +331,7 @@ export default function Main(): JSX.Element {
 									</section>
 								))}
 						</section>
-						{bugsData.length > 0 && (
+						{state.bugsData.length > 0 && (
 							<div className='end-mark'>
 								<HiDotsHorizontal />
 							</div>

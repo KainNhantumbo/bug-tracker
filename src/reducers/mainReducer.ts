@@ -1,6 +1,6 @@
-import { ActionsTypes } from './actions';
+import { ActionTypes } from './actions';
 
-interface IInitialState {
+export type State = {
 	isSearchActive: boolean;
 	isSortActive: boolean;
 	isFilterActive: boolean;
@@ -16,15 +16,11 @@ interface IInitialState {
 		createdAt: string;
 	}[];
 	selectedBugID: string;
-}
+};
 
-interface IState extends IInitialState {}
-interface Actions {
-	readonly type: string;
-	payload?: IState;
-}
+export type Actions = { type: string; payload?: State };
 
-export const initialState: IInitialState = {
+export const initialState: State = {
 	isSearchActive: false,
 	isSortActive: false,
 	isFilterActive: false,
@@ -35,10 +31,45 @@ export const initialState: IInitialState = {
 	selectedBugID: '',
 };
 
-export const reducer = (state: IState, action: Actions) => {
+export const reducer = (state: State, action: Actions) => {
 	switch (action.type) {
-		case ActionsTypes.LOADING:
-			return { ...state, isLoading: action.payload?.isLoading };
+		case ActionTypes.SEARCH_BOX_CONTROL:
+			return {
+				...state,
+				isFilterActive: false,
+				isSortActive: false,
+				isSearchActive: !state.isSearchActive,
+			};
+		case ActionTypes.SORT_BOX_CONTROL:
+			return {
+				...state,
+				isFilterActive: false,
+				isSearchActive: false,
+				isSortActive: !state.isSortActive,
+			};
+		case ActionTypes.CLEAN_UP_MODALS:
+			return {
+				...state,
+				isFilterActive: false,
+				isSearchActive: false,
+				isSortActive: false,
+				isPromptActive: false,
+			};
+		case ActionTypes.PROMPT_BOX_CONTROL:
+			return { ...state, isPromptActive: !state.isPromptActive };
+		case ActionTypes.LOADING:
+			return { ...state, isLoading: action.payload?.isLoading! };
+		case ActionTypes.SET_BUGS_DATA:
+			return {
+				...state,
+				bugsData: action.payload?.bugsData!,
+				isLoading: false,
+			};
+		case ActionTypes.SELECTED_BUG_ID:
+			return {
+				...state,
+				selectedBugID: action.payload?.selectedBugID!,
+			};
 		default:
 			return state;
 	}

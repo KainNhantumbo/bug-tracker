@@ -6,7 +6,6 @@ import { ToolbarContainer as Container } from '../styles/components/toolbar';
 interface Props {
 	openSearchBoxFn: () => void;
 	openSortBoxFn: () => void;
-	openFilterBoxFn: () => void;
 	itemsCount: number;
 }
 
@@ -37,17 +36,6 @@ export default function ToolBar(props: Props): JSX.Element {
 					<BiSortAlt2 />
 					<span>Sort</span>
 				</motion.button>
-
-				{/* <motion.button
-					whileHover={{ scale: 1.05 }}
-					whileTap={{ scale: 0.95 }}
-					title='Filter'
-					className='descripted'
-					onClick={props.openFilterBoxFn}
-				>
-					<BiFilter />
-					<span>Filter</span>
-				</motion.button> */}
 
 				<motion.button
 					whileHover={{ scale: 1.05 }}
