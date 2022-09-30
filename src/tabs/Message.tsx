@@ -13,6 +13,8 @@ interface PageProps {
 }
 
 export default function Message(): JSX.Element {
+	const navigate: NavigateFunction = useNavigate();
+	const { msg, id } = useParams();
 	const [data, setData] = useState<PageProps>({
 		title: '',
 		message: '',
@@ -20,11 +22,9 @@ export default function Message(): JSX.Element {
 		url: '',
 	});
 
-	const navigate: NavigateFunction = useNavigate();
-	const { msg, id } = useParams();
 
 	const loadPage = (type: string | undefined): void => {
-		if (type == 'account') {
+		if (type === 'account') {
 			setData({
 				title: 'Congratulations! Account created successfuly.',
 				message: `Please keep the following code a in a safe place, it will be used to recover your account in case if you forgot your password.`,
@@ -33,7 +33,7 @@ export default function Message(): JSX.Element {
 				url: '/tab/login',
 			});
 		}
-		if (type == 'recover') {
+		if (type === 'recover') {
 			setData({
 				title: 'Password updated successfuly.',
 				message: `Please keep your recovery key in a safe place, it will still be used to recover your account in case you forgot your password again.`,

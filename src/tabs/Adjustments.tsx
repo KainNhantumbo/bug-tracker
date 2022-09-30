@@ -41,10 +41,10 @@ interface UserData {
 }
 
 export default function Adjustments(): JSX.Element {
+	const { setInfo } = useInfoBoxContext();
 	const navigate: NavigateFunction = useNavigate();
 	// loading states-------------
 	const [isLoading, setIsLoading] = useState(true);
-	const { info, setInfo } = useInfoBoxContext();
 	// core states----------------
 	const { controlModal } = useThemeContext();
 	const [isModalActive, setisModalActive] = useState(false);

@@ -41,7 +41,7 @@ export default function CreateBug(): JSX.Element {
 	// loading states-------------
 	const [isLoading, setIsLoading] = useState(true);
 	const [errorMessage, setErrorMessage] = useState('');
-	const { info, setInfo } = useInfoBoxContext();
+	const { setInfo } = useInfoBoxContext();
 	// core states----------------
 	const [issueData, setIssueData] = useState<DataProps>({
 		title: '',

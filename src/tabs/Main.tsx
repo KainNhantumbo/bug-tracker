@@ -25,17 +25,8 @@ import PromptDialogBox from '../components/PromptDialogBox';
 import Loading from '../components/Loading';
 import InfoBox from '../components/InfoBox';
 
-interface Data {
-	_id: string;
-	title: string;
-	priority: string;
-	author: string;
-	status: string;
-	createdAt: string;
-}
-
 export default function Main(): JSX.Element {
-	const { info, setInfo } = useInfoBoxContext();
+	const { setInfo } = useInfoBoxContext();
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const navigate: NavigateFunction = useNavigate();
 	// core functions---------------------------------------------
@@ -214,15 +205,7 @@ export default function Main(): JSX.Element {
 				state={state}
 			/>
 
-			<InfoBox
-				active={info.active}
-				message={info.message}
-				icon={info.icon}
-				buttonText={info.buttonText}
-				actionFn={info.actionFn}
-				err={info.err}
-				setStateFn={setInfo}
-			/>
+			<InfoBox />
 
 			<SortBox
 				fn={handleSort}

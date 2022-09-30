@@ -1,32 +1,29 @@
 import { InfoBoxContainer as Container } from '../styles/components/info-box';
-import { InfoProps } from '../context/InfoBoxContext';
+import { useInfoBoxContext } from '../context/InfoBoxContext';
 
-interface Props extends InfoProps {
-	setStateFn: React.Dispatch<React.SetStateAction<InfoProps>>;
-}
-
-export default function InfoBox(props: Props): JSX.Element {
+export default function InfoBox(): JSX.Element {
+	const { info, setInfo } = useInfoBoxContext();
 	return (
 		<>
-			{props.active && (
+			{info.active && (
 				<Container>
 					<section className='content'>
-						<div className='icon'>{props.icon}</div>
+						<div className='icon'>{info.icon}</div>
 						<div className='message'>
-							<span>{props.message}</span>
-							{props.err && <h3>{props.err}</h3>}
+							<span>{info.message}</span>
+							{info.err && <h3>{info.err}</h3>}
 						</div>
-						{props.buttonText && (
+						{info.buttonText && (
 							<button
 								onClick={() => {
-									props.actionFn ? props.actionFn() : undefined;
-									props.setStateFn((prevState: any) => ({
+									info.actionFn ? info.actionFn() : undefined;
+									setInfo((prevState: any) => ({
 										...prevState,
 										active: false,
 									}));
 								}}
 							>
-								<span>{props.buttonText}</span>
+								<span>{info.buttonText}</span>
 							</button>
 						)}
 					</section>
