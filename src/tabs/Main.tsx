@@ -113,6 +113,7 @@ export default function Main(): JSX.Element {
 				type: ActionTypes.SET_BUGS_DATA,
 				payload: { ...state, bugsData: [...data.bugs] },
 			});
+
 			if (data.bugs.length < 1) {
 				setInfo({
 					message: 'No reports matched your search criteria.',
@@ -123,6 +124,10 @@ export default function Main(): JSX.Element {
 				});
 			}
 		} catch (err: any) {
+			dispatch({
+				type: ActionTypes.LOADING,
+				payload: { ...state, isLoading: false },
+			});
 			setInfo({
 				message: 'Oops! Looks something went wrong.',
 				active: true,

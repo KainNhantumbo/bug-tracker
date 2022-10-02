@@ -70,6 +70,11 @@ export const reducer = (state: State, action: Actions) => {
 				...state,
 				selectedBugID: action.payload?.selectedBugID!,
 			};
+		case ActionTypes.SET_SEARCH_VALUE:
+			return {
+				...state,
+				searchValue: action.payload?.searchValue!,
+			};
 		default:
 			return state;
 	}
