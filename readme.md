@@ -2,11 +2,10 @@
 
 This is a **bug tracker application** built with React.JS and Typescript. To be short, the main goal here is to help developers to keep track of the software development bugs and issues, in a simple and more efficient way. You can find the API source code [here](https://github.com/KainNhantumbo/bug-tracker-api).
 
-**Here are some screenshots in default dark theme:**\
-\
-![](./src/docs/img/login-tab.jpeg)
-![](./src/docs/img/main-tab.jpeg)
-![](./src/docs/img/settings-tab.jpeg)
+**Access this app live at: [https://bug-tracker-pied.vercel.app](https://bug-tracker-pied.vercel.app)**
+
+**Here are some screenshots in default light and dark themes:**
+
 ![](./src/docs/img/v2.jpeg)
 ![](./src/docs/img/v5.jpeg)
 
@@ -50,7 +49,8 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 E-mail: [nhantumbok@gmail.com](nhantumbok@gmail.com 'Send an email')\
 Github: [https://github.com/KainNhantumbo](https://github.com/KainNhantumbo 'See my github profile')  
-Portifolio: [https://portifolio-dev-kainnhantumbo.vercel.app](https://portifolio-dev-kainnhantumbo.vercel.app 'See my github profile')
+Portifolio: [https://portifolio-dev-kainnhantumbo.vercel.app](https://portifolio-dev-kainnhantumbo.vercel.app 'See my github profile')\
+My blog: [https://publish-it-programming.vercel.app](https://publish-it-programming.vercel.app 'Visit my website')
 
 ### If you like this project, please consider leaving a star on this repository so I can continue improving this app.
 
