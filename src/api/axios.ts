@@ -7,6 +7,8 @@ const api = axios.create({ baseURL: BASE_URL });
 
 api.defaults.headers.common['Accept'] = 'application/json';
 api.defaults.headers.common['Content-Type'] = 'application/json';
+api.defaults.withCredentials = true;
+
 // interceptors
 api.interceptors.response.use(undefined, (err: AxiosError) => {
 	const status = err.response?.status;

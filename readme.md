@@ -1,4 +1,4 @@
-# Bug Tracker App
+# Bug Tracker Application (React + Typescript)
 
 This is a **bug tracker application** built with React.JS and Typescript. To be short, the main goal here is to help developers to keep track of the software development bugs and issues, in a simple and more efficient way. You can find the API source code [here](https://github.com/KainNhantumbo/bug-tracker-api).
 
@@ -9,7 +9,7 @@ This is a **bug tracker application** built with React.JS and Typescript. To be 
 ![](./src/docs/img/v2.jpeg)
 ![](./src/docs/img/v5.jpeg)
 
-## Version 1.0.1 released!
+## Version 1.1.0
 
 - Improved application layout to be responsive on mobile devices.
 
@@ -52,9 +52,10 @@ Github: [https://github.com/KainNhantumbo](https://github.com/KainNhantumbo 'See
 Portifolio: [https://portifolio-dev-kainnhantumbo.vercel.app](https://portifolio-dev-kainnhantumbo.vercel.app 'See my github profile')\
 My blog: [https://publish-it-programming.vercel.app](https://publish-it-programming.vercel.app 'Visit my website')
 
-### If you like this project, please consider leaving a star on this repository so I can continue improving this app.
+#### If you like this project, let me know by leaving a star on this repository so I can keep improving this app.😊😘
 
-### With kindest regards, Kain Nhantumbo from Mozambique.
+Best regards, Kain Nhantumbo, a web developer from Mozambique.\
+**Made with ❤ React and Typescript**
 
 ## License
 
