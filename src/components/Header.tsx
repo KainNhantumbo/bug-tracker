@@ -15,16 +15,20 @@ import PromptDialogBox from './PromptDialogBox';
 export default function Header() {
   const navigate: NavigateFunction = useNavigate();
   const { pathname } = useLocation();
-  const { user } = useAppContext();
+  const { user, fetchAPI } = useAppContext();
 
   // logout functions
   const [isLogOutActive, setIsLogOutActive] = useState(false);
   const logOutBoxController = (): void =>
     setIsLogOutActive((prevState) => !prevState);
 
-  const logOut = (): void => {
-   
-    navigate('/tab/login');
+  const logOut = async (): Promise<void> => {
+    try {
+      await fetchAPI({ method: 'post', url: '/auth/logout' });
+      navigate('/tab/login');
+    } catch (error) {
+      console.error(error)
+    }
   };
 
   return (
