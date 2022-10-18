@@ -17,13 +17,13 @@ import Header from '../components/Header';
 import NavigationBar from '../components/NavigationBar';
 import ThemeDialogBox from '../components/ThemeDialogBox';
 import feedBack from '../utils/feedback';
-import { fetchAPI } from '../utils/fetch-client';
 import Loading from '../components/Loading';
 import { useInfoBoxContext } from '../context/InfoBoxContext';
 import { useState, useEffect } from 'react';
 import { InputEvents, SubmitEvent } from '../types/form';
 import { CreateBugContainer as Container } from '../styles/create-bug';
 import { useParams, useNavigate, NavigateFunction } from 'react-router-dom';
+import { useAppContext } from '../context/AppContext';
 
 interface DataProps {
   title: string;
@@ -37,6 +37,7 @@ interface DataProps {
 }
 
 export default function CreateBug(): JSX.Element {
+  const { fetchAPI } = useAppContext();
   const navigate: NavigateFunction = useNavigate();
   // loading states-------------
   const [isLoading, setIsLoading] = useState(true);

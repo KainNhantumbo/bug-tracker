@@ -10,6 +10,7 @@ import {
 } from 'react-icons/all';
 import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
 import { apiClient } from '../api/axios';
+import { useAppContext } from '../context/AppContext';
 import feedBack from '../utils/feedback';
 
 interface UserData {
@@ -18,6 +19,8 @@ interface UserData {
 }
 
 export default function Login(): JSX.Element {
+  const { setUser } = useAppContext();
+
   const [formData, setFormData] = useState<UserData>({
     email: '',
     password: '',
@@ -41,15 +44,13 @@ export default function Login(): JSX.Element {
         3000
       );
     try {
-      const { data: user } = await apiClient({
+      const { data } = await apiClient({
         method: 'post',
         url: '/auth/login',
         data: formData,
+        withCredentials: true,
       });
-      localStorage.setItem(
-        'accessToken',
-        JSON.stringify({ token: user.accessToken, user: user.username })
-      );
+      setUser({ token: data?.accessToken, username: data?.username });
       navigate('/');
     } catch (err: any) {
       console.log(err.response?.data?.message);

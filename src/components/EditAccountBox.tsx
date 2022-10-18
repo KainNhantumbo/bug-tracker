@@ -12,7 +12,7 @@ import {
 import { EditAccountContainer as Container } from '../styles/components/edit-account-box';
 import { motion, AnimatePresence } from 'framer-motion';
 import { InputEvents } from '../types/form';
-import { fetchAPI } from '../utils/fetch-client';
+import { useAppContext } from '../context/AppContext';
 import feedBack from '../utils/feedback';
 
 interface Props {
@@ -31,6 +31,7 @@ interface UserData {
 }
 
 function EditAccountBox(props: Props): JSX.Element {
+  const { fetchAPI } = useAppContext();
   const [message, setMessage] = useState('');
   const [accountData, setAccountData] = useState<UserData>({
     password: '',

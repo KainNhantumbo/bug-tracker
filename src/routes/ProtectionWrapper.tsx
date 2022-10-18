@@ -8,9 +8,9 @@ interface Props {
 
 // used to restrict access to routes that require authentication
 const ProtectionWrapper: FC<Props> = ({ children }): JSX.Element => {
-  const { accessToken } = useAppContext();
-  
-  if (!accessToken) return <Navigate to={'/tab/login'} />;
+  const { user } = useAppContext();
+
+  if (!user.token) return <Navigate to={'/tab/login'} />;
   return children;
 };
 

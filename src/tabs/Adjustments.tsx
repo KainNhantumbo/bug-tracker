@@ -25,7 +25,7 @@ import { AdjustmentsContainer as Container } from '../styles/adjustments';
 import { useState, useEffect } from 'react';
 import PromptDialogBox from '../components/PromptDialogBox';
 import EditAccountBox from '../components/EditAccountBox';
-import { fetchAPI } from '../utils/fetch-client';
+import { useAppContext } from '../context/AppContext';
 import { useDate } from '../utils/date-functions';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { useThemeContext } from '../context/ThemeContext';
@@ -41,6 +41,7 @@ interface UserData {
 }
 
 export default function Adjustments(): JSX.Element {
+  const { fetchAPI } = useAppContext();
   const { setInfo } = useInfoBoxContext();
   const navigate: NavigateFunction = useNavigate();
   // loading states-------------

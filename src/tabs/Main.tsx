@@ -15,17 +15,18 @@ import { useDate } from '../utils/date-functions';
 import { SubmitEvent } from '../types/form';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { useInfoBoxContext } from '../context/InfoBoxContext';
+import { useAppContext } from '../context/AppContext';
 import Header from '../components/Header';
 import ThemeDialogBox from '../components/ThemeDialogBox';
 import ToolBar from '../components/ToolBar';
 import SearchBox from '../components/SearchBox';
 import SortBox from '../components/SortBox';
-import { fetchAPI } from '../utils/fetch-client';
 import PromptDialogBox from '../components/PromptDialogBox';
 import Loading from '../components/Loading';
 import InfoBox from '../components/InfoBox';
 
 export default function Main(): JSX.Element {
+  const { fetchAPI } = useAppContext();
   const { setInfo } = useInfoBoxContext();
   const [state, dispatch] = useReducer(reducer, initialState);
   const navigate: NavigateFunction = useNavigate();

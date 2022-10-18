@@ -8,21 +8,14 @@ import {
 } from 'react-icons/all';
 import { motion } from 'framer-motion';
 import { NavigateFunction, useNavigate, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useAppContext } from '../context/AppContext';
 import PromptDialogBox from './PromptDialogBox';
 
 export default function Header() {
   const navigate: NavigateFunction = useNavigate();
   const { pathname } = useLocation();
-  const [username, setUsername] = useState<string>('');
-
-  // picks user name fro localstorage
-  const retrieveUser = (): void => {
-    const { user } = JSON.parse(
-      localStorage.getItem('accessToken') || `{"user":"Unknown"}`
-    );
-    setUsername(user);
-  };
+  const { user } = useAppContext();
 
   // logout functions
   const [isLogOutActive, setIsLogOutActive] = useState(false);
@@ -30,13 +23,9 @@ export default function Header() {
     setIsLogOutActive((prevState) => !prevState);
 
   const logOut = (): void => {
-    localStorage.removeItem('accessToken');
+   
     navigate('/tab/login');
   };
-
-  useEffect(() => {
-    retrieveUser();
-  }, []);
 
   return (
     <Container>
@@ -58,7 +47,7 @@ export default function Header() {
       <section className='side-back'>
         <h5>
           <HiSparkles />
-          <span>Hi {username}!</span>
+          <span>Hi {user.username}!</span>
         </h5>
         <div className='actions'>
           <motion.button
