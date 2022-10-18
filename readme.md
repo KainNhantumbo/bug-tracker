@@ -9,9 +9,11 @@ This is a **bug tracker application** built with React.JS and Typescript. To be 
 ![](./src/docs/img/v2.jpeg)
 ![](./src/docs/img/v5.jpeg)
 
-## Version 1.1.0
+## Version 1.2.0
 
+- Implemented user authentication using tokens and refresh tokens strategy with secure httpOnly cookies.
 - Improved application layout to be responsive on mobile devices.
+- Improved performance in state management, stability and fixed some bugs.
 
 ## Version 1.0.0 released!
 
