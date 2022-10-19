@@ -12,7 +12,6 @@ import { AxiosError, AxiosPromise, AxiosRequestConfig } from 'axios';
 interface Props {
   children: ReactNode;
 }
-
 export interface IUser {
   token: string;
   username: string;
@@ -64,10 +63,11 @@ export default function AppContext(props: Props) {
         url: '/auth/refresh',
         withCredentials: true,
       });
-      setUser({
+      setUser((prevData) => ({
+        ...prevData,
         token: credentials.data?.accessToken,
         username: credentials.data?.username,
-      });
+      }));
       navigate('/');
     } catch (err: any | unknown) {
       if (err.response?.status === 401) {

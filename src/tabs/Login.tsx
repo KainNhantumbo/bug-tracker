@@ -19,7 +19,7 @@ interface UserData {
 }
 
 export default function Login(): JSX.Element {
-  const { setUser } = useAppContext();
+  const { setUser, user } = useAppContext();
 
   const [formData, setFormData] = useState<UserData>({
     email: '',
