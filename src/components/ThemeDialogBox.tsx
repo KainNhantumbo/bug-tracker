@@ -1,14 +1,15 @@
-import { _themeSelector as Container } from '../styles/components/theme-dialog-box';
+import type { FC } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { BiPalette, FiX, HiColorSwatch } from 'react-icons/all';
 import { useThemeContext } from '../context/ThemeContext';
+import { BiPalette, FiX, HiColorSwatch } from 'react-icons/all';
+import { _themeSelector as Container } from '../styles/components/theme-dialog-box';
 
 interface ThemeData {
   name: string;
   code: string;
 }
 
-export default function ThemeDialogBox(): JSX.Element {
+const ThemeDialogBox: FC = (): JSX.Element => {
   const { controlModal, isModalActive, themeSwitcher } = useThemeContext();
 
   const ThemeOptions: ThemeData[] = [
@@ -28,8 +29,7 @@ export default function ThemeDialogBox(): JSX.Element {
             if (target.contains('main')) {
               controlModal();
             }
-          }}
-        >
+          }}>
           <motion.section
             className='dialog-modal'
             initial={{ opacity: 0, scale: 0 }}
@@ -40,8 +40,7 @@ export default function ThemeDialogBox(): JSX.Element {
                 duration: 0.3,
               },
             }}
-            exit={{ opacity: 0, scale: 0 }}
-          >
+            exit={{ opacity: 0, scale: 0 }}>
             <section className='dialog-prompt'>
               <div className='top'>
                 <h2>
@@ -61,8 +60,7 @@ export default function ThemeDialogBox(): JSX.Element {
                     onClick={() => {
                       controlModal();
                       themeSwitcher(option.code);
-                    }}
-                  >
+                    }}>
                     <BiPalette />
                     <span>{option.name}</span>
                   </motion.div>
@@ -74,4 +72,6 @@ export default function ThemeDialogBox(): JSX.Element {
       )}
     </AnimatePresence>
   );
-}
+};
+
+export default ThemeDialogBox;

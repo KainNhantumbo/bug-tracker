@@ -1,3 +1,4 @@
+import type { FC } from 'react';
 import { motion } from 'framer-motion';
 import { BiSortAlt2, HiPlus, BiSearch } from 'react-icons/all';
 import { useNavigate, NavigateFunction } from 'react-router-dom';
@@ -9,7 +10,7 @@ interface Props {
   itemsCount: number;
 }
 
-export default function ToolBar(props: Props): JSX.Element {
+const ToolBar: FC<Props> = (props): JSX.Element => {
   const navigate: NavigateFunction = useNavigate();
 
   return (
@@ -53,4 +54,6 @@ export default function ToolBar(props: Props): JSX.Element {
       </section>
     </Container>
   );
-}
+};
+
+export default ToolBar;

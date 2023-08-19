@@ -1,13 +1,10 @@
+import { FC } from 'react';
 import { _loading as Container } from '../styles/components/loading';
 
-interface Props {
-  active: boolean;
-}
-
-export default function Loading(props: Props): JSX.Element {
+const Loading: FC<{ active: boolean }> = ({ active }): JSX.Element => {
   return (
     <>
-      {props.active && (
+      {active && (
         <Container>
           <section className='content'>
             <div className='title'>Now Loading</div>
@@ -18,4 +15,6 @@ export default function Loading(props: Props): JSX.Element {
       )}
     </>
   );
-}
+};
+
+export default Loading;

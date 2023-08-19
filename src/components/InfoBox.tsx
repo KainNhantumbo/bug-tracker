@@ -1,8 +1,10 @@
-import { _infoBox as Container } from '../styles/components/info-box';
+import { FC } from 'react';
 import { useInfoBoxContext } from '../context/InfoBoxContext';
+import { _infoBox as Container } from '../styles/components/info-box';
 
-export default function InfoBox(): JSX.Element {
+const InfoBox: FC = (): JSX.Element => {
   const { info, setInfo } = useInfoBoxContext();
+
   return (
     <>
       {info.active && (
@@ -30,4 +32,6 @@ export default function InfoBox(): JSX.Element {
       )}
     </>
   );
-}
+};
+
+export default InfoBox;

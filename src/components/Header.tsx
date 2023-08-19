@@ -5,20 +5,24 @@ import {
   HiAdjustments,
   HiSparkles,
 } from 'react-icons/all';
+import {
+  NavigateFunction,
+  useNavigate,
+  useLocation,
+  Location,
+} from 'react-router-dom';
+import { FC, useState } from 'react';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
-import { useAppContext } from '../context/AppContext';
 import PromptDialogBox from './PromptDialogBox';
-import { NavigateFunction, useNavigate, useLocation } from 'react-router-dom';
+import { useAppContext } from '../context/AppContext';
 import { _header as Container } from '../styles/components/header';
 
-export default function Header() {
+const Header: FC = (): JSX.Element => {
+  const { pathname }: Location = useLocation();
   const navigate: NavigateFunction = useNavigate();
-  const { pathname } = useLocation();
   const { user, fetchAPI, setUser } = useAppContext();
+  const [isLogOutActive, setIsLogOutActive] = useState<boolean>(false);
 
-  // logout functions
-  const [isLogOutActive, setIsLogOutActive] = useState(false);
   const logOutBoxController = (): void =>
     setIsLogOutActive((prevState) => !prevState);
 
@@ -27,8 +31,8 @@ export default function Header() {
       await fetchAPI({ method: 'post', url: '/auth/logout' });
       setUser({ username: '', token: '' });
       navigate('/tab/login');
-    } catch (error) {
-      console.error(error);
+    } catch (err: any) {
+      console.error(err?.response?.data?.message ?? err);
     }
   };
 
@@ -77,4 +81,6 @@ export default function Header() {
       </section>
     </Container>
   );
-}
+};
+
+export default Header;

@@ -8,12 +8,12 @@ import {
   HiArrowLeft,
   HiCheck,
 } from 'react-icons/all';
-import { useEffect, useState } from 'react';
-import { _editAccount as Container } from '../styles/components/edit-account-box';
+import { FC, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { InputEvents } from '../../@types';
 import { useAppContext } from '../context/AppContext';
 import feedBack from '../utils/feedback';
+import { _editAccount as Container } from '../styles/components/edit-account-box';
 
 interface Props {
   active: boolean;
@@ -30,9 +30,9 @@ interface UserData {
   first_name: string;
 }
 
-function EditAccountBox(props: Props): JSX.Element {
+const EditAccountBox: FC<Props> = (props): JSX.Element => {
   const { fetchAPI } = useAppContext();
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState<string>('');
   const [accountData, setAccountData] = useState<UserData>({
     password: '',
     confirm_password: '',
@@ -69,7 +69,6 @@ function EditAccountBox(props: Props): JSX.Element {
         data: accountData,
       });
       feedBack(setMessage, data.message, 5000);
-      // reloads data on page
       setAccountData((prevData) => ({
         ...prevData,
         password: '',
@@ -77,9 +76,8 @@ function EditAccountBox(props: Props): JSX.Element {
       }));
       props.reload();
     } catch (err: any) {
-      feedBack(setMessage, err.response?.data?.message, 5000);
-      console.error(err.response?.data?.message);
-      console.error(err);
+      feedBack(setMessage, err?.response?.data?.message, 5000);
+      console.error(err?.response?.data?.message ?? err);
     }
   };
 
@@ -88,8 +86,7 @@ function EditAccountBox(props: Props): JSX.Element {
       const { data } = await fetchAPI({ method: 'get', url: '/users' });
       setAccountData({ ...data.user_data, password: '', confirm_password: '' });
     } catch (err: any) {
-      console.error(err.response?.data?.message);
-      console.error(err);
+      console.error(err?.response?.data?.message ?? err);
     }
   };
 
@@ -107,8 +104,7 @@ function EditAccountBox(props: Props): JSX.Element {
             if (target.contains('main')) {
               props.quit();
             }
-          }}
-        >
+          }}>
           <motion.section
             className='dialog-modal'
             initial={{ opacity: 0, scale: 0 }}
@@ -119,8 +115,7 @@ function EditAccountBox(props: Props): JSX.Element {
                 duration: 0.3,
               },
             }}
-            exit={{ opacity: 0, scale: 0 }}
-          >
+            exit={{ opacity: 0, scale: 0 }}>
             <div className='dialog-prompt'>
               <div className='prompt-info'>
                 <span className='prompt-title'>Edit Account </span>
@@ -258,6 +253,6 @@ function EditAccountBox(props: Props): JSX.Element {
       )}
     </AnimatePresence>
   );
-}
+};
 
 export default EditAccountBox;
