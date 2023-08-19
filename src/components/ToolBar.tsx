@@ -1,17 +1,14 @@
 import type { FC } from 'react';
 import { motion } from 'framer-motion';
+import { useAppContext } from '../context/AppContext';
 import { BiSortAlt2, HiPlus, BiSearch } from 'react-icons/all';
 import { useNavigate, NavigateFunction } from 'react-router-dom';
 import { _toolbar as Container } from '../styles/components/toolbar';
+import actions from '../reducers/actions';
 
-interface Props {
-  openSearchBoxFn: () => void;
-  openSortBoxFn: () => void;
-  itemsCount: number;
-}
-
-const ToolBar: FC<Props> = (props): JSX.Element => {
+const ToolBar: FC = (): JSX.Element => {
   const navigate: NavigateFunction = useNavigate();
+  const { state, dispatch } = useAppContext();
 
   return (
     <Container>
@@ -31,7 +28,12 @@ const ToolBar: FC<Props> = (props): JSX.Element => {
           whileTap={{ scale: 0.95 }}
           title='Sort'
           className='descripted'
-          onClick={props.openSortBoxFn}>
+          onClick={() =>
+            dispatch({
+              type: actions.SORT_BOX_CONTROL,
+              payload: { ...state, isSortActive: true },
+            })
+          }>
           <BiSortAlt2 />
           <span>Sort</span>
         </motion.button>
@@ -41,7 +43,12 @@ const ToolBar: FC<Props> = (props): JSX.Element => {
           whileTap={{ scale: 0.95 }}
           title='Search for anything'
           className='descripted'
-          onClick={props.openSearchBoxFn}>
+          onClick={() =>
+            dispatch({
+              type: actions.SEARCH_BOX_CONTROL,
+              payload: { ...state, isSearchActive: true },
+            })
+          }>
           <BiSearch />
           <span>Search</span>
         </motion.button>
@@ -49,7 +56,7 @@ const ToolBar: FC<Props> = (props): JSX.Element => {
 
       <section className='right-container'>
         <div className='count'>
-          <span>{props.itemsCount} items</span>
+          <span>{state.bugs.length} items</span>
         </div>
       </section>
     </Container>

@@ -109,21 +109,6 @@ const Main: FC = (): JSX.Element => {
     }
   };
 
-  // sort functions--------------------------------------
-  const sortBoxController = (): void => {
-    dispatch({
-      type: actions.SORT_BOX_CONTROL,
-      payload: { ...state, isSortActive: !state.isSortActive },
-    });
-  };
-
-  const searchBoxController = (): void => {
-    dispatch({
-      type: actions.SEARCH_BOX_CONTROL,
-      payload: { ...state, isSearchActive: !state.isSearchActive },
-    });
-  };
-
   useEffect((): (() => void) => {
     window.scroll({
       top: 0,
@@ -152,11 +137,9 @@ const Main: FC = (): JSX.Element => {
       <ThemeDialogBox />
       <Loading active={state.isLoading} />
       <ToolBar
-        openSearchBoxFn={searchBoxController}
-        openSortBoxFn={sortBoxController}
-        itemsCount={state.bugs.length}
+        
       />
-      
+
       <SearchBox />
       <InfoBox />
 
