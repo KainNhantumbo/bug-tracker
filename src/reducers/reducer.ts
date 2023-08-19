@@ -1,5 +1,6 @@
 import actions from './actions';
 import type { TState, TAction } from '../../@types';
+import { CgDanger } from 'react-icons/cg';
 
 export const initialState: TState = {
   isSearchActive: false,
@@ -10,6 +11,12 @@ export const initialState: TState = {
   searchValue: '',
   bugs: [],
   selectedBugId: '',
+  queryBugs: { query: '', sort: '' },
+  infoboxData: {
+    active: false,
+    message: '',
+    icon: CgDanger,
+  },
 };
 
 export const reducer = (state: TState, action: TAction): TState => {
@@ -35,6 +42,7 @@ export const reducer = (state: TState, action: TAction): TState => {
         isSearchActive: false,
         isSortActive: false,
         isPromptActive: false,
+        infoboxData: { ...state.infoboxData, active: false },
       };
     case actions.SET_SEARCH_VALUE:
       return {
@@ -55,6 +63,10 @@ export const reducer = (state: TState, action: TAction): TState => {
         ...state,
         selectedBugId: action.payload.selectedBugId,
       };
+    case actions.INFO_BOX_DATA:
+      return { ...state, infoboxData: action.payload.infoboxData };
+    case actions.QUERY_BUGS:
+      return { ...state, queryBugs: action.payload.queryBugs };
     default:
       return state;
   }

@@ -8,12 +8,10 @@ import {
   HiX,
 } from 'react-icons/all';
 import { _main as Container } from '../styles/main';
-import { FC, useEffect, useReducer } from 'react';
-import { reducer, initialState } from '../reducers/reducer';
+import { FC, useEffect } from 'react';
 import actions from '../reducers/actions';
 import { useDate } from '../utils/date-functions';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
-import { useInfoBoxContext } from '../context/InfoBoxContext';
 import { useAppContext } from '../context/AppContext';
 import Header from '../components/Header';
 import ThemeDialogBox from '../components/ThemeDialogBox';
@@ -26,14 +24,11 @@ import InfoBox from '../components/InfoBox';
 import { SubmitEvent } from '../../@types';
 
 const Main: FC = (): JSX.Element => {
-  const { fetchAPI } = useAppContext();
-  const { setInfo } = useInfoBoxContext();
-  const [state, dispatch] = useReducer(reducer, initialState);
   const navigate: NavigateFunction = useNavigate();
+  const { fetchAPI, state, dispatch } = useAppContext();
 
   // core functions---------------------------------------------
   const fetchBugs = async (): Promise<void> => {
-    setInfo((prevState) => ({ ...prevState, active: false }));
     dispatch({
       type: actions.LOADING,
       payload: { ...state, isLoading: true },
@@ -42,27 +37,43 @@ const Main: FC = (): JSX.Element => {
     try {
       const { data } = await fetchAPI({
         method: 'get',
-        url: '/bugs?fields=title,status,author,createdAt,priority',
+        url: `/bugs?fields=title,status,author,createdAt,priority${
+          state.queryBugs.query ? `&search=${state.queryBugs.query}` : ''
+        }${state.queryBugs.sort ? `&sort=${state.queryBugs.sort}` : ''}`,
       });
       dispatch({
         type: actions.SET_BUGS_DATA,
         payload: { ...state, bugs: [...data.bugs] },
       });
       if (data.bugs.length < 1) {
-        setInfo({
-          message: 'You have no bug reports saved. They will appear here.',
-          active: true,
-          icon: <VscEmptyWindow />,
+        dispatch({
+          type: actions.INFO_BOX_DATA,
+          payload: {
+            ...state,
+            infoboxData: {
+              ...state.infoboxData,
+              message: 'You have no bug reports saved. They will appear here.',
+              active: true,
+              icon: VscEmptyWindow,
+            },
+          },
         });
       }
     } catch (error: any) {
-      setInfo({
-        message: 'Oops! Looks something went wrong.',
-        active: true,
-        actionFn: fetchBugs,
-        icon: <FaCat />,
-        buttonText: 'Reload page',
-        err: error?.response?.data?.message ?? error?.code,
+      dispatch({
+        type: actions.INFO_BOX_DATA,
+        payload: {
+          ...state,
+          infoboxData: {
+            ...state.infoboxData,
+            message: 'Oops! Looks something went wrong.',
+            active: true,
+            actionFn: fetchBugs,
+            icon: FaCat,
+            buttonText: 'Reload page',
+            err: error?.response?.data?.message ?? error?.code,
+          },
+        },
       });
       console.error(error?.response?.data?.message ?? error);
     } finally {
@@ -98,58 +109,6 @@ const Main: FC = (): JSX.Element => {
     }
   };
 
-  // search functions-----------------------------------------
-  const searchBoxController = (): void => {
-    dispatch({
-      type: actions.SEARCH_BOX_CONTROL,
-      payload: { ...state, isSearchActive: !state.isSearchActive },
-    });
-  };
-
-  const handleSearch = async (e: SubmitEvent): Promise<void> => {
-    e.preventDefault();
-    setInfo((prevState) => ({ ...prevState, active: false }));
-    dispatch({
-      type: actions.LOADING,
-      payload: { ...state, isLoading: true },
-    });
-    try {
-      const { data } = await fetchAPI({
-        method: 'get',
-        url: `/bugs?search=${state.searchValue}&fields=title,status,author,createdAt,priority`,
-      });
-      dispatch({
-        type: actions.SET_BUGS_DATA,
-        payload: { ...state, bugs: [...data.bugs] },
-      });
-
-      if (data.bugs.length < 1) {
-        setInfo({
-          message: 'No reports matched your search criteria.',
-          active: true,
-          icon: <FaParachuteBox />,
-          buttonText: 'Reload page',
-          actionFn: fetchBugs,
-        });
-      }
-    } catch (err: any) {
-      dispatch({
-        type: actions.LOADING,
-        payload: { ...state, isLoading: false },
-      });
-      setInfo({
-        message: 'Oops! Looks something went wrong.',
-        active: true,
-        actionFn: fetchBugs,
-        icon: <FaCat />,
-        buttonText: 'Reload page',
-        err: err.response?.data?.message || err.code,
-      });
-      console.error(err.message);
-      console.error(err.response?.data?.message);
-    }
-  };
-
   // sort functions--------------------------------------
   const sortBoxController = (): void => {
     dispatch({
@@ -158,53 +117,34 @@ const Main: FC = (): JSX.Element => {
     });
   };
 
-  const handleSort = async (option: string): Promise<void> => {
-    try {
-      setInfo((prevState) => ({ ...prevState, active: false }));
-      dispatch({
-        type: actions.LOADING,
-        payload: { ...state, isLoading: true },
-      });
-      const { data } = await fetchAPI({
-        method: 'get',
-        url: `/bugs?sort=${option}&fields=title,status,author,createdAt,priority`,
-      });
-      dispatch({
-        type: actions.SET_BUGS_DATA,
-        payload: { ...state, bugs: [...data.bugs] },
-      });
-    } catch (err: any) {
-      setInfo({
-        message: 'Oops! Looks something went wrong.',
-        active: true,
-        actionFn: fetchBugs,
-        icon: <FaCat />,
-        buttonText: 'Reload page',
-        err: err.response?.data?.message || err.code,
-      });
-      console.error(err.message);
-      console.error(err.response?.data?.message);
-    }
+  const searchBoxController = (): void => {
+    dispatch({
+      type: actions.SEARCH_BOX_CONTROL,
+      payload: { ...state, isSearchActive: !state.isSearchActive },
+    });
   };
 
-  // ---------*--------------*-------------*------------//
-  useEffect(() => {
-    fetchBugs();
-    // corrects the windows Yaxis position
+  useEffect((): (() => void) => {
     window.scroll({
       top: 0,
       left: 0,
       behavior: 'smooth',
     });
-    // cleanup function to prevent memory leaks
-    return () => {
+
+    return (): void => {
       dispatch({
         type: actions.CLEAN_UP_MODALS,
         payload: { ...state },
       });
-      setInfo((prevState) => ({ ...prevState, active: false }));
     };
   }, []);
+
+  useEffect(() => {
+    const debounceTimer = setTimeout(() => {
+      fetchBugs();
+    }, 500);
+    return (): void => clearTimeout(debounceTimer);
+  }, [state.queryBugs]);
 
   return (
     <>
@@ -216,15 +156,8 @@ const Main: FC = (): JSX.Element => {
         openSortBoxFn={sortBoxController}
         itemsCount={state.bugs.length}
       />
-      <SearchBox
-        active={state.isSearchActive}
-        stateFn={dispatch}
-        quit={searchBoxController}
-        actionFn={handleSearch}
-        reloadFn={fetchBugs}
-        state={state}
-      />
-
+      
+      <SearchBox />
       <InfoBox />
 
       <SortBox

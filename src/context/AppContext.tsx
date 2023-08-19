@@ -4,10 +4,14 @@ import {
   createContext,
   ReactNode,
   useContext,
+  useReducer,
+  Dispatch,
 } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { apiClient } from '../api/axios';
 import { AxiosError, AxiosPromise, AxiosRequestConfig } from 'axios';
+import { TAction, TState } from '../../@types';
+import { reducer, initialState } from '../reducers/reducer';
 
 interface Props {
   children: ReactNode;
@@ -18,6 +22,8 @@ export interface IUser {
 }
 
 interface ContextProps {
+  state: TState;
+  dispatch: Dispatch<TAction>;
   userRecouveryKey: string;
   setUserRecouveryKey: React.Dispatch<React.SetStateAction<string>>;
   user: IUser;
@@ -33,9 +39,12 @@ const context = createContext<ContextProps>({
   setUser: () => {},
   user: { token: '', username: '' },
   fetchAPI: (): any => {},
+  state: initialState,
+  dispatch: () => {},
 });
 
 export default function AppContext(props: Props) {
+  const [state, dispatch] = useReducer(reducer, initialState);
   const [userRecouveryKey, setUserRecouveryKey] = useState<string>('');
   const [user, setUser] = useState<IUser>({ token: '', username: '' });
   const navigate: NavigateFunction = useNavigate();
@@ -116,8 +125,9 @@ export default function AppContext(props: Props) {
         user,
         setUser,
         fetchAPI,
-      }}
-    >
+        state,
+        dispatch,
+      }}>
       {props.children}
     </context.Provider>
   );

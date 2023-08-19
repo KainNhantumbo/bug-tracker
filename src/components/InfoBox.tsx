@@ -1,30 +1,38 @@
-import { FC } from 'react';
-import { useInfoBoxContext } from '../context/InfoBoxContext';
+import type { FC } from 'react';
+import actions from '../reducers/actions';
+import { useAppContext } from '../context/AppContext';
 import { _infoBox as Container } from '../styles/components/info-box';
 
 const InfoBox: FC = (): JSX.Element => {
-  const { info, setInfo } = useInfoBoxContext();
+  const { state, dispatch } = useAppContext();
 
   return (
     <>
-      {info.active && (
+      {state.infoboxData.active && (
         <Container>
           <section className='content'>
-            <div className='icon'>{info.icon}</div>
-            <div className='message'>
-              <span>{info.message}</span>
-              {info.err && <h3>{info.err}</h3>}
+            <div className='icon'>
+              <state.infoboxData.icon />
             </div>
-            {info.buttonText && (
+            <div className='message'>
+              <span>{state.infoboxData.message}</span>
+              {state.infoboxData.err && <h3>{state.infoboxData.err}</h3>}
+            </div>
+            {state.infoboxData.buttonText && (
               <button
                 onClick={() => {
-                  info.actionFn ? info.actionFn() : undefined;
-                  setInfo((prevState: any) => ({
-                    ...prevState,
-                    active: false,
-                  }));
+                  state.infoboxData.actionFn
+                    ? state.infoboxData.actionFn()
+                    : undefined;
+                  dispatch({
+                    type: actions.INFO_BOX_DATA,
+                    payload: {
+                      ...state,
+                      infoboxData: { ...state.infoboxData, active: false },
+                    },
+                  });
                 }}>
-                <span>{info.buttonText}</span>
+                <span>{state.infoboxData.buttonText}</span>
               </button>
             )}
           </section>

@@ -8,6 +8,7 @@ const actions = {
   SET_BUGS_DATA: 'SET_BUGS_DATA',
   SELECTED_BUG_ID: 'SELECTED_BUG_ID',
   QUERY_BUGS: 'QUERY_BUGS',
+  INFO_BOX_DATA: 'INFO_BOX_DATA',
 };
 
 export default actions;

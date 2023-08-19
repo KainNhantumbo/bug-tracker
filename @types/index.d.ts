@@ -1,12 +1,23 @@
 import {} from 'styled-components';
 import { ChangeEvent, FormEvent } from 'react';
+import { IconType } from 'react-icons';
 
 export type InputEvents =
-	| ChangeEvent<HTMLInputElement>
-	| ChangeEvent<HTMLSelectElement>
-	| ChangeEvent<HTMLTextAreaElement>;
+  | ChangeEvent<HTMLInputElement>
+  | ChangeEvent<HTMLSelectElement>
+  | ChangeEvent<HTMLTextAreaElement>;
 
 export type SubmitEvent = FormEvent<HTMLFormElement>;
+
+/**  interface for infoBox component data */
+export interface InfoProps {
+  active: boolean;
+  message: string;
+  icon: IconType;
+  buttonText?: string;
+  err?: string;
+  actionFn?: () => void;
+}
 
 export type Theme = {
   primary: string;
@@ -42,6 +53,8 @@ export type TState = {
   searchValue: string;
   bugs: TBug[];
   selectedBugId: string;
+  infoboxData: InfoProps;
+  queryBugs: { query: string; sort: string };
 };
 
 export type TAction = { type: string; payload: TState };
