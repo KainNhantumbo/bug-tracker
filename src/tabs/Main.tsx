@@ -134,12 +134,7 @@ const Main: FC = (): JSX.Element => {
       <SearchBox />
       <ThemeDialogBox />
       <Loading />
-
-      <SortBox
-        fn={handleSort}
-        quit={sortBoxController}
-        active={state.isSortActive}
-      />
+      <SortBox />
 
       <PromptDialogBox
         action={deleteBug}
@@ -156,7 +151,7 @@ const Main: FC = (): JSX.Element => {
           <section className='bugs-wrapper'>
             <section
               className='menu'
-              style={{ display: state.bugs.length == 0 ? 'none' : 'grid' }}>
+              style={{ display: state.bugs.length < 1 ? 'none' : 'grid' }}>
               <section>
                 <span>Bug reports</span>{' '}
               </section>

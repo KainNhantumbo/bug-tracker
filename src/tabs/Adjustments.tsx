@@ -30,7 +30,6 @@ import { useAppContext } from '../context/AppContext';
 import { useDate } from '../utils/date-functions';
 import { useThemeContext } from '../context/ThemeContext';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
-import { useInfoBoxContext } from '../context/InfoBoxContext';
 
 interface IUser {
   _id: string;
@@ -41,8 +40,7 @@ interface IUser {
 }
 
 const Adjustments: FC = (): JSX.Element => {
-  const { fetchAPI } = useAppContext();
-  const { setInfo } = useInfoBoxContext();
+  const { fetchAPI, state, dispatch } = useAppContext();
   const navigate: NavigateFunction = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { controlModal } = useThemeContext();
@@ -87,20 +85,27 @@ const Adjustments: FC = (): JSX.Element => {
     setIsEditAccountActive((prevState) => !prevState);
 
   const getUserDetails = async (): Promise<void> => {
-    setInfo((prevState) => ({ ...prevState, active: false }));
     setIsLoading(true);
     try {
       const { data } = await fetchAPI({ method: 'get', url: '/users' });
       setUserData({ ...data.user_data });
     } catch (error: any) {
-      setInfo({
-        message: 'Oops! Looks something went wrong.',
+      dispatch({
+        type: actions.INFO_BOX_DATA,
+        payload: {
+          ...state,
+          infoboxData: {
+            ...state.infoboxData,
+            message: 'Oops! Looks something went wrong.',
         active: true,
         actionFn: getUserDetails,
         icon: <FaCat />,
         buttonText: 'Refresh and try again',
         err: error?.response?.data?.message ?? error?.code,
+          },
+        },
       });
+      
       console.error(error?.response?.data?.message ?? error);
     } finally {
       setIsLoading(false);
@@ -282,3 +287,5 @@ const Adjustments: FC = (): JSX.Element => {
     </>
   );
 };
+
+export default Adjustments;
