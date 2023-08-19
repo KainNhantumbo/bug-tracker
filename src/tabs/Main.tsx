@@ -7,8 +7,8 @@ import {
   HiDotsHorizontal,
   HiX,
 } from 'react-icons/all';
-import { MainContainer as Container } from '../styles/main';
-import { useEffect, useReducer } from 'react';
+import { _main as Container } from '../styles/main';
+import { FC, useEffect, useReducer } from 'react';
 import { reducer, initialState } from '../reducers/reducer';
 import actions from '../reducers/actions';
 import { useDate } from '../utils/date-functions';
@@ -25,7 +25,7 @@ import Loading from '../components/Loading';
 import InfoBox from '../components/InfoBox';
 import { SubmitEvent } from '../../@types';
 
-export default function Main(): JSX.Element {
+const Main: FC = (): JSX.Element => {
   const { fetchAPI } = useAppContext();
   const { setInfo } = useInfoBoxContext();
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -341,4 +341,6 @@ export default function Main(): JSX.Element {
       </Container>
     </>
   );
-}
+};
+
+export default Main;

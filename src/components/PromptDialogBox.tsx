@@ -1,4 +1,4 @@
-import { PromptContainer as Container } from '../styles/components/dialog-prompt-box';
+import { _prompt as Container } from '../styles/components/dialog-prompt-box';
 import { FaArrowLeft } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 

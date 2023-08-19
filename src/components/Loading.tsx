@@ -1,4 +1,4 @@
-import { LoadingContainer as Container } from '../styles/components/loading';
+import { _loading as Container } from '../styles/components/loading';
 
 interface Props {
   active: boolean;

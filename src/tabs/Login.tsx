@@ -5,8 +5,8 @@ import {
   BiLockOpen,
   FaEnvelope,
 } from 'react-icons/all';
-import { useState } from 'react';
-import { LoginContainer as Container } from '../styles/login';
+import { FC, useState } from 'react';
+import { _login as Container } from '../styles/login';
 import type { SubmitEvent, InputEvents } from '../../@types';
 import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
 import { apiClient } from '../api/axios';
@@ -18,9 +18,8 @@ interface ILoginProps {
   password: string;
 }
 
-export default function Login(): JSX.Element {
+const Login: FC = (): JSX.Element => {
   const { setUser, user } = useAppContext();
-
   const [formData, setFormData] = useState<ILoginProps>({
     email: '',
     password: '',
@@ -52,9 +51,9 @@ export default function Login(): JSX.Element {
       });
       setUser({ token: data?.accessToken, username: data?.username });
       navigate('/');
-    } catch (err: any) {
-      console.log(err.response?.data?.message);
-      feedBack(setErrorMessage, err.response?.data?.message, 5000);
+    } catch (error: any) {
+      console.error(error?.response?.data?.message);
+      feedBack(setErrorMessage, error?.response?.data?.message, 5000);
     }
   };
 
@@ -106,8 +105,7 @@ export default function Login(): JSX.Element {
                 </button>
                 <button
                   className='register'
-                  onClick={() => navigate('/tab/create-account')}
-                >
+                  onClick={() => navigate('/tab/create-account')}>
                   <BiLogIn />
                   <span>Create Account</span>
                 </button>
@@ -129,4 +127,6 @@ export default function Login(): JSX.Element {
       </footer>
     </Container>
   );
-}
+};
+
+export default Login;

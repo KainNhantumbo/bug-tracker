@@ -1,4 +1,3 @@
-import { HeaderContainer as Container } from '../styles/components/header';
 import {
   BiLogOut,
   BiPowerOff,
@@ -7,10 +6,11 @@ import {
   HiSparkles,
 } from 'react-icons/all';
 import { motion } from 'framer-motion';
-import { NavigateFunction, useNavigate, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
 import PromptDialogBox from './PromptDialogBox';
+import { NavigateFunction, useNavigate, useLocation } from 'react-router-dom';
+import { _header as Container } from '../styles/components/header';
 
 export default function Header() {
   const navigate: NavigateFunction = useNavigate();
@@ -62,8 +62,7 @@ export default function Header() {
             onClick={() => {
               if (pathname === '/tab/adjustments') return;
               navigate('/tab/adjustments');
-            }}
-          >
+            }}>
             <HiAdjustments />
           </motion.button>
 
@@ -71,8 +70,7 @@ export default function Header() {
             className='user'
             title='Log out'
             whileTap={{ scale: 0.9 }}
-            onClick={logOutBoxController}
-          >
+            onClick={logOutBoxController}>
             <BiLogOut />
           </motion.button>
         </div>

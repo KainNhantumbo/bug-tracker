@@ -1,4 +1,4 @@
-import { ThemeDialog as Container } from '../styles/components/theme-dialog-box';
+import { _themeSelector as Container } from '../styles/components/theme-dialog-box';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BiPalette, FiX, HiColorSwatch } from 'react-icons/all';
 import { useThemeContext } from '../context/ThemeContext';

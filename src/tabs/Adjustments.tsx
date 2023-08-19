@@ -21,16 +21,16 @@ import {
 import Header from '../components/Header';
 import NavigationBar from '../components/NavigationBar';
 import ThemeDialogBox from '../components/ThemeDialogBox';
-import { AdjustmentsContainer as Container } from '../styles/adjustments';
-import { useState, useEffect } from 'react';
+import { _adjustments as Container } from '../styles/adjustments';
+import { useState, useEffect, FC } from 'react';
+import Loading from '../components/Loading';
 import PromptDialogBox from '../components/PromptDialogBox';
 import EditAccountBox from '../components/EditAccountBox';
 import { useAppContext } from '../context/AppContext';
 import { useDate } from '../utils/date-functions';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { useThemeContext } from '../context/ThemeContext';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { useInfoBoxContext } from '../context/InfoBoxContext';
-import Loading from '../components/Loading';
 
 interface IUser {
   _id: string;
@@ -40,15 +40,13 @@ interface IUser {
   createdAt: string;
 }
 
-export default function Adjustments(): JSX.Element {
+const Adjustments: FC = (): JSX.Element => {
   const { fetchAPI } = useAppContext();
   const { setInfo } = useInfoBoxContext();
   const navigate: NavigateFunction = useNavigate();
-  // loading states-------------
-  const [isLoading, setIsLoading] = useState(true);
-  // core states----------------
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const { controlModal } = useThemeContext();
-  const [isModalActive, setisModalActive] = useState(false);
+  const [isModalActive, setisModalActive] = useState<boolean>(false);
   const [userData, setUserData] = useState<IUser>({
     _id: '',
     first_name: '',
@@ -82,7 +80,8 @@ export default function Adjustments(): JSX.Element {
   };
 
   // edit account functions
-  const [isEditAccountActive, setIsEditAccountActive] = useState<boolean>(false);
+  const [isEditAccountActive, setIsEditAccountActive] =
+    useState<boolean>(false);
 
   const editBoxController = (): void =>
     setIsEditAccountActive((prevState) => !prevState);
@@ -100,7 +99,7 @@ export default function Adjustments(): JSX.Element {
         actionFn: getUserDetails,
         icon: <FaCat />,
         buttonText: 'Refresh and try again',
-        err: error.response?.data?.message || error.code,
+        err: error?.response?.data?.message ?? error?.code,
       });
       console.error(error?.response?.data?.message ?? error);
     } finally {
@@ -108,7 +107,7 @@ export default function Adjustments(): JSX.Element {
     }
   };
 
-  useEffect((): () => void => {
+  useEffect((): (() => void) => {
     getUserDetails();
     window.scroll({
       top: 0,
@@ -282,4 +281,4 @@ export default function Adjustments(): JSX.Element {
       </Container>
     </>
   );
-}
+};

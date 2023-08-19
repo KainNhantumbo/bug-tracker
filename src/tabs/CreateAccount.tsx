@@ -8,9 +8,9 @@ import {
   BiLogIn,
   BiLockOpen,
 } from 'react-icons/all';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
-import { CreateAccountContainer as Container } from '../styles/create-account';
+import { _createAccount as Container } from '../styles/create-account';
 import type { SubmitEvent, InputEvents } from '../../@types';
 import feedback from '../utils/feedback';
 import { apiClient } from '../api/axios';
@@ -24,9 +24,9 @@ interface IFormData {
   first_name: string;
 }
 
-export default function CreateAccount(): JSX.Element {
+const CreateAccount: FC = (): JSX.Element => {
   const navigate: NavigateFunction = useNavigate();
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const [formData, setFormData] = useState<IFormData>({
     password: '',
     confirm_password: '',
@@ -60,8 +60,8 @@ export default function CreateAccount(): JSX.Element {
       });
       navigate(`/tab/message/account/${data.user_recovery}`);
     } catch (err: any) {
-      console.error(err?.response.data?.message ?? err);
-      feedback(setErrorMessage, err?.response.data?.message, 5000);
+      console.error(err?.response?.data?.message ?? err);
+      feedback(setErrorMessage, err?.response?.data?.message, 5000);
     }
   };
 
@@ -197,8 +197,7 @@ export default function CreateAccount(): JSX.Element {
                 </button>
                 <button
                   className='login'
-                  onClick={() => navigate('/tab/login')}
-                >
+                  onClick={() => navigate('/tab/login')}>
                   <BiLockOpen />
                   <span>Login</span>
                 </button>
@@ -215,4 +214,6 @@ export default function CreateAccount(): JSX.Element {
       </footer>
     </Container>
   );
-}
+};
+
+export default CreateAccount;

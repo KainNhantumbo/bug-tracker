@@ -1,5 +1,5 @@
 import { HiChevronLeft } from 'react-icons/hi';
-import { NavigationBarContainer as Container } from '../styles/components/navigation-bar';
+import { _navigation as Container } from '../styles/components/navigation-bar';
 import { motion } from 'framer-motion';
 
 interface Props {

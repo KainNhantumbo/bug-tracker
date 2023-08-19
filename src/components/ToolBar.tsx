@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { BiSortAlt2, HiPlus, BiSearch } from 'react-icons/all';
 import { useNavigate, NavigateFunction } from 'react-router-dom';
-import { ToolbarContainer as Container } from '../styles/components/toolbar';
+import { _toolbar as Container } from '../styles/components/toolbar';
 
 interface Props {
   openSearchBoxFn: () => void;
@@ -20,8 +20,7 @@ export default function ToolBar(props: Props): JSX.Element {
           whileTap={{ scale: 0.95 }}
           title='Submit bug'
           className='descripted'
-          onClick={() => navigate('/tab/create-bug/:id')}
-        >
+          onClick={() => navigate('/tab/create-bug/:id')}>
           <HiPlus />
           <span>Create Bug</span>
         </motion.button>
@@ -31,8 +30,7 @@ export default function ToolBar(props: Props): JSX.Element {
           whileTap={{ scale: 0.95 }}
           title='Sort'
           className='descripted'
-          onClick={props.openSortBoxFn}
-        >
+          onClick={props.openSortBoxFn}>
           <BiSortAlt2 />
           <span>Sort</span>
         </motion.button>
@@ -42,8 +40,7 @@ export default function ToolBar(props: Props): JSX.Element {
           whileTap={{ scale: 0.95 }}
           title='Search for anything'
           className='descripted'
-          onClick={props.openSearchBoxFn}
-        >
+          onClick={props.openSearchBoxFn}>
           <BiSearch />
           <span>Search</span>
         </motion.button>

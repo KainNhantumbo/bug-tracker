@@ -19,9 +19,9 @@ import ThemeDialogBox from '../components/ThemeDialogBox';
 import feedBack from '../utils/feedback';
 import Loading from '../components/Loading';
 import { useInfoBoxContext } from '../context/InfoBoxContext';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FC } from 'react';
 import { InputEvents, SubmitEvent } from '../../@types';
-import { CreateBugContainer as Container } from '../styles/create-bug';
+import { _createBug as Container } from '../styles/create-bug';
 import { useParams, useNavigate, NavigateFunction } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
 
@@ -36,7 +36,7 @@ interface DataProps {
   notes: string;
 }
 
-export default function CreateBug(): JSX.Element {
+const CreateBug: FC = (): JSX.Element => {
   const { fetchAPI } = useAppContext();
   const navigate: NavigateFunction = useNavigate();
 
@@ -112,7 +112,7 @@ export default function CreateBug(): JSX.Element {
     }
   };
 
-  useEffect((): () => void => {
+  useEffect((): (() => void) => {
     getBugData();
     if (!isUpdate) setIsLoading(false);
     return (): void => {
@@ -162,8 +162,7 @@ export default function CreateBug(): JSX.Element {
                     name='status'
                     value={issueData.status}
                     onChange={handleChange}
-                    defaultChecked={true}
-                  >
+                    defaultChecked={true}>
                     <option value='Unknown'>Unknown</option>
                     <option value='In progress'>In progress</option>
                     <option value='Pending'>Pending</option>
@@ -182,8 +181,7 @@ export default function CreateBug(): JSX.Element {
                     name='priority'
                     value={issueData.priority}
                     onChange={handleChange}
-                    defaultChecked={true}
-                  >
+                    defaultChecked={true}>
                     <option value='Low'>Low</option>
                     <option value='Medium'>Medium</option>
                     <option value='High'>High</option>
@@ -299,4 +297,6 @@ export default function CreateBug(): JSX.Element {
       </Container>
     </>
   );
-}
+};
+
+export default CreateBug;

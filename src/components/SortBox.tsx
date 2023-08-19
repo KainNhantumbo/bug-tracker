@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { BiSortAlt2, FiX, HiSelector } from 'react-icons/all';
-import { SortBoxContainer as Container } from '../styles/components/sort-box';
+import { _sortBox as Container } from '../styles/components/sort-box';
 interface Props {
   active: boolean;
   quit: () => void;

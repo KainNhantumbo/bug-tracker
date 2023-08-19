@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { BaseButton, BaseButton_Danger } from './generics/buttons';
+import { BaseButton, BaseButton_Danger } from './defaults';
 
-export const AdjustmentsContainer = styled.main`
+export const _adjustments = styled.main`
 	position: relative;
 	width: 100vw;
 	top: 95px;

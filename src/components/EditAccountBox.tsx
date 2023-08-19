@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import {
   FaEnvelope,
   FaLock,
@@ -9,9 +8,10 @@ import {
   HiArrowLeft,
   HiCheck,
 } from 'react-icons/all';
-import { EditAccountContainer as Container } from '../styles/components/edit-account-box';
+import { useEffect, useState } from 'react';
+import { _editAccount as Container } from '../styles/components/edit-account-box';
 import { motion, AnimatePresence } from 'framer-motion';
-import { InputEvents } from '../types/form';
+import { InputEvents } from '../../@types';
 import { useAppContext } from '../context/AppContext';
 import feedBack from '../utils/feedback';
 

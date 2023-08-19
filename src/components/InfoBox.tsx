@@ -1,4 +1,4 @@
-import { InfoBoxContainer as Container } from '../styles/components/info-box';
+import { _infoBox as Container } from '../styles/components/info-box';
 import { useInfoBoxContext } from '../context/InfoBoxContext';
 
 export default function InfoBox(): JSX.Element {
@@ -21,8 +21,7 @@ export default function InfoBox(): JSX.Element {
                     ...prevState,
                     active: false,
                   }));
-                }}
-              >
+                }}>
                 <span>{info.buttonText}</span>
               </button>
             )}
