@@ -21,13 +21,11 @@ import SortBox from '../components/SortBox';
 import PromptDialogBox from '../components/PromptDialogBox';
 import Loading from '../components/Loading';
 import InfoBox from '../components/InfoBox';
-import { SubmitEvent } from '../../@types';
 
 const Main: FC = (): JSX.Element => {
   const navigate: NavigateFunction = useNavigate();
   const { fetchAPI, state, dispatch } = useAppContext();
 
-  // core functions---------------------------------------------
   const fetchBugs = async (): Promise<void> => {
     dispatch({
       type: actions.LOADING,
@@ -135,7 +133,6 @@ const Main: FC = (): JSX.Element => {
       <ThemeDialogBox />
       <Loading />
       <SortBox />
-
       <PromptDialogBox
         action={deleteBug}
         prompt_title={'Delete Bug'}

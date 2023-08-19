@@ -14,37 +14,25 @@ import {
   VscIssueDraft,
 } from 'react-icons/all';
 import Header from '../components/Header';
-import NavigationBar from '../components/NavigationBar';
-import ThemeDialogBox from '../components/ThemeDialogBox';
 import feedBack from '../utils/feedback';
 import Loading from '../components/Loading';
-import { useInfoBoxContext } from '../context/InfoBoxContext';
 import { useState, useEffect, FC } from 'react';
-import { InputEvents, SubmitEvent } from '../../@types';
+import { useAppContext } from '../context/AppContext';
+import { InputEvents, SubmitEvent, TBugData } from '../../@types';
+import NavigationBar from '../components/NavigationBar';
+import ThemeDialogBox from '../components/ThemeDialogBox';
 import { _createBug as Container } from '../styles/create-bug';
 import { useParams, useNavigate, NavigateFunction } from 'react-router-dom';
-import { useAppContext } from '../context/AppContext';
-
-interface DataProps {
-  title: string;
-  feature: string;
-  priority: string;
-  description: string;
-  author: string;
-  status: string;
-  associated: string;
-  notes: string;
-}
+import actions from '../reducers/actions';
 
 const CreateBug: FC = (): JSX.Element => {
-  const { fetchAPI } = useAppContext();
+  const { id } = useParams();
+  const isUpdate: boolean = id !== ':id';
   const navigate: NavigateFunction = useNavigate();
-
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { fetchAPI, state, dispatch } = useAppContext();
   const [errorMessage, setErrorMessage] = useState<string>('');
-  const { setInfo } = useInfoBoxContext();
 
-  const [issueData, setIssueData] = useState<DataProps>({
+  const [bugData, setBugData] = useState<TBugData>({
     title: '',
     feature: '',
     priority: 'low',
@@ -55,16 +43,12 @@ const CreateBug: FC = (): JSX.Element => {
     notes: '',
   });
 
-  // picks data from inputs
   const handleChange = (e: InputEvents): void => {
-    setIssueData((prevData) => ({
+    setBugData((prevData) => ({
       ...prevData,
       [e.target.name]: e.target.value,
     }));
   };
-
-  const { id } = useParams();
-  const isUpdate: boolean = id !== ':id';
 
   const handleSubmit = async (e: SubmitEvent): Promise<void> => {
     e.preventDefault();
@@ -73,12 +57,11 @@ const CreateBug: FC = (): JSX.Element => {
         await fetchAPI({
           method: 'patch',
           url: `/bugs/${id}`,
-          data: issueData,
+          data: bugData,
         });
-        navigate('/');
-        return;
+      } else {
+        await fetchAPI({ method: 'post', url: '/bugs', data: bugData });
       }
-      await fetchAPI({ method: 'post', url: '/bugs', data: issueData });
       navigate('/');
     } catch (err: any) {
       console.error(err?.response?.data?.message ?? err);
@@ -89,46 +72,50 @@ const CreateBug: FC = (): JSX.Element => {
   // gets bug data to fill the fields
   const getBugData = async (): Promise<void> => {
     if (!isUpdate) return;
-    setInfo((prevState) => ({ ...prevState, active: false }));
-    setIsLoading(true);
+    dispatch({ type: actions.LOADING, payload: { ...state, isLoading: true } });
     try {
       const { data } = await fetchAPI({
         method: 'get',
         url: `/bugs/${id}`,
       });
-      setIssueData(data.bug);
+      setBugData((state) => ({ ...state, ...data?.bug }));
     } catch (error: any) {
-      setInfo({
-        message: 'Oops! Looks something went wrong.',
-        active: true,
-        actionFn: getBugData,
-        icon: <FaCat />,
-        buttonText: 'Refresh and try again',
-        err: error?.response?.data?.message || error?.code,
+      dispatch({
+        type: actions.INFO_BOX_DATA,
+        payload: {
+          ...state,
+          infoboxData: {
+            ...state.infoboxData,
+            message: 'Oops! Looks something went wrong.',
+            active: true,
+            actionFn: getBugData,
+            icon: FaCat,
+            buttonText: 'Refresh and try again',
+            err: error?.response?.data?.message ?? error?.code,
+          },
+        },
       });
       console.error(error?.response?.data?.message ?? error);
     } finally {
-      setIsLoading(false);
+      dispatch({
+        type: actions.LOADING,
+        payload: { ...state, isLoading: false },
+      });
     }
   };
 
-  useEffect((): (() => void) => {
+  useEffect((): void => {
     getBugData();
-    if (!isUpdate) setIsLoading(false);
-    return (): void => {
-      setIsLoading(false);
-      setInfo((prevState) => ({ ...prevState, active: false }));
-    };
   }, []);
 
   return (
     <>
       <Header />
+      <Loading />
       <ThemeDialogBox />
-      <Loading active={isLoading} />
       <NavigationBar
         locationName={isUpdate ? 'View & Update Bug' : 'Create Bug'}
-        icon={<VscIssueDraft />}
+        icon={VscIssueDraft}
       />
 
       <Container>
@@ -146,7 +133,7 @@ const CreateBug: FC = (): JSX.Element => {
                   type='text'
                   placeholder='Type bug title here.'
                   name='title'
-                  value={issueData.title}
+                  value={bugData.title}
                   maxLength={256}
                   required
                   onChange={handleChange}
@@ -160,7 +147,7 @@ const CreateBug: FC = (): JSX.Element => {
                   </label>
                   <select
                     name='status'
-                    value={issueData.status}
+                    value={bugData.status}
                     onChange={handleChange}
                     defaultChecked={true}>
                     <option value='Unknown'>Unknown</option>
@@ -179,7 +166,7 @@ const CreateBug: FC = (): JSX.Element => {
                   </label>
                   <select
                     name='priority'
-                    value={issueData.priority}
+                    value={bugData.priority}
                     onChange={handleChange}
                     defaultChecked={true}>
                     <option value='Low'>Low</option>
@@ -200,7 +187,7 @@ const CreateBug: FC = (): JSX.Element => {
                     type='text'
                     placeholder='Type bug reporter.'
                     name='author'
-                    value={issueData.author}
+                    value={bugData.author}
                     maxLength={64}
                     required
                     onChange={handleChange}
@@ -216,7 +203,7 @@ const CreateBug: FC = (): JSX.Element => {
                     placeholder='Type issue bug that is associated to.'
                     name='associated'
                     maxLength={256}
-                    value={issueData.associated}
+                    value={bugData.associated}
                     onChange={handleChange}
                   />
                 </div>
@@ -232,7 +219,7 @@ const CreateBug: FC = (): JSX.Element => {
                   placeholder='Notice the feature that is affected by bug.'
                   name='feature'
                   maxLength={512}
-                  value={issueData.feature}
+                  value={bugData.feature}
                   onChange={handleChange}
                 />
               </div>
@@ -248,7 +235,7 @@ const CreateBug: FC = (): JSX.Element => {
                   name='description'
                   maxLength={4096}
                   placeholder='Type issue description and details here.'
-                  value={issueData.description}
+                  value={bugData.description}
                   required
                   onChange={handleChange}
                   rows={10}
@@ -264,7 +251,7 @@ const CreateBug: FC = (): JSX.Element => {
                   name='notes'
                   maxLength={1536}
                   placeholder='Type some notes or comments here.'
-                  value={issueData.notes}
+                  value={bugData.notes}
                   onChange={handleChange}
                   rows={7}
                 />

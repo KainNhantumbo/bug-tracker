@@ -1,9 +1,10 @@
 import actions from './actions';
-import type { TState, TAction } from '../../@types';
 import { CgDanger } from 'react-icons/cg';
+import type { TState, TAction } from '../../@types';
 
-export const initialState: TState = {
+const initialState: TState = {
   isSearchActive: false,
+  isThemeModalActive: false,
   isSortActive: false,
   isFilterActive: false,
   isPromptActive: false,
@@ -21,7 +22,7 @@ export const initialState: TState = {
   auth: { token: '', username: '', recoveryKey: '' },
 };
 
-export const reducer = (state: TState, action: TAction): TState => {
+const reducer = (state: TState, action: TAction): TState => {
   switch (action.type) {
     case actions.AUTH:
       return { ...state, auth: action.payload.auth };
@@ -76,7 +77,14 @@ export const reducer = (state: TState, action: TAction): TState => {
       return { ...state, infoboxData: action.payload.infoboxData };
     case actions.QUERY_BUGS:
       return { ...state, queryBugs: action.payload.queryBugs };
+    case actions.THEME_SWITCHER_MODAL:
+      return {
+        ...state,
+        isThemeModalActive: action.payload.isThemeModalActive,
+      };
     default:
       return state;
   }
 };
+
+export { initialState, reducer };

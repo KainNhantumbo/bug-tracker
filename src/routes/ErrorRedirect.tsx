@@ -1,6 +1,9 @@
+import type { FC } from 'react';
 import { Navigate } from 'react-router-dom';
 
-export default function ErrorRedirect(): JSX.Element {
+const ErrorRedirect: FC = (): JSX.Element => {
   localStorage.removeItem('accessToken');
   return <Navigate to={'/tab/login'} />;
-}
+};
+
+export default ErrorRedirect;

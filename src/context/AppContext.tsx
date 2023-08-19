@@ -18,6 +18,7 @@ import { apiClient } from '../api/axios';
 import { TAction, TState } from '../../@types';
 import { reducer, initialState } from '../reducers/reducer';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
+import ThemeContext from './ThemeContext';
 
 interface Props {
   children: ReactNode;
@@ -136,7 +137,7 @@ const AppContext: FC<Props> = (props): JSX.Element => {
         state,
         dispatch,
       }}>
-      {props.children}
+      <ThemeContext>{props.children}</ThemeContext>
     </context.Provider>
   );
 };

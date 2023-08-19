@@ -31,6 +31,18 @@ export type Theme = {
   alternative_b: string;
 };
 
+
+export type TBugData = {
+  title: string;
+  feature: string;
+  priority: string;
+  description: string;
+  author: string;
+  status: string;
+  associated: string;
+  notes: string;
+}
+
 export type TBug = {
   _id: string;
   title: string;
@@ -49,6 +61,7 @@ export type TState = {
   isSortActive: boolean;
   isFilterActive: boolean;
   isPromptActive: boolean;
+  isThemeModalActive: boolean;
   isLoading: boolean;
   searchValue: string;
   bugs: TBug[];

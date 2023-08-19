@@ -6,26 +6,21 @@ import {
   FaEnvelope,
 } from 'react-icons/all';
 import { FC, useState } from 'react';
+import feedBack from '../utils/feedback';
+import { apiClient } from '../api/axios';
+import actions from '../reducers/actions';
 import { _login as Container } from '../styles/login';
 import type { SubmitEvent, InputEvents } from '../../@types';
-import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
-import { apiClient } from '../api/axios';
 import { useAppContext } from '../context/AppContext';
-import feedBack from '../utils/feedback';
-
-interface ILoginProps {
-  email: string;
-  password: string;
-}
+import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
 
 const Login: FC = (): JSX.Element => {
-  const { setUser, user } = useAppContext();
-  const [formData, setFormData] = useState<ILoginProps>({
-    email: '',
-    password: '',
-  });
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const { state, dispatch } = useAppContext();
   const navigate: NavigateFunction = useNavigate();
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [formData, setFormData] = useState<{ email: string; password: string }>(
+    { email: '', password: '' }
+  );
 
   const handleChange = (e: InputEvents): void => {
     setFormData((prevData) => ({
@@ -49,7 +44,17 @@ const Login: FC = (): JSX.Element => {
         data: formData,
         withCredentials: true,
       });
-      setUser({ token: data?.accessToken, username: data?.username });
+      dispatch({
+        type: actions.AUTH,
+        payload: {
+          ...state,
+          auth: {
+            ...state.auth,
+            token: data?.accessToken,
+            username: data?.username,
+          },
+        },
+      });
       navigate('/');
     } catch (error: any) {
       console.error(error?.response?.data?.message);

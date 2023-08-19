@@ -4,41 +4,33 @@ import {
   createContext,
   ReactNode,
   useContext,
+  FC,
 } from 'react';
 import {
   dark_default,
   dark_drackula,
   dark_rumble,
-  light_default
+  light_default,
 } from '../styles/themes';
 import GlobalStylesheet from '../styles/global';
 import { ThemeProvider } from 'styled-components';
 
-type ThemeType = { theme: string };
 type Props = { children: ReactNode };
 
 interface IContextProps {
   themeSwitcher: (theme: string) => void;
-  controlModal: () => void;
-  isModalActive: boolean;
 }
 
 export const context = createContext<IContextProps>({
-  themeSwitcher: (theme: string) => {},
-  isModalActive: false,
-  controlModal: () => {},
+  themeSwitcher: () => {},
 });
 
-function ThemeContext(props: Props) {
+const ThemeContext: FC<Props> = (props): JSX.Element => {
   const [currentTheme, setCurrentTheme] = useState(light_default);
-  const [isModalActive, setIsModalActive] = useState(false);
   const THEME_STORAGE_KEY = 'ThemeSettings';
 
-  // quit the them options modal
-  const controlModal = (): void => setIsModalActive((prevstate) => !prevstate);
-
   const loadTheme = (themeCode?: string): void => {
-    const { theme }: ThemeType = JSON.parse(
+    const { theme } = JSON.parse(
       localStorage.getItem(THEME_STORAGE_KEY) || `{"theme":"light-default"}`
     );
 
@@ -76,7 +68,6 @@ function ThemeContext(props: Props) {
     }
   };
 
-  // swithches the current theme
   const themeSwitcher = (theme: string): void => loadTheme(theme);
 
   useEffect(() => {
@@ -86,22 +77,13 @@ function ThemeContext(props: Props) {
   return (
     <ThemeProvider theme={currentTheme}>
       <GlobalStylesheet />
-      <context.Provider
-        value={{
-          themeSwitcher,
-          isModalActive,
-          controlModal,
-        }}
-      >
+      <context.Provider value={{ themeSwitcher }}>
         {props.children}
       </context.Provider>
     </ThemeProvider>
   );
-}
+};
 
 export default ThemeContext;
 
-export function useThemeContext(): IContextProps {
-  const data = useContext(context);
-  return data;
-}
+export const useThemeContext = (): IContextProps => useContext(context);

@@ -1,6 +1,6 @@
 import { FaBug } from 'react-icons/fa';
 import { _message as Container } from '../styles/message';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FC } from 'react';
 import { useParams, useNavigate, NavigateFunction } from 'react-router-dom';
 import { HiArrowCircleRight } from 'react-icons/hi';
 
@@ -12,9 +12,9 @@ interface PageProps {
   url: string;
 }
 
-export default function Message(): JSX.Element {
+const Message: FC = (): JSX.Element => {
   const navigate: NavigateFunction = useNavigate();
-  const { msg, id } = useParams();
+  const { msg, id } = useParams<{ msg: 'account' | 'recover'; id: string }>();
   const [data, setData] = useState<PageProps>({
     title: '',
     message: '',
@@ -22,7 +22,7 @@ export default function Message(): JSX.Element {
     url: '',
   });
 
-  const loadPage = (type: string | undefined): void => {
+  const loadPage = (type: 'account' | 'recover'): void => {
     if (type === 'account') {
       setData({
         title: 'Congratulations! Account created successfuly.',
@@ -42,8 +42,8 @@ export default function Message(): JSX.Element {
     }
   };
 
-  useEffect(() => {
-    loadPage(msg);
+  useEffect((): void => {
+    if (msg) loadPage(msg);
   }, []);
 
   return (
@@ -72,4 +72,6 @@ export default function Message(): JSX.Element {
       </main>
     </Container>
   );
-}
+};
+
+export default Message;

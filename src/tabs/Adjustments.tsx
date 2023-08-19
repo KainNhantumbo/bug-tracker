@@ -43,7 +43,6 @@ interface IUser {
 const Adjustments: FC = (): JSX.Element => {
   const { fetchAPI, state, dispatch } = useAppContext();
   const navigate: NavigateFunction = useNavigate();
-  const { controlModal } = useThemeContext();
   const [userData, setUserData] = useState<IUser>({
     _id: '',
     first_name: '',
@@ -222,7 +221,13 @@ const Adjustments: FC = (): JSX.Element => {
                   <span>Themes and Color Schemes</span>
                 </h3>
                 <div className='content'>
-                  <button onClick={controlModal}>
+                  <button
+                    onClick={() =>
+                      dispatch({
+                        type: actions.THEME_SWITCHER_MODAL,
+                        payload: { ...state, isThemeModalActive: true },
+                      })
+                    }>
                     <HiViewBoards />
                     <span>Change theme</span>
                   </button>

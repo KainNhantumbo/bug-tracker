@@ -4,19 +4,25 @@ import { m as motion, AnimatePresence } from 'framer-motion';
 import { useThemeContext } from '../context/ThemeContext';
 import { BiPalette, FiX, HiColorSwatch } from 'react-icons/all';
 import { _themeSelector as Container } from '../styles/components/theme-dialog-box';
+import { useAppContext } from '../context/AppContext';
+import actions from '../reducers/actions';
 
 const ThemeDialogBox: FC = (): JSX.Element => {
-  const { controlModal, isModalActive, themeSwitcher } = useThemeContext();
+  const { themeSwitcher } = useThemeContext();
+  const { state, dispatch } = useAppContext();
 
   return (
     <AnimatePresence>
-      {isModalActive && (
+      {state.isThemeModalActive && (
         <Container
           className='main'
           onClick={(e) => {
             const target = (e as any).target.classList;
             if (target.contains('main')) {
-              controlModal();
+              dispatch({
+                type: actions.THEME_SWITCHER_MODAL,
+                payload: { ...state, isThemeModalActive: false },
+              });
             }
           }}>
           <motion.section
@@ -36,7 +42,15 @@ const ThemeDialogBox: FC = (): JSX.Element => {
                   <HiColorSwatch />
                   <span>Choose Theme</span>
                 </h2>
-                <button className='quit' title='Close' onClick={controlModal}>
+                <button
+                  className='quit'
+                  title='Close'
+                  onClick={() =>
+                    dispatch({
+                      type: actions.THEME_SWITCHER_MODAL,
+                      payload: { ...state, isThemeModalActive: false },
+                    })
+                  }>
                   <FiX />
                 </button>
               </div>
@@ -47,7 +61,10 @@ const ThemeDialogBox: FC = (): JSX.Element => {
                     whileTap={{ scale: 0.8 }}
                     key={option.name}
                     onClick={() => {
-                      controlModal();
+                      dispatch({
+                        type: actions.THEME_SWITCHER_MODAL,
+                        payload: { ...state, isThemeModalActive: false },
+                      });
                       themeSwitcher(option.code);
                     }}>
                     <BiPalette />
