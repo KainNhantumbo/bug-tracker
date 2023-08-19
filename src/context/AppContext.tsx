@@ -1,18 +1,23 @@
 import {
-  useState,
   useEffect,
   createContext,
   ReactNode,
   useContext,
   useReducer,
   Dispatch,
+  FC,
 } from 'react';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
+import {
+  AxiosError,
+  AxiosPromise,
+  AxiosRequestConfig,
+  AxiosResponse,
+} from 'axios';
+import actions from '../reducers/actions';
 import { apiClient } from '../api/axios';
-import { AxiosError, AxiosPromise, AxiosRequestConfig } from 'axios';
 import { TAction, TState } from '../../@types';
 import { reducer, initialState } from '../reducers/reducer';
-import actions from '../reducers/actions';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 interface Props {
   children: ReactNode;
@@ -37,27 +42,57 @@ const context = createContext<ContextProps>({
   dispatch: () => {},
 });
 
-export default function AppContext(props: Props) {
+const AppContext: FC<Props> = (props): JSX.Element => {
   const navigate: NavigateFunction = useNavigate();
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // Makes connection to the server api
-  function fetchAPI(config: AxiosRequestConfig): AxiosPromise<any> {
-    apiClient.interceptors.response.use(undefined, function (err: AxiosError) {
-      if (err.response?.status === 401) {
-        navigate('/tab/login');
-      }
-      return Promise.reject(err);
-    });
+  const validateAuth = async (): Promise<void> => {
+    try {
+      const { data } = await apiClient({
+        method: 'get',
+        url: '/auth/refresh',
+        withCredentials: true,
+      });
+      dispatch({
+        type: actions.AUTH,
+        payload: {
+          ...state,
+          auth: {
+            ...state.auth,
+            token: data?.accessToken,
+            username: data?.username,
+          },
+        },
+      });
+    } catch (error: any) {
+      console.error(error?.response?.data?.message ?? error);
+    }
+  };
 
-    return apiClient({
+  const fetchAPI = async (
+    config: AxiosRequestConfig
+  ): Promise<AxiosResponse> => {
+    apiClient.interceptors.response.use(
+      undefined,
+      (error: AxiosError): Promise<never> => {
+        const status = Number(error?.response?.status);
+        if (status > 400 && status < 404) {
+          validateAuth().catch((error) => {
+            console.error(error?.response?.data?.message ?? error);
+            navigate('/tab/login');
+          });
+        }
+        return Promise.reject(error);
+      }
+    );
+
+    return await apiClient({
       ...config,
-      withCredentials: true,
       headers: { authorization: `Bearer ${state.auth.token}` },
     });
-  }
+  };
 
-  async function authenticateUser(): Promise<void> {
+  const authenticateUser = async (): Promise<void> => {
     try {
       const { data } = await apiClient({
         method: 'get',
@@ -77,48 +112,20 @@ export default function AppContext(props: Props) {
         },
       });
       navigate('/');
-    } catch (err: any) {
-      if (err.response?.status === 401) {
-        navigate('/tab/login');
-      }
-      console.error(err);
+    } catch (error: any) {
+      console.error(error?.response?.data?.message ?? error);
     }
-  }
+  };
 
-  useEffect(() => {
+  useEffect((): void => {
     authenticateUser();
   }, []);
 
-  useEffect(() => {
-    const revalidateAuth = setTimeout(() => {
-      (async (): Promise<void> => {
-        try {
-          const { data } = await apiClient({
-            method: 'get',
-            url: '/auth/refresh',
-            withCredentials: true,
-          });
-          dispatch({
-            type: actions.AUTH,
-            payload: {
-              ...state,
-              auth: {
-                ...state.auth,
-                token: data?.accessToken,
-                username: data?.username,
-              },
-            },
-          });
-        } catch (err: any | unknown) {
-          if (err.response?.status === 401) {
-            navigate('/tab/login');
-          }
-          console.error(err);
-        }
-      })();
+  useEffect((): (() => void) => {
+    const debounceTimer = setTimeout(() => {
+      validateAuth();
     }, 1000 * 60 * 10);
-
-    return () => clearTimeout(revalidateAuth);
+    return (): void => clearTimeout(debounceTimer);
   }, [state.auth]);
 
   return (
@@ -132,9 +139,8 @@ export default function AppContext(props: Props) {
       {props.children}
     </context.Provider>
   );
-}
+};
 
-export function useAppContext(): ContextProps {
-  var data = useContext(context);
-  return data;
-}
+export default AppContext;
+
+export const useAppContext = (): ContextProps => useContext(context);
