@@ -1,10 +1,12 @@
 import { FC } from 'react';
+import { useAppContext } from '../context/AppContext';
 import { _loading as Container } from '../styles/components/loading';
 
-const Loading: FC<{ active: boolean }> = ({ active }): JSX.Element => {
+const Loading: FC = (): JSX.Element => {
+  const { state } = useAppContext();
   return (
     <>
-      {active && (
+      {state.isLoading && (
         <Container>
           <section className='content'>
             <div className='title'>Now Loading</div>

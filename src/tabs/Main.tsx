@@ -84,28 +84,23 @@ const Main: FC = (): JSX.Element => {
     }
   };
 
-  // delete bug functions-------------------------------------
-  const promptBoxController = (): void => {
-    dispatch({
-      type: actions.PROMPT_BOX_CONTROL,
-      payload: { ...state, isPromptActive: !state.isPromptActive },
-    });
-  };
-
   const deleteBug = async (): Promise<void> => {
     try {
       await fetchAPI({
         method: 'delete',
         url: `/bugs/${state.selectedBugId}`,
       });
-      promptBoxController();
       fetchBugs();
+      dispatch({
+        type: actions.PROMPT_BOX_CONTROL,
+        payload: { ...state, isPromptActive: false },
+      });
       dispatch({
         type: actions.SELECTED_BUG_ID,
         payload: { ...state, selectedBugId: '' },
       });
     } catch (err: any) {
-      console.error(err.response?.data?.message || err);
+      console.error(err?.response?.data?.message ?? err);
     }
   };
 
@@ -134,14 +129,11 @@ const Main: FC = (): JSX.Element => {
   return (
     <>
       <Header />
-      <ThemeDialogBox />
-      <Loading active={state.isLoading} />
-      <ToolBar
-        
-      />
-
-      <SearchBox />
+      <ToolBar />
       <InfoBox />
+      <SearchBox />
+      <ThemeDialogBox />
+      <Loading />
 
       <SortBox
         fn={handleSort}
@@ -150,15 +142,13 @@ const Main: FC = (): JSX.Element => {
       />
 
       <PromptDialogBox
-        active={state.isPromptActive}
         action={deleteBug}
         prompt_title={'Delete Bug'}
+        button_text={'Confirm'}
+        icon={<BiTrashAlt />}
         prompt_message={
           'This will permanently delete selected bug report. Are you sure?'
         }
-        button_text={'Confirm'}
-        icon={<BiTrashAlt />}
-        quit={promptBoxController}
       />
 
       <Container>
@@ -239,7 +229,10 @@ const Main: FC = (): JSX.Element => {
                           type: actions.SELECTED_BUG_ID,
                           payload: { ...state, selectedBugId: bug._id },
                         });
-                        promptBoxController();
+                        dispatch({
+                          type: actions.PROMPT_BOX_CONTROL,
+                          payload: { ...state, isPromptActive: true },
+                        });
                       }}>
                       <HiBackspace className='icon-a' />
                       <HiX className='icon-b' />

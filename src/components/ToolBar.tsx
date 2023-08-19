@@ -1,10 +1,10 @@
 import type { FC } from 'react';
 import { motion } from 'framer-motion';
+import actions from '../reducers/actions';
 import { useAppContext } from '../context/AppContext';
 import { BiSortAlt2, HiPlus, BiSearch } from 'react-icons/all';
 import { useNavigate, NavigateFunction } from 'react-router-dom';
 import { _toolbar as Container } from '../styles/components/toolbar';
-import actions from '../reducers/actions';
 
 const ToolBar: FC = (): JSX.Element => {
   const navigate: NavigateFunction = useNavigate();
