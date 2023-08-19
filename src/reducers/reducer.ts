@@ -17,10 +17,19 @@ export const initialState: TState = {
     message: '',
     icon: CgDanger,
   },
+  isEditAccountModalActive: false,
+  auth: { token: '', username: '', recoveryKey: '' },
 };
 
 export const reducer = (state: TState, action: TAction): TState => {
   switch (action.type) {
+    case actions.AUTH:
+      return { ...state, auth: action.payload.auth };
+    case actions.EDIT_ACCOUNT_MODAL:
+      return {
+        ...state,
+        isEditAccountModalActive: action.payload.isEditAccountModalActive,
+      };
     case actions.SEARCH_BOX_CONTROL:
       return {
         ...state,

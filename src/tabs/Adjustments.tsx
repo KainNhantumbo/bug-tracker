@@ -30,6 +30,7 @@ import { useAppContext } from '../context/AppContext';
 import { useDate } from '../utils/date-functions';
 import { useThemeContext } from '../context/ThemeContext';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
+import actions from '../reducers/actions';
 
 interface IUser {
   _id: string;
@@ -42,9 +43,7 @@ interface IUser {
 const Adjustments: FC = (): JSX.Element => {
   const { fetchAPI, state, dispatch } = useAppContext();
   const navigate: NavigateFunction = useNavigate();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const { controlModal } = useThemeContext();
-  const [isModalActive, setisModalActive] = useState<boolean>(false);
   const [userData, setUserData] = useState<IUser>({
     _id: '',
     first_name: '',
@@ -53,39 +52,44 @@ const Adjustments: FC = (): JSX.Element => {
     createdAt: '',
   });
 
-  // controls the state of the prompt modal
-  const modalController = (): void =>
-    setisModalActive((prevState) => !prevState);
-
   const deleteUser = async (): Promise<void> => {
+    dispatch({
+      type: actions.LOADING,
+      payload: { ...state, isLoading: true },
+    });
     try {
-      setIsLoading(true);
       await fetchAPI({ method: 'delete', url: `/users/${userData._id}` });
       navigate('/tab/login');
     } catch (error: any) {
-      setInfo({
-        message: 'Oops! Looks something went wrong.',
-        active: true,
-        actionFn: deleteUser,
-        icon: <FaCat />,
-        buttonText: 'Refresh and try again',
-        err: error?.response?.data?.message || error?.code,
+      dispatch({
+        type: actions.INFO_BOX_DATA,
+        payload: {
+          ...state,
+          infoboxData: {
+            ...state.infoboxData,
+            message: 'Oops! Looks something went wrong.',
+            active: true,
+            actionFn: deleteUser,
+            icon: FaCat,
+            buttonText: 'Refresh and try again',
+            err: error?.response?.data?.message ?? error?.code,
+          },
+        },
       });
       console.error(error?.response?.data?.message ?? error);
     } finally {
-      setIsLoading(false);
+      dispatch({
+        type: actions.LOADING,
+        payload: { ...state, isLoading: false },
+      });
     }
   };
 
-  // edit account functions
-  const [isEditAccountActive, setIsEditAccountActive] =
-    useState<boolean>(false);
-
-  const editBoxController = (): void =>
-    setIsEditAccountActive((prevState) => !prevState);
-
-  const getUserDetails = async (): Promise<void> => {
-    setIsLoading(true);
+  const getUserData = async (): Promise<void> => {
+    dispatch({
+      type: actions.LOADING,
+      payload: { ...state, isLoading: true },
+    });
     try {
       const { data } = await fetchAPI({ method: 'get', url: '/users' });
       setUserData({ ...data.user_data });
@@ -97,52 +101,42 @@ const Adjustments: FC = (): JSX.Element => {
           infoboxData: {
             ...state.infoboxData,
             message: 'Oops! Looks something went wrong.',
-        active: true,
-        actionFn: getUserDetails,
-        icon: <FaCat />,
-        buttonText: 'Refresh and try again',
-        err: error?.response?.data?.message ?? error?.code,
+            active: true,
+            actionFn: getUserData,
+            icon: FaCat,
+            buttonText: 'Refresh and try again',
+            err: error?.response?.data?.message ?? error?.code,
           },
         },
       });
-      
       console.error(error?.response?.data?.message ?? error);
     } finally {
-      setIsLoading(false);
+      dispatch({
+        type: actions.LOADING,
+        payload: { ...state, isLoading: false },
+      });
     }
   };
 
-  useEffect((): (() => void) => {
-    getUserDetails();
+  useEffect((): void => {
+    getUserData();
     window.scroll({
       top: 0,
       left: 0,
       behavior: 'auto',
     });
-    return (): void => {
-      setIsLoading(false);
-      setisModalActive(false);
-      setInfo((prevState) => ({ ...prevState, active: false }));
-    };
   }, []);
 
   return (
     <>
       <Header />
+      <Loading />
       <ThemeDialogBox />
-      <Loading active={isLoading} />
-      <NavigationBar locationName='Adjustments' icon={<HiAdjustments />} />
-      <EditAccountBox
-        active={isEditAccountActive}
-        reload={getUserDetails}
-        quit={editBoxController}
-      />
-
+      <EditAccountBox reload={getUserData} />
+      <NavigationBar locationName='Adjustments' icon={HiAdjustments} />
       <PromptDialogBox
-        active={isModalActive}
         action={deleteUser}
-        quit={modalController}
-        icon={<BiTrashAlt />}
+        icon={BiTrashAlt}
         button_text={'Confirm'}
         prompt_title={'Delete account'}
         prompt_message={
@@ -189,11 +183,25 @@ const Adjustments: FC = (): JSX.Element => {
                 </div>
 
                 <section className='profile-actions'>
-                  <button className='edit-btn' onClick={editBoxController}>
+                  <button
+                    className='edit-btn'
+                    onClick={() =>
+                      dispatch({
+                        type: actions.EDIT_ACCOUNT_MODAL,
+                        payload: { ...state, isEditAccountModalActive: true },
+                      })
+                    }>
                     <FaUserEdit />
                     <span>Edit profile</span>
                   </button>
-                  <button className='erase-btn' onClick={modalController}>
+                  <button
+                    className='erase-btn'
+                    onClick={() =>
+                      dispatch({
+                        type: actions.PROMPT_BOX_CONTROL,
+                        payload: { ...state, isPromptActive: true },
+                      })
+                    }>
                     <BiTrash />
                     <span>Delete Account</span>
                   </button>

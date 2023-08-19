@@ -12,6 +12,7 @@ import { apiClient } from '../api/axios';
 import { AxiosError, AxiosPromise, AxiosRequestConfig } from 'axios';
 import { TAction, TState } from '../../@types';
 import { reducer, initialState } from '../reducers/reducer';
+import actions from '../reducers/actions';
 
 interface Props {
   children: ReactNode;
@@ -24,30 +25,21 @@ export interface IUser {
 interface ContextProps {
   state: TState;
   dispatch: Dispatch<TAction>;
-  userRecouveryKey: string;
-  setUserRecouveryKey: React.Dispatch<React.SetStateAction<string>>;
-  user: IUser;
+
   authenticateUser: () => Promise<void>;
-  setUser: React.Dispatch<React.SetStateAction<IUser>>;
   fetchAPI: (config: AxiosRequestConfig) => AxiosPromise<any>;
 }
 
 const context = createContext<ContextProps>({
-  userRecouveryKey: '',
-  setUserRecouveryKey: () => {},
   authenticateUser: async (): Promise<void> => {},
-  setUser: () => {},
-  user: { token: '', username: '' },
   fetchAPI: (): any => {},
   state: initialState,
   dispatch: () => {},
 });
 
 export default function AppContext(props: Props) {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const [userRecouveryKey, setUserRecouveryKey] = useState<string>('');
-  const [user, setUser] = useState<IUser>({ token: '', username: '' });
   const navigate: NavigateFunction = useNavigate();
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   // Makes connection to the server api
   function fetchAPI(config: AxiosRequestConfig): AxiosPromise<any> {
@@ -61,24 +53,31 @@ export default function AppContext(props: Props) {
     return apiClient({
       ...config,
       withCredentials: true,
-      headers: { authorization: `Bearer ${user.token}` },
+      headers: { authorization: `Bearer ${state.auth.token}` },
     });
   }
 
   async function authenticateUser(): Promise<void> {
     try {
-      const credentials = await apiClient({
+      const { data } = await apiClient({
         method: 'get',
         url: '/auth/refresh',
         withCredentials: true,
       });
-      setUser((prevData) => ({
-        ...prevData,
-        token: credentials.data?.accessToken,
-        username: credentials.data?.username,
-      }));
+
+      dispatch({
+        type: actions.AUTH,
+        payload: {
+          ...state,
+          auth: {
+            ...state.auth,
+            token: data?.accessToken,
+            username: data?.username,
+          },
+        },
+      });
       navigate('/');
-    } catch (err: any | unknown) {
+    } catch (err: any) {
       if (err.response?.status === 401) {
         navigate('/tab/login');
       }
@@ -94,16 +93,22 @@ export default function AppContext(props: Props) {
     const revalidateAuth = setTimeout(() => {
       (async (): Promise<void> => {
         try {
-          const credentials = await apiClient({
+          const { data } = await apiClient({
             method: 'get',
             url: '/auth/refresh',
             withCredentials: true,
           });
-          setUser((prevData) => ({
-            ...prevData,
-            token: credentials.data?.accessToken,
-            username: credentials.data?.username,
-          }));
+          dispatch({
+            type: actions.AUTH,
+            payload: {
+              ...state,
+              auth: {
+                ...state.auth,
+                token: data?.accessToken,
+                username: data?.username,
+              },
+            },
+          });
         } catch (err: any | unknown) {
           if (err.response?.status === 401) {
             navigate('/tab/login');
@@ -114,16 +119,12 @@ export default function AppContext(props: Props) {
     }, 1000 * 60 * 10);
 
     return () => clearTimeout(revalidateAuth);
-  }, [user]);
+  }, [state.auth]);
 
   return (
     <context.Provider
       value={{
-        userRecouveryKey,
-        setUserRecouveryKey,
         authenticateUser,
-        user,
-        setUser,
         fetchAPI,
         state,
         dispatch,

@@ -1,10 +1,11 @@
 import type { FC } from 'react';
+import { IconType } from 'react-icons';
 import { motion } from 'framer-motion';
 import { HiChevronLeft } from 'react-icons/hi';
 import { _navigation as Container } from '../styles/components/navigation-bar';
 
 interface Props {
-  icon: JSX.Element;
+  icon: IconType;
   locationName: string;
 }
 
@@ -20,7 +21,7 @@ const NavigationBar: FC<Props> = (props): JSX.Element => (
       <HiChevronLeft />
     </motion.button>
     <h3>
-      {props.icon}
+      <props.icon />
       <span>{props.locationName}</span>
     </h3>
   </Container>

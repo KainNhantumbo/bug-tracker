@@ -55,6 +55,8 @@ export type TState = {
   selectedBugId: string;
   infoboxData: InfoProps;
   queryBugs: { query: string; sort: string };
+  isEditAccountModalActive: boolean;
+  auth: { token: string; username: string; recoveryKey: string };
 };
 
 export type TAction = { type: string; payload: TState };

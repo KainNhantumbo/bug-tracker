@@ -9,6 +9,8 @@ const actions = {
   SELECTED_BUG_ID: 'SELECTED_BUG_ID',
   QUERY_BUGS: 'QUERY_BUGS',
   INFO_BOX_DATA: 'INFO_BOX_DATA',
+  EDIT_ACCOUNT_MODAL: 'EDIT_ACCOUNT_MODAL',
+  AUTH: 'AUTH',
 };
 
 export default actions;

@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { IconType } from 'react-icons';
 import actions from '../reducers/actions';
 import { FaArrowLeft } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -9,7 +10,7 @@ interface Props {
   prompt_title: string;
   prompt_message: string;
   button_text: string;
-  icon: JSX.Element;
+  icon: IconType;
   action: () => Promise<void> | void;
 }
 
@@ -59,7 +60,7 @@ const PromptDialogBox: FC<Props> = (props): JSX.Element => {
                   <span>Cancel</span>
                 </button>
                 <button className='prompt-accept' onClick={props.action}>
-                  {props.icon}
+                  <props.icon />
                   <span>{props.button_text}</span>
                 </button>
               </div>

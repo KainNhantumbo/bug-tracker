@@ -88,7 +88,7 @@ const CreateAccount: FC = (): JSX.Element => {
                 <span>Create account</span>
               </h2>
             </section>
-            <p>Register a new user account. </p>
+            <p>Register a new user account.</p>
 
             <form onSubmit={handleSubmit}>
               <section className='form-section'>

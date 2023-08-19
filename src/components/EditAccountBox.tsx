@@ -8,16 +8,15 @@ import {
   HiArrowLeft,
   HiCheck,
 } from 'react-icons/all';
+import feedBack from '../utils/feedback';
+import actions from '../reducers/actions';
 import { FC, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { InputEvents } from '../../@types';
 import { useAppContext } from '../context/AppContext';
-import feedBack from '../utils/feedback';
 import { _editAccount as Container } from '../styles/components/edit-account-box';
 
 interface Props {
-  active: boolean;
-  quit: () => void;
   reload: () => Promise<void>;
 }
 
@@ -31,7 +30,7 @@ interface UserData {
 }
 
 const EditAccountBox: FC<Props> = (props): JSX.Element => {
-  const { fetchAPI } = useAppContext();
+  const { fetchAPI, state, dispatch } = useAppContext();
   const [message, setMessage] = useState<string>('');
   const [accountData, setAccountData] = useState<UserData>({
     password: '',
@@ -96,13 +95,16 @@ const EditAccountBox: FC<Props> = (props): JSX.Element => {
 
   return (
     <AnimatePresence>
-      {props.active && (
+      {state.isEditAccountModalActive && (
         <Container
           className='main'
           onClick={(e) => {
             const target = (e as any).target.classList;
             if (target.contains('main')) {
-              props.quit();
+              dispatch({
+                type: actions.EDIT_ACCOUNT_MODAL,
+                payload: { ...state, isEditAccountModalActive: false },
+              });
             }
           }}>
           <motion.section
@@ -235,7 +237,17 @@ const EditAccountBox: FC<Props> = (props): JSX.Element => {
 
                     <span className='errorMessage'>{message}</span>
                     <div className='prompt-actions'>
-                      <button className='prompt-cancel' onClick={props.quit}>
+                      <button
+                        className='prompt-cancel'
+                        onClick={() =>
+                          dispatch({
+                            type: actions.EDIT_ACCOUNT_MODAL,
+                            payload: {
+                              ...state,
+                              isEditAccountModalActive: false,
+                            },
+                          })
+                        }>
                         <HiArrowLeft />
                         <span>Cancel</span>
                       </button>

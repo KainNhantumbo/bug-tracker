@@ -140,7 +140,7 @@ const Main: FC = (): JSX.Element => {
         action={deleteBug}
         prompt_title={'Delete Bug'}
         button_text={'Confirm'}
-        icon={<BiTrashAlt />}
+        icon={BiTrashAlt}
         prompt_message={
           'This will permanently delete selected bug report. Are you sure?'
         }
