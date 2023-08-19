@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { IconType } from 'react-icons';
-import { motion } from 'framer-motion';
+import { m as motion } from 'framer-motion';
 import { HiChevronLeft } from 'react-icons/hi';
 import { _navigation as Container } from '../styles/components/navigation-bar';
 

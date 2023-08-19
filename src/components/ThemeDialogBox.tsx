@@ -1,23 +1,12 @@
 import type { FC } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { themeOptions } from '../data/app-data';
+import { m as motion, AnimatePresence } from 'framer-motion';
 import { useThemeContext } from '../context/ThemeContext';
 import { BiPalette, FiX, HiColorSwatch } from 'react-icons/all';
 import { _themeSelector as Container } from '../styles/components/theme-dialog-box';
 
-interface ThemeData {
-  name: string;
-  code: string;
-}
-
 const ThemeDialogBox: FC = (): JSX.Element => {
   const { controlModal, isModalActive, themeSwitcher } = useThemeContext();
-
-  const ThemeOptions: ThemeData[] = [
-    { code: 'light-default', name: 'Light (Default)' },
-    { code: 'dark-default', name: 'Dark (Default)' },
-    { code: 'dark-rumble', name: 'Dark Rumble' },
-    { code: 'dark-drackula', name: 'Dark Drackula' },
-  ];
 
   return (
     <AnimatePresence>
@@ -52,7 +41,7 @@ const ThemeDialogBox: FC = (): JSX.Element => {
                 </button>
               </div>
               <section className='prompt-info'>
-                {ThemeOptions.map((option) => (
+                {themeOptions.map((option) => (
                   <motion.div
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.8 }}

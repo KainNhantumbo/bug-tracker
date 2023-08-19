@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import { IconType } from 'react-icons';
 import actions from '../reducers/actions';
 import { FaArrowLeft } from 'react-icons/fa';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m as motion, AnimatePresence } from 'framer-motion';
 import { useAppContext } from '../context/AppContext';
 import { _prompt as Container } from '../styles/components/dialog-prompt-box';
 

@@ -10,9 +10,9 @@ import {
 } from 'react-icons/all';
 import feedBack from '../utils/feedback';
 import actions from '../reducers/actions';
-import { FC, useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { InputEvents } from '../../@types';
+import { FC, useEffect, useState } from 'react';
+import { m as motion, AnimatePresence } from 'framer-motion';
 import { useAppContext } from '../context/AppContext';
 import { _editAccount as Container } from '../styles/components/edit-account-box';
 
@@ -80,7 +80,7 @@ const EditAccountBox: FC<Props> = (props): JSX.Element => {
     }
   };
 
-  const getInitialData = async (): Promise<void> => {
+  const getUserData = async (): Promise<void> => {
     try {
       const { data } = await fetchAPI({ method: 'get', url: '/users' });
       setAccountData({ ...data.user_data, password: '', confirm_password: '' });
@@ -90,7 +90,7 @@ const EditAccountBox: FC<Props> = (props): JSX.Element => {
   };
 
   useEffect(() => {
-    getInitialData();
+    getUserData();
   }, []);
 
   return (

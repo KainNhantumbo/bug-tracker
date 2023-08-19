@@ -1,4 +1,3 @@
-import { ThemeProvider } from 'styled-components';
 import {
   useState,
   useEffect,
@@ -6,13 +5,14 @@ import {
   ReactNode,
   useContext,
 } from 'react';
-import { light_default } from '../themes/light-themes';
 import {
   dark_default,
   dark_drackula,
   dark_rumble,
-} from '../themes/dark-themes';
+  light_default
+} from '../styles/themes';
 import GlobalStylesheet from '../styles/global';
+import { ThemeProvider } from 'styled-components';
 
 type ThemeType = { theme: string };
 type Props = { children: ReactNode };

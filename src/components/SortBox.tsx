@@ -1,25 +1,10 @@
 import type { FC } from 'react';
 import actions from '../reducers/actions';
+import { sortOptions } from '../data/app-data';
 import { useAppContext } from '../context/AppContext';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m as motion, AnimatePresence } from 'framer-motion';
 import { BiSortAlt2, FiX, HiSelector } from 'react-icons/all';
 import { _sortBox as Container } from '../styles/components/sort-box';
-
-interface SortProps {
-  code: string;
-  name: string;
-}
-
-const SortOptions: SortProps[] = [
-  { code: 'title', name: 'Title' },
-  { code: '-title', name: 'Title (descending)' },
-  { code: 'reporter', name: 'Reporter' },
-  { code: '-reporter', name: 'Reporter (descending)' },
-  { code: 'status', name: 'Status' },
-  { code: '-status', name: 'Status (descending)' },
-  { code: 'createdAt', name: 'Created' },
-  { code: '-createdAt', name: 'Created (descending)' },
-];
 
 const SortBox: FC = (): JSX.Element => {
   const { state, dispatch } = useAppContext();
@@ -62,7 +47,7 @@ const SortBox: FC = (): JSX.Element => {
                 </button>
               </div>
               <section className='prompt-info'>
-                {SortOptions.map((option) => (
+                {sortOptions.map((option) => (
                   <motion.div
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.8 }}

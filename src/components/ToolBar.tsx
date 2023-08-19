@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { motion } from 'framer-motion';
+import { m as motion } from 'framer-motion';
 import actions from '../reducers/actions';
 import { useAppContext } from '../context/AppContext';
 import { BiSortAlt2, HiPlus, BiSearch } from 'react-icons/all';

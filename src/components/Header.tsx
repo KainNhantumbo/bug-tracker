@@ -5,8 +5,8 @@ import {
   Location,
 } from 'react-router-dom';
 import { FC } from 'react';
-import { motion } from 'framer-motion';
 import actions from '../reducers/actions';
+import { m as motion } from 'framer-motion';
 import PromptDialogBox from './PromptDialogBox';
 import { useAppContext } from '../context/AppContext';
 import { _header as Container } from '../styles/components/header';

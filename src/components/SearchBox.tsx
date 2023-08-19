@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import actions from '../reducers/actions';
 import { BiSearch, FiX } from 'react-icons/all';
 import { useAppContext } from '../context/AppContext';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m as motion, AnimatePresence } from 'framer-motion';
 import { _searchBox as Container } from '../styles/components/search-box';
 
 const SearchBox: FC = (): JSX.Element => {
