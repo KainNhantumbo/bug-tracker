@@ -9,10 +9,9 @@ import {
 } from 'react-icons/all';
 import { MainContainer as Container } from '../styles/main';
 import { useEffect, useReducer } from 'react';
-import { reducer, initialState } from '../reducers/mainReducer';
-import { ActionTypes } from '../reducers/actions';
+import { reducer, initialState } from '../reducers/reducer';
+import actions from '../reducers/actions';
 import { useDate } from '../utils/date-functions';
-import { SubmitEvent } from '../types/form';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { useInfoBoxContext } from '../context/InfoBoxContext';
 import { useAppContext } from '../context/AppContext';
@@ -24,27 +23,30 @@ import SortBox from '../components/SortBox';
 import PromptDialogBox from '../components/PromptDialogBox';
 import Loading from '../components/Loading';
 import InfoBox from '../components/InfoBox';
+import { SubmitEvent } from '../../@types';
 
 export default function Main(): JSX.Element {
   const { fetchAPI } = useAppContext();
   const { setInfo } = useInfoBoxContext();
   const [state, dispatch] = useReducer(reducer, initialState);
   const navigate: NavigateFunction = useNavigate();
+
   // core functions---------------------------------------------
-  const getBugsData = async (): Promise<void> => {
+  const fetchBugs = async (): Promise<void> => {
     setInfo((prevState) => ({ ...prevState, active: false }));
     dispatch({
-      type: ActionTypes.LOADING,
+      type: actions.LOADING,
       payload: { ...state, isLoading: true },
     });
+
     try {
       const { data } = await fetchAPI({
         method: 'get',
         url: '/bugs?fields=title,status,author,createdAt,priority',
       });
       dispatch({
-        type: ActionTypes.SET_BUGS_DATA,
-        payload: { ...state, bugsData: [...data.bugs] },
+        type: actions.SET_BUGS_DATA,
+        payload: { ...state, bugs: [...data.bugs] },
       });
       if (data.bugs.length < 1) {
         setInfo({
@@ -53,40 +55,43 @@ export default function Main(): JSX.Element {
           icon: <VscEmptyWindow />,
         });
       }
-    } catch (err: any) {
-      dispatch({
-        type: ActionTypes.LOADING,
-        payload: { ...state, isLoading: false },
-      });
+    } catch (error: any) {
       setInfo({
         message: 'Oops! Looks something went wrong.',
         active: true,
-        actionFn: getBugsData,
+        actionFn: fetchBugs,
         icon: <FaCat />,
         buttonText: 'Reload page',
-        err: err.response?.data?.message || err.code,
+        err: error?.response?.data?.message ?? error?.code,
       });
-      console.log(err.response?.data?.message);
-      console.log(err);
+      console.error(error?.response?.data?.message ?? error);
+    } finally {
+      dispatch({
+        type: actions.LOADING,
+        payload: { ...state, isLoading: false },
+      });
     }
   };
 
   // delete bug functions-------------------------------------
   const promptBoxController = (): void => {
-    dispatch({ type: ActionTypes.PROMPT_BOX_CONTROL });
+    dispatch({
+      type: actions.PROMPT_BOX_CONTROL,
+      payload: { ...state, isPromptActive: !state.isPromptActive },
+    });
   };
 
   const deleteBug = async (): Promise<void> => {
     try {
       await fetchAPI({
         method: 'delete',
-        url: `/bugs/${state.selectedBugID}`,
+        url: `/bugs/${state.selectedBugId}`,
       });
       promptBoxController();
-      getBugsData();
+      fetchBugs();
       dispatch({
-        type: ActionTypes.SELECTED_BUG_ID,
-        payload: { ...state, selectedBugID: '' },
+        type: actions.SELECTED_BUG_ID,
+        payload: { ...state, selectedBugId: '' },
       });
     } catch (err: any) {
       console.error(err.response?.data?.message || err);
@@ -95,14 +100,17 @@ export default function Main(): JSX.Element {
 
   // search functions-----------------------------------------
   const searchBoxController = (): void => {
-    dispatch({ type: ActionTypes.SEARCH_BOX_CONTROL });
+    dispatch({
+      type: actions.SEARCH_BOX_CONTROL,
+      payload: { ...state, isSearchActive: !state.isSearchActive },
+    });
   };
 
   const handleSearch = async (e: SubmitEvent): Promise<void> => {
     e.preventDefault();
     setInfo((prevState) => ({ ...prevState, active: false }));
     dispatch({
-      type: ActionTypes.LOADING,
+      type: actions.LOADING,
       payload: { ...state, isLoading: true },
     });
     try {
@@ -111,8 +119,8 @@ export default function Main(): JSX.Element {
         url: `/bugs?search=${state.searchValue}&fields=title,status,author,createdAt,priority`,
       });
       dispatch({
-        type: ActionTypes.SET_BUGS_DATA,
-        payload: { ...state, bugsData: [...data.bugs] },
+        type: actions.SET_BUGS_DATA,
+        payload: { ...state, bugs: [...data.bugs] },
       });
 
       if (data.bugs.length < 1) {
@@ -121,18 +129,18 @@ export default function Main(): JSX.Element {
           active: true,
           icon: <FaParachuteBox />,
           buttonText: 'Reload page',
-          actionFn: getBugsData,
+          actionFn: fetchBugs,
         });
       }
     } catch (err: any) {
       dispatch({
-        type: ActionTypes.LOADING,
+        type: actions.LOADING,
         payload: { ...state, isLoading: false },
       });
       setInfo({
         message: 'Oops! Looks something went wrong.',
         active: true,
-        actionFn: getBugsData,
+        actionFn: fetchBugs,
         icon: <FaCat />,
         buttonText: 'Reload page',
         err: err.response?.data?.message || err.code,
@@ -144,14 +152,17 @@ export default function Main(): JSX.Element {
 
   // sort functions--------------------------------------
   const sortBoxController = (): void => {
-    dispatch({ type: ActionTypes.SORT_BOX_CONTROL });
+    dispatch({
+      type: actions.SORT_BOX_CONTROL,
+      payload: { ...state, isSortActive: !state.isSortActive },
+    });
   };
 
   const handleSort = async (option: string): Promise<void> => {
     try {
       setInfo((prevState) => ({ ...prevState, active: false }));
       dispatch({
-        type: ActionTypes.LOADING,
+        type: actions.LOADING,
         payload: { ...state, isLoading: true },
       });
       const { data } = await fetchAPI({
@@ -159,14 +170,14 @@ export default function Main(): JSX.Element {
         url: `/bugs?sort=${option}&fields=title,status,author,createdAt,priority`,
       });
       dispatch({
-        type: ActionTypes.SET_BUGS_DATA,
-        payload: { ...state, bugsData: [...data.bugs] },
+        type: actions.SET_BUGS_DATA,
+        payload: { ...state, bugs: [...data.bugs] },
       });
     } catch (err: any) {
       setInfo({
         message: 'Oops! Looks something went wrong.',
         active: true,
-        actionFn: getBugsData,
+        actionFn: fetchBugs,
         icon: <FaCat />,
         buttonText: 'Reload page',
         err: err.response?.data?.message || err.code,
@@ -178,7 +189,7 @@ export default function Main(): JSX.Element {
 
   // ---------*--------------*-------------*------------//
   useEffect(() => {
-    getBugsData();
+    fetchBugs();
     // corrects the windows Yaxis position
     window.scroll({
       top: 0,
@@ -187,7 +198,10 @@ export default function Main(): JSX.Element {
     });
     // cleanup function to prevent memory leaks
     return () => {
-      dispatch({ type: ActionTypes.CLEAN_UP_MODALS });
+      dispatch({
+        type: actions.CLEAN_UP_MODALS,
+        payload: { ...state },
+      });
       setInfo((prevState) => ({ ...prevState, active: false }));
     };
   }, []);
@@ -200,14 +214,14 @@ export default function Main(): JSX.Element {
       <ToolBar
         openSearchBoxFn={searchBoxController}
         openSortBoxFn={sortBoxController}
-        itemsCount={state.bugsData.length}
+        itemsCount={state.bugs.length}
       />
       <SearchBox
         active={state.isSearchActive}
         stateFn={dispatch}
         quit={searchBoxController}
         actionFn={handleSearch}
-        reloadFn={getBugsData}
+        reloadFn={fetchBugs}
         state={state}
       />
 
@@ -236,8 +250,7 @@ export default function Main(): JSX.Element {
           <section className='bugs-wrapper'>
             <section
               className='menu'
-              style={{ display: state.bugsData.length == 0 ? 'none' : 'grid' }}
-            >
+              style={{ display: state.bugs.length == 0 ? 'none' : 'grid' }}>
               <section>
                 <span>Bug reports</span>{' '}
               </section>
@@ -258,8 +271,8 @@ export default function Main(): JSX.Element {
               </div>
             </section>
             <section className='bugs-container'>
-              {state.bugsData.length > 0 &&
-                state.bugsData.map((bug) => (
+              {state.bugs.length > 0 &&
+                state.bugs.map((bug) => (
                   <section
                     className='bug'
                     key={bug._id}
@@ -269,8 +282,7 @@ export default function Main(): JSX.Element {
                       );
                       if (!classList)
                         return navigate(`/tab/create-bug/${bug._id}`);
-                    }}
-                  >
+                    }}>
                     <div title={bug.title} className='title'>
                       {bug.title}
                     </div>
@@ -308,19 +320,18 @@ export default function Main(): JSX.Element {
                       id={bug._id}
                       onClick={() => {
                         dispatch({
-                          type: ActionTypes.SELECTED_BUG_ID,
-                          payload: { ...state, selectedBugID: bug._id },
+                          type: actions.SELECTED_BUG_ID,
+                          payload: { ...state, selectedBugId: bug._id },
                         });
                         promptBoxController();
-                      }}
-                    >
+                      }}>
                       <HiBackspace className='icon-a' />
                       <HiX className='icon-b' />
                     </div>
                   </section>
                 ))}
             </section>
-            {state.bugsData.length > 0 && (
+            {state.bugs.length > 0 && (
               <div className='end-mark'>
                 <HiDotsHorizontal />
               </div>

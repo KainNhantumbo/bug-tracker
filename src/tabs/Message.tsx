@@ -27,7 +27,7 @@ export default function Message(): JSX.Element {
 		if (type === 'account') {
 			setData({
 				title: 'Congratulations! Account created successfuly.',
-				message: `Please keep the following code a in a safe place, it will be used to recover your account in case if you forgot your password.`,
+				message: `Please keep the following code a in a safe place, it will be used to recover your account in case if you forget your password.`,
 				btnText: 'Proceed to login page',
 				code: id,
 				url: '/tab/login',
@@ -36,7 +36,7 @@ export default function Message(): JSX.Element {
 		if (type === 'recover') {
 			setData({
 				title: 'Password updated successfuly.',
-				message: `Please keep your recovery key in a safe place, it will still be used to recover your account in case you forgot your password again.`,
+				message: `Please keep your recovery key in a safe place, it will still be used to recover your account in case you forget your password again.`,
 				btnText: 'Proceed to login page',
 				url: '/tab/login',
 			});

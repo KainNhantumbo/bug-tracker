@@ -20,7 +20,7 @@ import feedBack from '../utils/feedback';
 import Loading from '../components/Loading';
 import { useInfoBoxContext } from '../context/InfoBoxContext';
 import { useState, useEffect } from 'react';
-import { InputEvents, SubmitEvent } from '../types/form';
+import { InputEvents, SubmitEvent } from '../../@types';
 import { CreateBugContainer as Container } from '../styles/create-bug';
 import { useParams, useNavigate, NavigateFunction } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
@@ -39,11 +39,11 @@ interface DataProps {
 export default function CreateBug(): JSX.Element {
   const { fetchAPI } = useAppContext();
   const navigate: NavigateFunction = useNavigate();
-  // loading states-------------
-  const [isLoading, setIsLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState('');
+
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const { setInfo } = useInfoBoxContext();
-  // core states----------------
+
   const [issueData, setIssueData] = useState<DataProps>({
     title: '',
     feature: '',
@@ -64,7 +64,7 @@ export default function CreateBug(): JSX.Element {
   };
 
   const { id } = useParams();
-  const isUpdate = id !== ':id';
+  const isUpdate: boolean = id !== ':id';
 
   const handleSubmit = async (e: SubmitEvent): Promise<void> => {
     e.preventDefault();
@@ -81,8 +81,8 @@ export default function CreateBug(): JSX.Element {
       await fetchAPI({ method: 'post', url: '/bugs', data: issueData });
       navigate('/');
     } catch (err: any) {
-      console.log(err.response.data?.message);
-      feedBack(setErrorMessage, err.response.data?.message, 5000);
+      console.error(err?.response?.data?.message ?? err);
+      feedBack(setErrorMessage, err?.response.data?.message, 5000);
     }
   };
 
@@ -97,27 +97,25 @@ export default function CreateBug(): JSX.Element {
         url: `/bugs/${id}`,
       });
       setIssueData(data.bug);
-      setIsLoading(false);
-    } catch (err: any) {
-      setIsLoading(false);
+    } catch (error: any) {
       setInfo({
         message: 'Oops! Looks something went wrong.',
         active: true,
         actionFn: getBugData,
         icon: <FaCat />,
         buttonText: 'Refresh and try again',
-        err: err.response?.data?.message || err.code,
+        err: error?.response?.data?.message || error?.code,
       });
-      console.log(err.response?.data?.message);
-      console.error(err);
+      console.error(error?.response?.data?.message ?? error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  useEffect(() => {
+  useEffect((): () => void => {
     getBugData();
     if (!isUpdate) setIsLoading(false);
-    // function called to avoid memory leaks
-    return () => {
+    return (): void => {
       setIsLoading(false);
       setInfo((prevState) => ({ ...prevState, active: false }));
     };

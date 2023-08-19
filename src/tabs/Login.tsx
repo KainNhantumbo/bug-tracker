@@ -1,6 +1,3 @@
-import { useState } from 'react';
-import { LoginContainer as Container } from '../styles/login';
-import type { SubmitEvent, InputEvents } from '../types/form';
 import {
   FaLock,
   BiLogIn,
@@ -8,12 +5,15 @@ import {
   BiLockOpen,
   FaEnvelope,
 } from 'react-icons/all';
+import { useState } from 'react';
+import { LoginContainer as Container } from '../styles/login';
+import type { SubmitEvent, InputEvents } from '../../@types';
 import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
 import { apiClient } from '../api/axios';
 import { useAppContext } from '../context/AppContext';
 import feedBack from '../utils/feedback';
 
-interface UserData {
+interface ILoginProps {
   email: string;
   password: string;
 }
@@ -21,11 +21,11 @@ interface UserData {
 export default function Login(): JSX.Element {
   const { setUser, user } = useAppContext();
 
-  const [formData, setFormData] = useState<UserData>({
+  const [formData, setFormData] = useState<ILoginProps>({
     email: '',
     password: '',
   });
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const navigate: NavigateFunction = useNavigate();
 
   const handleChange = (e: InputEvents): void => {
@@ -123,7 +123,7 @@ export default function Login(): JSX.Element {
       </main>
       <footer>
         <div>
-          Copyright &copy; 2022 <i>Kain Nhantumbo</i>
+          Copyright &copy; 2023 <i>Kain Nhantumbo</i>
         </div>
         <div>All Rights Reserved.</div>
       </footer>

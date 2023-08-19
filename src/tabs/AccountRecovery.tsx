@@ -1,6 +1,3 @@
-import { useState } from 'react';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
-import { CreateAccountContainer as Container } from '../styles/create-account';
 import {
   FaEnvelope,
   FaLock,
@@ -10,7 +7,10 @@ import {
   BiLockOpen,
   FaKey,
 } from 'react-icons/all';
-import type { SubmitEvent, InputEvents } from '../types/form';
+import { useState } from 'react';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { CreateAccountContainer as Container } from '../styles/create-account';
+import type { SubmitEvent, InputEvents } from '../../@types';
 import feedback from '../utils/feedback';
 import { apiClient } from '../api/axios';
 
@@ -71,7 +71,7 @@ export default function AccountRecovery(): JSX.Element {
         </section>
         <section className='slogan'>
           <h2>
-            <span>Get things done in efficacious and optimized way.</span>
+            <span>Get things done in efficacious and optimized way</span>
           </h2>
         </section>
       </header>
@@ -93,7 +93,7 @@ export default function AccountRecovery(): JSX.Element {
                   </label>
                   <input
                     type='password'
-                    placeholder='Type your recouvery key here.'
+                    placeholder='Type your recovery key'
                     name='recovery_key'
                     required
                     onChange={(e) => handleChange(e)}
@@ -106,7 +106,7 @@ export default function AccountRecovery(): JSX.Element {
                   </label>
                   <input
                     type='email'
-                    placeholder='Type your e-mail here.'
+                    placeholder='Type your e-mail'
                     name='user_email'
                     required
                     onChange={(e) => handleChange(e)}
@@ -123,7 +123,7 @@ export default function AccountRecovery(): JSX.Element {
                   <input
                     type='password'
                     name='password'
-                    placeholder='Type a new password here.'
+                    placeholder='Type a new password'
                     onChange={(e) => handleChange(e)}
                   />
                 </div>

@@ -32,12 +32,12 @@ import { useThemeContext } from '../context/ThemeContext';
 import { useInfoBoxContext } from '../context/InfoBoxContext';
 import Loading from '../components/Loading';
 
-interface UserData {
+interface IUser {
+  _id: string;
+  email: string;
   first_name: string;
   last_name: string;
-  email: string;
   createdAt: string;
-  _id: string;
 }
 
 export default function Adjustments(): JSX.Element {
@@ -49,7 +49,7 @@ export default function Adjustments(): JSX.Element {
   // core states----------------
   const { controlModal } = useThemeContext();
   const [isModalActive, setisModalActive] = useState(false);
-  const [userData, setUserData] = useState<UserData>({
+  const [userData, setUserData] = useState<IUser>({
     _id: '',
     first_name: '',
     last_name: '',
@@ -65,25 +65,24 @@ export default function Adjustments(): JSX.Element {
     try {
       setIsLoading(true);
       await fetchAPI({ method: 'delete', url: `/users/${userData._id}` });
-      setIsLoading(false);
       navigate('/tab/login');
-    } catch (err: any) {
-      setIsLoading(false);
+    } catch (error: any) {
       setInfo({
         message: 'Oops! Looks something went wrong.',
         active: true,
         actionFn: deleteUser,
         icon: <FaCat />,
         buttonText: 'Refresh and try again',
-        err: err.response?.data?.message || err.code,
+        err: error?.response?.data?.message || error?.code,
       });
-      console.error(err.response?.data?.message);
-      console.error(err);
+      console.error(error?.response?.data?.message ?? error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   // edit account functions
-  const [isEditAccountActive, setIsEditAccountActive] = useState(false);
+  const [isEditAccountActive, setIsEditAccountActive] = useState<boolean>(false);
 
   const editBoxController = (): void =>
     setIsEditAccountActive((prevState) => !prevState);
@@ -94,33 +93,29 @@ export default function Adjustments(): JSX.Element {
     try {
       const { data } = await fetchAPI({ method: 'get', url: '/users' });
       setUserData({ ...data.user_data });
-      setIsLoading(false);
-    } catch (err: any) {
-      setIsLoading(false);
+    } catch (error: any) {
       setInfo({
         message: 'Oops! Looks something went wrong.',
         active: true,
         actionFn: getUserDetails,
         icon: <FaCat />,
         buttonText: 'Refresh and try again',
-        err: err.response?.data?.message || err.code,
+        err: error.response?.data?.message || error.code,
       });
-      console.error(err.response?.data?.message);
-      console.error(err);
+      console.error(error?.response?.data?.message ?? error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  useEffect(() => {
+  useEffect((): () => void => {
     getUserDetails();
-
     window.scroll({
       top: 0,
       left: 0,
       behavior: 'auto',
     });
-
-    // function called to avoid memory leaks
-    return () => {
+    return (): void => {
       setIsLoading(false);
       setisModalActive(false);
       setInfo((prevState) => ({ ...prevState, active: false }));
@@ -145,10 +140,10 @@ export default function Adjustments(): JSX.Element {
         quit={modalController}
         icon={<BiTrashAlt />}
         button_text={'Confirm'}
+        prompt_title={'Delete account'}
         prompt_message={
           'This action will permanently delete your account and erase all data associated with it. Are you sure?'
         }
-        prompt_title={'Delete account'}
       />
 
       <Container>
@@ -257,8 +252,7 @@ export default function Adjustments(): JSX.Element {
                       <a
                         href='https://github.com/KainNhantumbo'
                         rel='noreferrer'
-                        target={'_blank'}
-                      >
+                        target={'_blank'}>
                         {' '}
                         github.com/KainNhantumbo
                       </a>

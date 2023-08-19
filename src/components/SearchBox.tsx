@@ -1,17 +1,16 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { SearchBoxContainer as Container } from '../styles/components/search-box';
 import { BiSearch, FiX } from 'react-icons/all';
-import { SubmitEvent } from '../types/form';
-import type { Actions, State } from '../reducers/mainReducer';
-import { ActionTypes } from '../reducers/actions';
+import type { TAction, TState, SubmitEvent } from '../../@types';
+import actions from '../reducers/actions';
 
 interface Props {
   active: boolean;
   quit: () => void;
   actionFn: (e: SubmitEvent) => Promise<void>;
   reloadFn: () => Promise<void> | void;
-  stateFn: React.Dispatch<Actions>;
-  state: State;
+  stateFn: React.Dispatch<TAction>;
+  state: TState;
 }
 
 export default function SearchBox(props: Props): JSX.Element {
@@ -25,14 +24,12 @@ export default function SearchBox(props: Props): JSX.Element {
             if (target.contains('main')) {
               props.quit();
             }
-          }}
-        >
+          }}>
           <motion.section
             className='dialog-modal'
             initial={{ y: -290 }}
             animate={{ y: 0, transition: { duration: 0.3 } }}
-            exit={{ y: -290, transition: { duration: 0.3 } }}
-          >
+            exit={{ y: -290, transition: { duration: 0.3 } }}>
             <div className='dialog-prompt'>
               <div className='top'>
                 <h2>
@@ -52,7 +49,7 @@ export default function SearchBox(props: Props): JSX.Element {
                     autoFocus={true}
                     onChange={(e) => {
                       props.stateFn({
-                        type: ActionTypes.SET_SEARCH_VALUE,
+                        type: actions.SET_SEARCH_VALUE,
                         payload: {
                           ...props.state,
                           searchValue: e.target.value,

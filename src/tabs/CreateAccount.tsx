@@ -11,10 +11,11 @@ import {
 import { useState } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { CreateAccountContainer as Container } from '../styles/create-account';
-import type { SubmitEvent, InputEvents } from '../types/form';
+import type { SubmitEvent, InputEvents } from '../../@types';
 import feedback from '../utils/feedback';
 import { apiClient } from '../api/axios';
-interface UserData {
+
+interface IFormData {
   password: string;
   confirm_password: string;
   email: string;
@@ -24,7 +25,9 @@ interface UserData {
 }
 
 export default function CreateAccount(): JSX.Element {
-  const [formData, setFormData] = useState<UserData>({
+  const navigate: NavigateFunction = useNavigate();
+  const [errorMessage, setErrorMessage] = useState('');
+  const [formData, setFormData] = useState<IFormData>({
     password: '',
     confirm_password: '',
     email: '',
@@ -32,8 +35,6 @@ export default function CreateAccount(): JSX.Element {
     last_name: '',
     first_name: '',
   });
-  const [errorMessage, setErrorMessage] = useState('');
-  const navigate: NavigateFunction = useNavigate();
 
   const handleChange = (e: InputEvents): void => {
     setFormData((prevData) => ({
@@ -59,8 +60,8 @@ export default function CreateAccount(): JSX.Element {
       });
       navigate(`/tab/message/account/${data.user_recovery}`);
     } catch (err: any) {
-      console.log(err.response.data?.message);
-      feedback(setErrorMessage, err.response.data?.message, 5000);
+      console.error(err?.response.data?.message ?? err);
+      feedback(setErrorMessage, err?.response.data?.message, 5000);
     }
   };
 
@@ -208,7 +209,7 @@ export default function CreateAccount(): JSX.Element {
       </main>
       <footer>
         <div>
-          Copyright &copy; 2022 <i>Kain Nhantumbo</i>
+          Copyright &copy; 2023 <i>Kain Nhantumbo</i>
         </div>
         <div>All Rights Reserved.</div>
       </footer>

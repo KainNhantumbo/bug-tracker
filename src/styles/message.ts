@@ -17,6 +17,7 @@ export const MessageContainer = styled.div`
 		justify-content: start;
 		align-items: center;
 		margin: 0;
+		
 		h1 {
 			position: relative;
 			color: rgb(${({ theme }) => theme.primary});
