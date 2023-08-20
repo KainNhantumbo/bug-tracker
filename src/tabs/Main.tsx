@@ -3,18 +3,17 @@ import {
   BiTrashAlt,
   VscEmptyWindow,
   FaCat,
-  FaParachuteBox,
   HiDotsHorizontal,
   HiX,
 } from 'react-icons/all';
-import { _main as Container } from '../styles/main';
 import { FC, useEffect } from 'react';
 import actions from '../reducers/actions';
 import { useDate } from '../utils/date-functions';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { _main as Container } from '../styles/main';
 import { useAppContext } from '../context/AppContext';
-import Header from '../components/Header';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 import ThemeDialogBox from '../components/ThemeDialogBox';
+import Header from '../components/Header';
 import ToolBar from '../components/ToolBar';
 import SearchBox from '../components/SearchBox';
 import SortBox from '../components/SortBox';
@@ -117,7 +116,7 @@ const Main: FC = (): JSX.Element => {
     };
   }, []);
 
-  useEffect(() => {
+  useEffect((): () => void => {
     const debounceTimer = setTimeout(() => {
       fetchBugs();
     }, 500);
@@ -184,21 +183,21 @@ const Main: FC = (): JSX.Element => {
                     <div title={bug.title} className='title'>
                       {bug.title}
                     </div>
-                    <div title={bug.author} className='reporter'>
+                    <div title={bug.author}>
                       <label>
                         <span>Author:</span>
                         {'   '}
                       </label>
                       {bug.author}
                     </div>
-                    <div className='status'>
+                    <div>
                       <label>
                         <span>Status:</span>
                         {'   '}
                       </label>
                       <span>{bug.status}</span>
                     </div>
-                    <div className='priority'>
+                    <div>
                       <label>
                         <span>Priority:</span>
                         {'   '}

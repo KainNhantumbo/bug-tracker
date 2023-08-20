@@ -13,6 +13,7 @@ import { _login as Container } from '../styles/login';
 import type { SubmitEvent, InputEvents } from '../../@types';
 import { useAppContext } from '../context/AppContext';
 import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
+import { app_metadata } from '../data/app-data';
 
 const Login: FC = (): JSX.Element => {
   const { state, dispatch } = useAppContext();
@@ -125,9 +126,7 @@ const Login: FC = (): JSX.Element => {
         </article>
       </main>
       <footer>
-        <div>
-          Copyright &copy; 2023 <i>Kain Nhantumbo</i>
-        </div>
+        <p>{app_metadata.copyright}</p>
         <div>All Rights Reserved.</div>
       </footer>
     </Container>

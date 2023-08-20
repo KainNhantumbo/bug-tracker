@@ -13,6 +13,7 @@ import { _createAccount as Container } from '../styles/create-account';
 import type { SubmitEvent, InputEvents } from '../../@types';
 import feedback from '../utils/feedback';
 import { apiClient } from '../api/axios';
+import { app_metadata } from '../data/app-data';
 
 interface IFormData {
   password: string;
@@ -160,9 +161,7 @@ const AccountRecovery: FC = (): JSX.Element => {
         </article>
       </main>
       <footer>
-        <div>
-          Copyright &copy; 2022 <i>Kain Nhantumbo</i>
-        </div>
+        <p>{app_metadata.copyright}</p>
         <div>All Rights Reserved.</div>
       </footer>
     </Container>

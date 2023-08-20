@@ -97,97 +97,103 @@ export const _main = styled.main`
           grid-template-columns: 100%;
           width: 100%;
         }
-      }
 
-      .bug {
-        position: relative;
-        top: 25px;
-        line-height: 1.4rem;
-        border-bottom: 1px solid rgba(${({ theme }) => theme.font}, 0.2);
-        padding: 8px 10px;
-        width: 100%;
-        max-width: 100%;
-        :hover {
-          background: rgba(${({ theme }) => theme.secondary}, 0.1);
-        }
-
-        .action-dots {
-          width: 30px;
-          height: 30px;
-          padding: 5px;
-          border-radius: 50%;
-          position: absolute;
-          display: grid;
-          place-items: center;
-          place-content: center;
-          top: calc(50% - 15px);
-          right: 5px;
-          cursor: pointer;
-          z-index: 200;
-          :hover {
-            background: rgba(${({ theme }) => theme.font}, 0.2);
-          }
-
-          svg {
-            width: 25px;
-            height: 25px;
-            pointer-events: none;
-          }
-          .icon-b {
-            display: none;
-          }
-          @media screen and (max-width: 1000px) {
-            top: 5px;
-            .icon-a {
-              display: none;
-            }
-            .icon-b {
-              display: block;
-            }
-          }
-        }
-
-        @media screen and (max-width: 1000px) {
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-start;
-          margin: 5px;
-          border: none;
-          border-radius: 10px;
+        .bug {
+          position: relative;
+          top: 25px;
+          line-height: 1.4rem;
+          border-bottom: 1px solid rgba(${({ theme }) => theme.font}, 0.2);
+          padding: 8px 10px;
           width: 100%;
+          max-width: 100%;
           :hover {
-            box-shadow: 0 0 25px rgba(${({ theme }) => theme.accent}, 0.1);
-            transition: all 200ms ease;
-            background: rgb(${({ theme }) => theme.foreground});
+            background: rgba(${({ theme }) => theme.secondary}, 0.1);
           }
 
           div {
-            width: 100%;
-            align-self: flex-start;
-          }
-          .title {
-            max-width: calc(100% - 55px);
-            font-weight: 500;
-            margin-top: 5px;
+            label {
+              color: rgb(${({ theme }) => theme.primary});
+              font-weight: 500;
+              @media screen and (min-width: 1000px) {
+                display: none;
+              }
+            }
+
+            span {
+              text-transform: capitalize;
+            }
           }
 
-          .created {
-            width: 100%;
-            justify-self: center;
-            margin: 0 auto;
+          .action-dots {
+            width: 30px;
+            height: 30px;
+            padding: 5px;
+            border-radius: 50%;
+            position: absolute;
+            display: grid;
+            place-items: center;
+            place-content: center;
+            top: calc(50% - 15px);
+            right: 5px;
+            cursor: pointer;
+            z-index: 200;
+            :hover {
+              background: rgba(${({ theme }) => theme.font}, 0.2);
+            }
+
+            svg {
+              width: 25px;
+              height: 25px;
+              pointer-events: none;
+            }
+            .icon-b {
+              display: none;
+            }
+            @media screen and (max-width: 1000px) {
+              top: 5px;
+              .icon-a {
+                display: none;
+              }
+              .icon-b {
+                display: block;
+              }
+            }
+          }
+
+          @media screen and (max-width: 1000px) {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            margin: 5px;
+            border: none;
             border-radius: 10px;
-            padding: 10px;
-            text-align: center;
-            background: rgba(${({ theme }) => theme.alternative_a}, 0.2);
-            font-weight: 500;
-          }
-        }
+            width: 100%;
+            :hover {
+              box-shadow: 0 0 25px rgba(${({ theme }) => theme.accent}, 0.1);
+              transition: all 200ms ease;
+              background: rgb(${({ theme }) => theme.foreground});
+            }
 
-        label {
-          color: rgb(${({ theme }) => theme.primary});
-          font-weight: 600;
-          @media screen and (min-width: 1000px) {
-            display: none;
+            div {
+              width: 100%;
+              align-self: flex-start;
+            }
+            .title {
+              max-width: calc(100% - 55px);
+              font-weight: 500;
+              margin-top: 5px;
+            }
+
+            .created {
+              width: 100%;
+              justify-self: center;
+              margin: 0 auto;
+              border-radius: 10px;
+              padding: 10px;
+              text-align: center;
+              background: rgba(${({ theme }) => theme.alternative_a}, 0.2);
+              font-weight: 500;
+            }
           }
         }
       }

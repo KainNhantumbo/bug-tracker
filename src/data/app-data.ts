@@ -1,3 +1,5 @@
+import Package from '../../package.json';
+
 export const themeOptions: { code: string; name: string }[] = [
   { code: 'light-default', name: 'Light (Default)' },
   { code: 'dark-default', name: 'Dark (Default)' },
@@ -15,3 +17,10 @@ export const sortOptions: { code: string; name: string }[] = [
   { code: 'createdAt', name: 'Created' },
   { code: '-createdAt', name: 'Created (descending)' },
 ];
+
+export const app_metadata = {
+  appName: Package.metadata.name,
+  version: Package.version,
+  license: Package.license,
+  copyright: `© ${new Date().getFullYear()} - ${Package.author.name}`,
+};

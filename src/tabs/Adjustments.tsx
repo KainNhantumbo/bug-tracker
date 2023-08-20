@@ -31,6 +31,7 @@ import { useDate } from '../utils/date-functions';
 import { useThemeContext } from '../context/ThemeContext';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import actions from '../reducers/actions';
+import { app_metadata } from '../data/app-data';
 
 interface IUser {
   _id: string;
@@ -250,7 +251,9 @@ const Adjustments: FC = (): JSX.Element => {
                 <div className='user-info'>
                   <h3>
                     <FaBug />
-                    <span>Bug Tracker V1.2.1</span>
+                    <span>
+                      {app_metadata.appName} - v{app_metadata.version}
+                    </span>
                   </h3>
                 </div>
                 <div className='user-info'>
@@ -279,16 +282,16 @@ const Adjustments: FC = (): JSX.Element => {
                 <div className='user-info'>
                   <h3>
                     <FaCopyright />
-                    <span title='Copyright &copy; 2022 Kain Nhantumbo'>
-                      Copyright &copy; 2022 Kain Nhantumbo
+                    <span title={app_metadata.copyright}>
+                      {app_metadata.copyright}
                     </span>
                   </h3>
                 </div>
                 <div className='user-info'>
                   <h3>
                     <GiMite />
-                    <span title='Licensed under Apache 2.0 License'>
-                      Licensed under Apache 2.0 License
+                    <span title={app_metadata.license}>
+                      {app_metadata.license}
                     </span>
                   </h3>
                 </div>

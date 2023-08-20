@@ -1,8 +1,8 @@
-import * as React from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
-type state = React.Dispatch<React.SetStateAction<string>>;
+type TSetStateFun = Dispatch<SetStateAction<string>>;
 
-const feedBack = (fn: state, message: string, delay: number): void => {
+const feedBack = (fn: TSetStateFun, message: string, delay: number): void => {
   fn(message);
   setTimeout(() => {
     fn('');
