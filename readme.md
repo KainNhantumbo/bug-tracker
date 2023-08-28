@@ -9,6 +9,12 @@ This repository contains a **bug tracker application** built with React.JS and T
 ![](./src/docs/img/v2.jpeg)
 ![](./src/docs/img/v5.jpeg)
 
+## Version 1.4.0
+- Rewrite of some parts of the aplication to improve performance.
+- Improved stability of the state of user authentication. 
+- Removed unused and updated some dependency packages.
+- Improved internal state management, stability and fixed found bugs.
+
 ## Version 1.2.0
 
 - Implemented user authentication using tokens and refresh tokens strategy with secure httpOnly cookies.
