@@ -23,23 +23,22 @@ const Message: FC = (): JSX.Element => {
   });
 
   const loadPage = (type: 'account' | 'recover'): void => {
-    if (type === 'account') {
-      setData({
+    if (type === 'account')
+      return setData({
         title: 'Congratulations! Account created successfuly.',
         message: `Please keep the following code a in a safe place, it will be used to recover your account in case if you forget your password.`,
         btnText: 'Proceed to login page',
         code: id,
         url: '/tab/login',
       });
-    }
-    if (type === 'recover') {
-      setData({
+
+    if (type === 'recover')
+      return setData({
         title: 'Password updated successfuly.',
         message: `Please keep your recovery key in a safe place, it will still be used to recover your account in case you forget your password again.`,
         btnText: 'Proceed to login page',
         url: '/tab/login',
       });
-    }
   };
 
   useEffect((): void => {

@@ -28,7 +28,6 @@ import PromptDialogBox from '../components/PromptDialogBox';
 import EditAccountBox from '../components/EditAccountBox';
 import { useAppContext } from '../context/AppContext';
 import { useDate } from '../utils/date-functions';
-import { useThemeContext } from '../context/ThemeContext';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import actions from '../reducers/actions';
 import { app_metadata } from '../data/app-data';

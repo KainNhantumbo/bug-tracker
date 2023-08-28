@@ -1,7 +1,7 @@
 {
 	"name": "bug-tracker-app",
 	"private": true,
-	"version": "1.3.0",
+	"version": "1.4.0",
 	"author": {
 		"name": "Kain Nhantumbo",
 		"email": "nhantumbok@gmail.com",
@@ -10,7 +10,7 @@
 	},
 	"metadata": {
 		"name": "Bug Tracker",
-		"copyrightSentence": "© 2023 Rubymart | Todos os Direitos Reservados."
+		"copyrightSentence": "© 2023 Bug Tracker | All Rights Reserved."
 	},
 	"license": "Apache License Version 2.0",
 	"scripts": {
