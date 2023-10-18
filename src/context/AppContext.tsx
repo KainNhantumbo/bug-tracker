@@ -23,6 +23,7 @@ import ThemeContext from './ThemeContext';
 interface Props {
   children: ReactNode;
 }
+
 export interface IUser {
   token: string;
   username: string;
@@ -31,7 +32,6 @@ export interface IUser {
 interface ContextProps {
   state: TState;
   dispatch: Dispatch<TAction>;
-
   authenticateUser: () => Promise<void>;
   fetchAPI: (config: AxiosRequestConfig) => AxiosPromise<any>;
 }

@@ -7,10 +7,10 @@ import AppRoutes from './routes/AppRoutes';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <AppContext>
-      <Router>
+    <Router>
+      <AppContext>
         <AppRoutes />
-      </Router>
-    </AppContext>
+      </AppContext>
+    </Router>
   </StrictMode>
 );
