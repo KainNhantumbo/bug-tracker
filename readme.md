@@ -1,13 +1,14 @@
-# Bug Tracker Application (React + Typescript)
+# Bug Tracker App (React + Typescript)
 
-This repository contains a **bug tracker application** built with React.JS and Typescript. To be short, the main goal here is to help developers to keep track of the software development bugs and issues, in a simple and more efficient way. You can find the API source code [here](https://github.com/KainNhantumbo/bug-tracker-api).
+This is repository the **bug tracker app** built with React.JS and Typescript. To be short, the main goal here is to help developers to track, organize and view of the current or past bugs and issues, in a simple and more efficient way. You can find the API source code [here](https://github.com/KainNhantumbo/bug-tracker-api).
 
 **Access this app live at: [https://bug-tracker-pied.vercel.app](https://bug-tracker-pied.vercel.app)**
 
 **Here are some screenshots in default light and dark themes:**
 
-![](./src/docs/img/v2.jpeg)
-![](./src/docs/img/v5.jpeg)
+| Mobile View (Default Dark Theme) | Mobile View (Default Light Theme)  |
+|:-------------------------:|:-----------------------------:|
+|![](./src/docs/img/v2.jpeg)| ![](./src/docs/img/v5.jpeg)|
 
 ## Version 1.4.0
 - Rewrite of some parts of the aplication to improve performance.
@@ -57,13 +58,13 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 E-mail: [nhantumbok@gmail.com](nhantumbok@gmail.com 'Send an e-mail')\
 Github: [https://github.com/KainNhantumbo](https://github.com/KainNhantumbo 'See my github profile')  
-Portfolio: [https://portifolio-dev-mu.vercel.app](https://portifolio-dev-mu.vercel.app 'See my portfolio website')\
-My blog: [https://publish-it-programming.vercel.app](https://publish-it-programming.vercel.app 'Visit my website')
+Portfolio: [https://codenut-dev.vercel.app](https://codenut-dev.vercel.app 'See my portfolio website')\
+My blog: [https://codenut-dev/blog.vercel.app](https://codenut-dev/blog.vercel.app 'Visit my website')
 
 #### If you like this project, let me know by leaving a star on this repository so I can keep improving this app.😊😘
 
 Best regards, see ya at work.\
-**Made with ❤ React and Typescript**
+**Crafted with ❤ React and Typescript**
 
 ## License
 
