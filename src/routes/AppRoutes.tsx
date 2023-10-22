@@ -9,15 +9,17 @@ import { Route, Routes } from 'react-router-dom';
 import CreateAccount from '../tabs/CreateAccount';
 import ProtectionWrapper from './ProtectionWrapper';
 import AccountRecovery from '../tabs/AccountRecovery';
+import Home from '../tabs/Home';
 
 const AppRoutes: FC = (): JSX.Element => (
   <Routes>
+    <Route path='/' element={<Home />} />
     <Route path='/tab/login' element={<Login />} />
     <Route path='/tab/message/:msg/:id' element={<Message />} />
     <Route path='/tab/account-recovery' element={<AccountRecovery />} />
     <Route path='/tab/create-account' element={<CreateAccount />} />
     <Route
-      path='/'
+      path='/tab/workspace'
       element={
         <ProtectionWrapper>
           <Main />

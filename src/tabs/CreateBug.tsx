@@ -62,7 +62,7 @@ const CreateBug: FC = (): JSX.Element => {
       } else {
         await fetchAPI({ method: 'post', url: '/bugs', data: bugData });
       }
-      navigate('/');
+      navigate('/tab/workspace');
     } catch (err: any) {
       console.error(err?.response?.data?.message ?? err);
       feedBack(setErrorMessage, err?.response.data?.message, 5000);
@@ -260,7 +260,9 @@ const CreateBug: FC = (): JSX.Element => {
               <span className='errorMessage'>{errorMessage}</span>
 
               <div className='actions'>
-                <button className='discard' onClick={() => navigate('/')}>
+                <button
+                  className='discard'
+                  onClick={() => navigate('/tab/workspace')}>
                   <FaNeuter />
                   <span>Discard</span>
                 </button>

@@ -56,7 +56,7 @@ const Login: FC = (): JSX.Element => {
           },
         },
       });
-      navigate('/');
+      navigate('/tab/workspace');
     } catch (error: any) {
       console.error(error?.response?.data?.message);
       feedBack(setErrorMessage, error?.response?.data?.message, 5000);

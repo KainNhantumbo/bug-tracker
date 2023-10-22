@@ -112,7 +112,7 @@ const AppContext: FC<Props> = (props): JSX.Element => {
           },
         },
       });
-      navigate('/');
+      navigate('/tab/workspace');
     } catch (error: any) {
       console.error(error?.response?.data?.message ?? error);
     }

@@ -36,7 +36,7 @@ const GlobalStylesheet = createGlobalStyle`
 
   ::-webkit-scrollbar {
     scroll-behavior: smooth;
-    width: 5px;
+    width: 8px;
     background: none;
     background: rgba(${({ theme }) => theme.background}, .3);
   }
