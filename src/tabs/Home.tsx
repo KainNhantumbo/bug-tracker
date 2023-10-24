@@ -1,14 +1,22 @@
-import { Link } from 'react-router-dom';
 import {
-  FaJava,
-  FaJs,
-  FaNodeJs,
-  FaPhp,
-  FaPython,
-  FaReact,
-  FaRust,
-  FaSwift
-} from 'react-icons/fa';
+  RiArrowRightLine,
+  RiDoubleQuotesR,
+  RiMoreFill,
+  RiUser6Line
+} from 'react-icons/ri';
+import {
+  DiDotnet,
+  DiGo,
+  DiHaskell,
+  DiJavascript1,
+  DiNodejsSmall,
+  DiPython,
+  DiRubyRough,
+  DiScala,
+  DiSwift
+} from 'react-icons/di';
+import { Link } from 'react-router-dom';
+import { FaJava, FaPhp, FaRust } from 'react-icons/fa';
 import { useAppContext } from '../context/AppContext';
 import { _home as Container } from '../styles/home';
 
@@ -25,66 +33,84 @@ export default function Home(): JSX.Element {
             the quality of your projects.
           </p>
 
-          <div className='anchors-container'>
-            {!state.auth.token ? (
-              <>
-                <Link to={'/tab/login'}>
-                  <span>Login</span>
-                </Link>
-
-                <Link to={'/tab/create-account'}>
-                  <span>Sign up</span>
-                </Link>
-              </>
-            ) : (
-              <Link to={'/tab/create-account'}>
-                <span>Go to Workspace</span>
-              </Link>
-            )}
-          </div>
+          {!state.auth.token ? (
+            <Link to={'/tab/login'}>
+              <RiArrowRightLine />
+              <span>Try it for free</span>
+            </Link>
+          ) : (
+            <Link to={'/tab/create-account'}>
+              <span>Go to Workspace</span>
+            </Link>
+          )}
         </div>
+
+        <RiMoreFill className='dots-icon' />
+
+        <img
+          src='/assets/code.png'
+          alt='code example image'
+          loading='lazy'
+          decoding='async'
+        />
       </header>
       <article>
         <section className='ecosystem-container'>
           <div className='comment-container'>
-            <h3>
-              <span>- Eric Doe, Developer</span>
-            </h3>
-            <p>
-              The detailed error analysis feature really helps us to find out
-              thee cause of the error and find it.
-            </p>
+            <RiUser6Line />
+            <div>
+              <h3>
+                <span>- Eric Doe, Developer</span>
+              </h3>
+              <p>
+                The detailed error analysis feature really helps us to find out
+                thee cause of the error and find it.
+              </p>
+            </div>
           </div>
-          <div className='languages'>
-            <FaPhp /> <FaJava /> <FaRust /> <FaNodeJs />
-            <FaReact /> <FaJs /> <FaPython /> <FaSwift />
+          <div className='languages-container'>
+            <div className='separator'>
+              <DiDotnet /> <DiHaskell /> <FaPhp /> <FaJava /> <FaRust />
+              <DiNodejsSmall />
+            </div>
+            <div className='separator'>
+              <DiGo /> <DiScala />
+              <DiRubyRough /> <DiJavascript1 /> <DiPython /> <DiSwift />
+            </div>
           </div>
         </section>
         <section className='features-container'>
-          <ul>
-            <li>Error Report</li>
-            <li>Integation with other tools</li>
-            <li>Debbuging Tools</li>
-            <li>Error Analysis</li>
-            <li>Simple and ease to use</li>
-          </ul>
-          <p>
-            We can be integraated with other tools such as email or slack, so
-            you can receive errror notification on the platform you prefer. We
-            highly recommend exploring our features to get the most out of our
-            software
-          </p>
-        </section>
-        <section className='why-container'>
-          <div className='top-container'>
-            <h2>why you should choose us?</h2>
+          <h2>
+            <i>Our</i> Features
+          </h2>
 
+          <div>
+            <ul>
+              <li>Error Report</li>
+              <li>Integation with other tools</li>
+              <li>
+                <i>Simple and ease to use</i>
+              </li>
+              <li>Debbuging Tools</li>
+              <li>Error Analysis</li>
+            </ul>
             <p>
-              Security and trust are our top priority in providing error
-              monitoring software. We understand you need to store sensitive
-              data and we make sure that your data is safe and protected.
+              - We can be integraated with other tools such as <i>e-mail</i> or{' '}
+              <i>slack</i>, so you can receive errror notification on the
+              platform you prefer. We highly recommend exploring our features to
+              get the most out of our software
             </p>
           </div>
+        </section>
+        <section className='why-container'>
+          <h2>
+            <i>Why</i> you should choose us?
+          </h2>
+          <p>
+            Security and trust are our top priority in providing error
+            monitoring software. We understand you need to store sensitive data
+            and we make sure that your data is safe and protected.
+          </p>
           <div className='base-container'>
             <div>
               <h3>360M+</h3>
@@ -92,7 +118,7 @@ export default function Home(): JSX.Element {
             </div>
             <div>
               <h3>930M+</h3>
-              <p>Error reports</p>
+              <p>Total Error reports</p>
             </div>
             <div>
               <h3>120M+</h3>
@@ -103,6 +129,7 @@ export default function Home(): JSX.Element {
         <section className='explanation-container'>
           <div className='cards-container'>
             <div className='card'>
+              <RiDoubleQuotesR />
               <h3>Trusted</h3>
               <p>
                 We also follow the relevant industry and regulatory standards
@@ -113,7 +140,8 @@ export default function Home(): JSX.Element {
               </p>
             </div>
             <div className='card'>
-              <div>Fast</div>
+              <RiDoubleQuotesR />
+              <h3>Fast</h3>
               <p>
                 Our error collection feature allows you to quickly gather
                 information on chashes that occur in your application. Our error
@@ -123,17 +151,19 @@ export default function Home(): JSX.Element {
             </div>
           </div>
           <h2>
-            {' '}
             - You can access error information collected by our system directly
             from the workspace.
           </h2>
         </section>
 
         <section className='call-container'>
-          <p>Dont't let your app crashes become a big problem</p>
+          <p>
+            <em>Dont't let your app crashes become a big problem!</em>
+          </p>
           <div>
             <h3> - Find and organize errors in your code more effectively</h3>
             <Link to={state.auth.token ? '/tab/workspace' : '/tab/login'}>
+              <RiArrowRightLine />
               <span>Try for free</span>
             </Link>
           </div>
