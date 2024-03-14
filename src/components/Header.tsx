@@ -1,10 +1,10 @@
 import {
-  NavigateFunction,
+ type  NavigateFunction,
   useNavigate,
   useLocation,
   Location,
 } from 'react-router-dom';
-import { FC } from 'react';
+import type { FC } from 'react';
 import actions from '../reducers/actions';
 import { m as motion } from 'framer-motion';
 import PromptDialogBox from './PromptDialogBox';
