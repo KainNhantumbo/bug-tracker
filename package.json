@@ -11,9 +11,6 @@
     "defaults",
     "not IE 11"
   ],
-  "engines": {
-    "node": ">=16.15.1"
-  },
   "metadata": {
     "name": "Bug Tracker",
     "copyrightSentence": "© 2023 Bug Tracker | All Rights Reserved."
